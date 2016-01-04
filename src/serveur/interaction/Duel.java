@@ -47,7 +47,7 @@ public class Duel extends Interaction<VuePersonnage> {
 
 				//possibilité de bloquer le coup
 				if(initDefenseur > 50) {
-					perteVie=perteVie/2;
+					perteVie=perteVie/2 ;
 				}
 		
 				// degats
