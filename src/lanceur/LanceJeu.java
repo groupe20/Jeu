@@ -16,8 +16,12 @@ public class LanceJeu {
 		LanceArene.main(args);
 		LanceIHM.main(args);
 		LancePersonnage.main(args);
+		LancePersonnage.main(args);
+
 		LancePotion.main(args);
 		LancePotion.main(args);
+		LancePersonnage.main(args);
+
 		LancePotion.main(args);
 		LancePotion.main(args);
 		LancePotion.main(args);

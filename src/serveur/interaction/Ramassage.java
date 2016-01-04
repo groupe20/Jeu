@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 import serveur.Arene;
 import serveur.element.Caracteristique;
+import serveur.element.Potion;
 import serveur.vuelement.VuePersonnage;
 import serveur.vuelement.VuePotion;
 import utilitaires.Constantes;
@@ -28,6 +29,8 @@ public class Ramassage extends Interaction<VuePotion> {
 
 	@Override
 	public void interagit() {
+		Potion Potion = defenseur.getElement();
+
 		try {
 			logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de rammasser " + 
 					Constantes.nomRaccourciClient(defenseur));
@@ -38,16 +41,21 @@ public class Ramassage extends Interaction<VuePotion> {
 				// caracteristiques de la potion
 				HashMap<Caracteristique, Integer> valeursPotion = defenseur.getElement().getCaracts();
 				
-				for(Caracteristique c : valeursPotion.keySet()) {
-					arene.incrementeCaractElement(attaquant, c, valeursPotion.get(c));
+				if (Potion.getNom().equals("teleportation")) {
+					//teleporter
 				}
-				
-				logs(Level.INFO, "Potion bue !");
-				
-				// test si mort
-				if(!attaquant.getElement().estVivant()) {
-					arene.setPhrase(attaquant.getRefRMI(), "Je me suis empoisonne, je meurs ");
-					logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
+				else {
+					for(Caracteristique c : valeursPotion.keySet()) {
+						arene.incrementeCaractElement(attaquant, c, valeursPotion.get(c));
+					}
+					
+					logs(Level.INFO, "Potion bue !");
+					
+					// test si mort
+					if(!attaquant.getElement().estVivant()) {
+						arene.setPhrase(attaquant.getRefRMI(), "Je me suis empoisonne, je meurs ");
+						logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
+					}
 				}
 
 				// suppression de la potion

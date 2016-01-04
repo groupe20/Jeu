@@ -3,6 +3,7 @@ package lanceur;
 import java.io.IOException;
 import java.util.HashMap;
 
+
 import logger.LoggerProjet;
 import serveur.IArene;
 import serveur.element.Caracteristique;
@@ -17,8 +18,8 @@ public class LancePotion {
 	public static void main(String[] args) {
 		String nom = "Anduril";
 		
-		// TODO remplacer la ligne suivante par votre numero de groupe
 		String groupe = "G20"; 
+	
 		
 		// init des arguments
 		int port = Constantes.PORT_DEFAUT;
@@ -62,12 +63,37 @@ public class LancePotion {
 			// caracteristiques de la potion
 			HashMap<Caracteristique, Integer> caractsPotion = new HashMap<Caracteristique, Integer>();
 			
-			caractsPotion.put(Caracteristique.VIE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.VIE));
-			caractsPotion.put(Caracteristique.FORCE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.FORCE));
-			caractsPotion.put(Caracteristique.INITIATIVE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.INITIATIVE));
+			Potion potion = null;
+			int lower = 0;
+			int higher = 3;
+
+			int typePotion = (int)(Math.random() * (higher-lower)) + lower;
+
+			switch(typePotion){
+			case 0 :caractsPotion.put(Caracteristique.VIE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.VIE));
+					caractsPotion.put(Caracteristique.FORCE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.FORCE));
+					caractsPotion.put(Caracteristique.INITIATIVE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.INITIATIVE)); 
+					potion=new Potion("basic", groupe, caractsPotion);
+					break;
+			
+			case 1 : caractsPotion.put(Caracteristique.VIE, -100);
+					 caractsPotion.put(Caracteristique.FORCE, 0);
+					 caractsPotion.put(Caracteristique.INITIATIVE, 0); 
+					 potion=new Potion("mortelle", groupe, caractsPotion);
+					 break;
+					 
+			case 2 : caractsPotion.put(Caracteristique.VIE, 0);
+					 caractsPotion.put(Caracteristique.FORCE, 0);
+					 caractsPotion.put(Caracteristique.INITIATIVE, 0); 
+					 potion=new Potion("teleportation", groupe, caractsPotion);
+					 break;
+					 
+			case 3 : break;//invisibilité
+			}
+			
 			
 			// ajout de la potion
-			arene.ajoutePotion(new Potion(nom, groupe, caractsPotion), Calculs.positionAleatoireArene());
+			arene.ajoutePotion(potion, Calculs.positionAleatoireArene());
 			logger.info("Lanceur", "Lancement de la potion reussi");
 			
 		} catch (Exception e) {
