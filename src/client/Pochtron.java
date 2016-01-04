@@ -85,28 +85,28 @@ public class Pochtron extends StrategiePersonnage {
 			console.setPhrase("J'erre...");
 			arene.deplace(refRMI, 0); 
 			
-		} else {
-			int refCible = Calculs.chercheElementProche(position, voisins);
+		} 
+		else
+		{
+			int refCible = Calculs.cherchePotionProche(position, voisins, arene);
 			int distPlusProche = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
-			Element elemPlusProche = arene.elementFromRef(refCible);
+			Element potPlusProche = arene.elementFromRef(refCible);
 
-			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION) { // si suffisamment proches
+			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION)
+			{ // si suffisamment proches
 				// j'interagis directement
-				if(elemPlusProche instanceof Potion) { // potion
 					// ramassage
 					console.setPhrase("Je ramasse une potion");
 					arene.ramassePotion(refRMI, refCible);
 
-				} else { // personnage
-					// duel
-					console.setPhrase("Je fais un duel avec " + elemPlusProche.getNom());
-					arene.lanceAttaque(refRMI, refCible);
-				}
 				
-			} else { // si voisins, mais plus eloignes
+				
+			} 
+			else 
+			{ // si voisins, mais plus eloignes
 				// je vais vers le plus proche
-				console.setPhrase("Je vais vers mon voisin " + elemPlusProche.getNom());
+				console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
 				arene.deplace(refRMI, refCible);
 			}
 		}

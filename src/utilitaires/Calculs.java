@@ -1,6 +1,7 @@
 package utilitaires;
 
 import java.awt.Point;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,7 +10,9 @@ import java.util.Random;
 import static utilitaires.Constantes.*;
 
 import serveur.element.Caracteristique;
-
+import serveur.element.Element ;
+import serveur.element.Potion ;
+import serveur.IArene;
 /**
  * Classe regroupant quelques methodes utiles pour l'arene (distance, case vide,
  * elements voisins...).
@@ -120,6 +123,37 @@ public class Calculs {
 			if (distanceChebyshev(origine, target) <= distPlusProche) {
 				distPlusProche = Calculs.distanceChebyshev(origine, target);
 				refPlusProche = refVoisin;
+			}
+		}
+		
+		return refPlusProche;
+	}
+	
+	/**
+	 * Cherche la potion la plus proche vers lequel se diriger, dans la limite
+	 * de la vision du personnnage.
+	 * @param origine position a partir de laquelle on cherche
+	 * @param voisins liste des voisins
+	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
+	 * @throws RemoteException 
+	 */
+	public static int cherchePotionProche(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException {
+		int distPlusProche = VISION;
+		int refPlusProche = 0;
+		Element e ;
+		
+		for(int refVoisin : voisins.keySet()) 
+		{
+			e = arene.elementFromRef(refVoisin) ;
+
+			if (e instanceof Potion)
+			{
+				Point target = voisins.get(refVoisin);
+				
+				if (distanceChebyshev(origine, target) <= distPlusProche) {
+					distPlusProche = Calculs.distanceChebyshev(origine, target);
+					refPlusProche = refVoisin;
+				}
 			}
 		}
 		
