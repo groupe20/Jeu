@@ -165,22 +165,34 @@ public class Calculs {
 	+	* @param origine position a partir de laquelle on cherche
 	+	* @param voisins liste des voisins
 	+	* @return reference de l'element le plus proche, 0 si il n'y en a pas
-	+	*/
-	 public static int cherchePlusGrandAdversaire(Point origine, HashMap<Integer, Point> voisins) {
-	
-	 int refPlusGrand = 0;
-	 int max = 0 ;
+	+	
+	 * @throws RemoteException */
 	
 	
-	 for(int refVoisin : voisins.keySet())
+	 public static int cherchePlusGrandAdversaire(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException 
 	 {
-	 if ()//vie de refVoisin > max
-	 {
-	 refPlusGrand = refVoisin;
-	 }
-	 }
 	
-	 return refPlusGrand;
+		 int refPlusGrand = 0;
+		 int max = 0 ;
+		 Element e ;
+	
+	
+		 for(int refVoisin : voisins.keySet())
+		 {
+			 e = arene.elementFromRef(refVoisin) ;
+			 int vieElement = e.getCaract(Caracteristique.VIE);
+			 if (vieElement > max)
+			 {
+				 refPlusGrand = refVoisin;
+			 }
+		 }
+	
+	 	return refPlusGrand;
+	 }
+	 
+	 public boolean vainqueurDuel (Element e1, Element e2)
+	 {
+		 return true ;
 	 }
 	/**
 	 * Genere un entier dans un intervalle donne.

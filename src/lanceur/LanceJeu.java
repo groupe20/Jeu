@@ -3,12 +3,6 @@
  */
 package lanceur;
 
-import java.io.IOException;
-import java.net.InetAddress;
-
-import logger.LoggerProjet;
-import serveur.Arene;
-import utilitaires.Constantes;
 
 
 public class LanceJeu {

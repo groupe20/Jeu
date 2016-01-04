@@ -88,16 +88,16 @@ public class Intello extends StrategiePersonnage {
 		} 
 		else
 		{
-			int refCible = Calculs.cherchePlusGrandAdversaire(position, voisins);
-			int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
+			int refCible = Calculs.chercheElementProche(position, voisins);
+			int distPlusProche = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
-			Element elemPlusGrandAdv = arene.elementFromRef(refCible);
+			Element elemPlusProche = arene.elementFromRef(refCible);
 
-			if(distPlusGrandAdv <= Constantes.DISTANCE_MIN_INTERACTION)
+			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION)
 			{ // si suffisamment proches
 				// j'interagis directement
 				// duel
-				console.setPhrase("Je fais un duel avec " + elemPlusGrandAdv.getNom());
+				console.setPhrase("Je fais un duel avec " + elemPlusProche.getNom());
 				arene.lanceAttaque(refRMI, refCible);
 
 				
@@ -106,7 +106,7 @@ public class Intello extends StrategiePersonnage {
 			else 
 			{ // si voisins, mais plus eloignes
 				// je vais vers le plus proche
-				console.setPhrase("Je vais vers mon voisin " + elemPlusGrandAdv.getNom());
+				console.setPhrase("Je vais vers mon voisin " + elemPlusProche.getNom());
 				arene.deplace(refRMI, refCible);
 			}
 		}
