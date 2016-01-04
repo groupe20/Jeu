@@ -70,4 +70,4 @@ public class Stockage extends Interaction<VuePotion> {
 	}
 }
 
-}
+
