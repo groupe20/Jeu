@@ -15,7 +15,7 @@ import utilitaires.Calculs;
 import utilitaires.Constantes;
 
 /**
- * Strategie d'un personnage. 
+ * Personnage qui attaque les personnages qui ont le plus de vie
  */
 public class Kamikaze extends StrategiePersonnage {
 	
