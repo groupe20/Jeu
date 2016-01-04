@@ -1,5 +1,12 @@
-A QUE COUCOU BOB!!! 
-test de enzo
-SR
-lololololol
-test
+Enzo : Stockage.java
+Mathieu : Poser.java
+Victor : 
+Jack : 
+
+
+Personnage : 
+- Fuyard/baltringue
+- Intello
+- Pochtron
+- Kamikaz (attaque les gens)
+- Kéké (vers le plus de vie que lui) 
