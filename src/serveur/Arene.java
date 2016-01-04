@@ -23,6 +23,7 @@ import serveur.element.Personnage;
 import serveur.element.Potion;
 import serveur.interaction.Deplacement;
 import serveur.interaction.Duel;
+import serveur.interaction.Poser;
 import serveur.interaction.Ramassage;
 import serveur.interaction.Stockage;
 import serveur.vuelement.VueElement;
@@ -733,6 +734,28 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		}
 		
 		return res;
+	}
+	
+	
+	@Override
+	public boolean deposePotion(int refRMI) throws RemoteException {
+		boolean res=false;
+		VuePersonnage vuePersonnage = personnages.get(refRMI);
+		
+		if (vuePersonnage.isActionExecutee()) {
+			// si une action a deja ete executee
+			logActionDejaExecutee(refRMI);
+			
+		} else {
+			// sinon, on tente de jouer l'interaction
+			new Poser(vuePersonnage,this).pose();
+			vuePersonnage.executeAction();
+			
+			res = true;
+		}
+		
+		return res;
+		
 	}
 	
 	@Override

@@ -32,7 +32,7 @@ public class Poser {
 			return false;
 		}
 		
-		p.suppInv();
+		p.suppInventaire();
 		return true;
 		
 	}
