@@ -45,7 +45,7 @@ public class Personnage extends Element {
 	}
 	
 	/**
-	 * Tue ce personnage en mettant son nombre de poins de vie a 0.
+	 * Tue ce personnage en mettant son nombre de points de vie a 0.
 	 */
 	public void tue() {
 		caracts.put(Caracteristique.VIE, 0);
@@ -59,5 +59,12 @@ public class Personnage extends Element {
 	public boolean estVivant() {
 		Integer vie = caracts.get(Caracteristique.VIE);
 		return vie != null && vie > 0;
+	}
+	
+	/**
+	 * Retourne la potion stocké dans l'inventaire
+	 */
+	public Potion getInventaire() {
+		return inventaire;
 	}
 }
