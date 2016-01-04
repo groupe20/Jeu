@@ -22,8 +22,11 @@ public class Personnage extends Element {
 	 * @param groupe d'etudiants du personnage
 	 * @param caracts caracteristiques du personnage
 	 */
+	private Potion inventaire;
+	
 	public Personnage(String nom, String groupe, HashMap<Caracteristique, Integer> caracts) {
 		super(nom, groupe, caracts);
+		this.inventaire = null;
 	}
 	
 	/**
