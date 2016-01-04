@@ -88,7 +88,7 @@ public class Kamikaze extends StrategiePersonnage {
 		} 
 		else
 		{
-			int refCible = Calculs.cherchePlusGrandAdversaire(position, voisins);
+			int refCible = Calculs.cherchePlusGrandAdversaire(position, voisins, arene);
 			int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
 			Element elemPlusGrandAdv = arene.elementFromRef(refCible);
