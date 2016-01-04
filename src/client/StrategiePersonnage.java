@@ -18,6 +18,7 @@ import utilitaires.Constantes;
 /**
  * Strategie d'un personnage. 
  */
+
 public class StrategiePersonnage {
 	
 	/**
