@@ -12,3 +12,6 @@ Personnage :
 - Kéké (vers le plus de vie que lui) 
 
 duel.java -> esquive + bloquage
+
+
+A faire : faire de StrategiePersonnage une classe dont héritera chaque nouveau Personnage.
