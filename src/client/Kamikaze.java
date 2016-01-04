@@ -17,7 +17,7 @@ import utilitaires.Constantes;
 /**
  * Strategie d'un personnage. 
  */
-public class Pochtron extends StrategiePersonnage {
+public class Kamikaze extends StrategiePersonnage {
 	
 	/**
 	 * Console permettant d'ajouter une phrase et de recuperer le serveur 
@@ -36,13 +36,12 @@ public class Pochtron extends StrategiePersonnage {
 	 * @param position position initiale du personnage dans l'arene
 	 * @param logger gestionnaire de log
 	 */
-	public Pochtron(String ipArene, int port, String ipConsole, 
+	public Kamikaze(String ipArene, int port, String ipConsole, 
 			String nom, String groupe, HashMap<Caracteristique, Integer> caracts,
 			int nbTours, Point position, LoggerProjet logger) {
 		
 		super(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger) ;
 		logger.info("Lanceur", "Creation de la console...");
-		
 		
 		try {
 			console = new Console(ipArene, port, ipConsole, this, 
@@ -89,17 +88,17 @@ public class Pochtron extends StrategiePersonnage {
 		} 
 		else
 		{
-			int refCible = Calculs.cherchePotionProche(position, voisins, arene);
-			int distPlusProche = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
+			int refCible = Calculs.cherchePlusGrandAdversaire(position, voisins);
+			int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
-			Element potPlusProche = arene.elementFromRef(refCible);
+			Element elemPlusGrandAdv = arene.elementFromRef(refCible);
 
-			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION)
+			if(distPlusGrandAdv <= Constantes.DISTANCE_MIN_INTERACTION)
 			{ // si suffisamment proches
 				// j'interagis directement
-					// ramassage
-					console.setPhrase("Je ramasse une potion");
-					arene.ramassePotion(refRMI, refCible);
+				// duel
+				console.setPhrase("Je fais un duel avec " + elemPlusGrandAdv.getNom());
+				arene.lanceAttaque(refRMI, refCible);
 
 				
 				
@@ -107,7 +106,7 @@ public class Pochtron extends StrategiePersonnage {
 			else 
 			{ // si voisins, mais plus eloignes
 				// je vais vers le plus proche
-				console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
+				console.setPhrase("Je vais vers mon voisin " + elemPlusGrandAdv.getNom());
 				arene.deplace(refRMI, refCible);
 			}
 		}
