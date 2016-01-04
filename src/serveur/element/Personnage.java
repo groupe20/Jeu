@@ -67,4 +67,8 @@ public class Personnage extends Element {
 	public Potion getInventaire() {
 		return inventaire;
 	}
+	
+	public void suppInv(){
+		this.inventaire=null;
+	}
 }
