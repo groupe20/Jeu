@@ -14,7 +14,7 @@ import utilitaires.Calculs;
 import utilitaires.Constantes;
 
 /**
- * Strategie d'un personnage. 
+ * Personnage qui va vers les potions
  */
 public class Pochtron extends StrategiePersonnage {
 	
