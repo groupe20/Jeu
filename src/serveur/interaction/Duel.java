@@ -33,6 +33,8 @@ public class Duel extends Interaction<VuePersonnage> {
 			Personnage pAttaquant = attaquant.getElement();
 			Personnage pDefenseur = defenseur.getElement();
 			int forceAttaquant = pAttaquant.getCaract(Caracteristique.FORCE);
+			int initAttaquant = pAttaquant.getCaract(Caracteristique.INITIATIVE);
+			int initDefenseur = pDefenseur.getCaract(Caracteristique.INITIATIVE);
 			int perteVie = forceAttaquant;
 		
 			Point positionEjection = positionEjection(defenseur.getPosition(), attaquant.getPosition(), forceAttaquant);
@@ -41,8 +43,13 @@ public class Duel extends Interaction<VuePersonnage> {
 			defenseur.setPosition(positionEjection);
 			
 			//possibilité d'esquive
-			if(pDefenseur.getCaract(Caracteristique.INITIATIVE)<(pAttaquant.getCaract(Caracteristique.INITIATIVE)+40)){
+			if(initDefenseur < (initAttaquant+50)){
 
+				//possibilité de bloquer le coup
+				if(initDefenseur > 50) {
+					perteVie=perteVie/2;
+				}
+		
 				// degats
 				if (perteVie > 0) {
 					arene.incrementeCaractElement(defenseur, Caracteristique.VIE, -perteVie);
@@ -54,7 +61,9 @@ public class Duel extends Interaction<VuePersonnage> {
 				// initiative
 				incrementeInitiative(defenseur);
 				decrementeInitiative(attaquant);
-			}else{
+				
+			}
+			else {
 				logs(Level.INFO, Constantes.nomRaccourciClient(defenseur) + " esquive le coup de "
 						+ Constantes.nomRaccourciClient(attaquant));
 			}
