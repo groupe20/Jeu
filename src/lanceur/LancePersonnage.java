@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
 
+import client.Kamikaze;
+import client.Pochtron;
 import client.StrategiePersonnage;
 import logger.LoggerProjet;
 import serveur.element.Caracteristique;
