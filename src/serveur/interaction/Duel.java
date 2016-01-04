@@ -31,6 +31,7 @@ public class Duel extends Interaction<VuePersonnage> {
 	public void interagit() {
 		try {
 			Personnage pAttaquant = attaquant.getElement();
+			Personnage pDefenseur = defenseur.getElement();
 			int forceAttaquant = pAttaquant.getCaract(Caracteristique.FORCE);
 			int perteVie = forceAttaquant;
 		
@@ -38,19 +39,22 @@ public class Duel extends Interaction<VuePersonnage> {
 
 			// ejection du defenseur
 			defenseur.setPosition(positionEjection);
+			
+			//possibilité d'esquive
+			if(pDefenseur.getCaract(Caracteristique.INITIATIVE)<(pAttaquant.getCaract(Caracteristique.INITIATIVE)+40)){
 
-			// degats
-			if (perteVie > 0) {
-				arene.incrementeCaractElement(defenseur, Caracteristique.VIE, -perteVie);
+				// degats
+				if (perteVie > 0) {
+					arene.incrementeCaractElement(defenseur, Caracteristique.VIE, -perteVie);
 				
-				logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " colle une beigne ("
+					logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " colle une beigne ("
 						+ perteVie + " points de degats) a " + Constantes.nomRaccourciClient(defenseur));
+				}
+			
+				// initiative
+				incrementeInitiative(defenseur);
+				decrementeInitiative(attaquant);
 			}
-			
-			// initiative
-			incrementeInitiative(defenseur);
-			decrementeInitiative(attaquant);
-			
 		} catch (RemoteException e) {
 			logs(Level.INFO, "\nErreur lors d'une attaque : " + e.toString());
 		}
