@@ -202,6 +202,8 @@ public interface IArene extends Remote {
 	public boolean deplace(int refRMI, Point objectif) throws RemoteException;
 	
 	
+	public boolean fuite(int refRMI, int refCible) throws RemoteException;
+	
 
 	
 

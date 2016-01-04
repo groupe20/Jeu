@@ -11,7 +11,6 @@ import static utilitaires.Constantes.*;
 
 import serveur.element.Caracteristique;
 import serveur.element.Element ;
-import serveur.element.Personnage ;
 import serveur.element.Potion ;
 import serveur.IArene;
 /**
@@ -132,38 +131,6 @@ public class Calculs {
 	
 	
 	 
-		/**
-		 * Cherche l'element le plus éloigné vers lequel se diriger, dans la limite
-		 * de la vision du personnnage.
-		 * @param origine position a partir de laquelle on cherche
-		 * @param voisins liste des voisins
-		 * @return reference de l'element le plus proche, 0 si il n'y en a pas
-		 */
-		public static int cherchePersonnageEloigne(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException {
-			int distMax = 0;
-			int refEloigne = 0;
-			Element e;
-			
-			for(int refVoisin : voisins.keySet()) {
-				
-				e = arene.elementFromRef(refVoisin) ;
-
-				if (e instanceof Personnage)
-				{
-					Point target = voisins.get(refVoisin);
-					
-					if (distanceChebyshev(origine, target) > distMax) {
-						distMax = Calculs.distanceChebyshev(origine, target);
-						refEloigne = refVoisin;
-					}
-				}
-			}
-			
-			return refEloigne;
-		}
-		
-		
-		
 	/**
 	 * Cherche la potion la plus proche vers lequel se diriger, dans la limite
 	 * de la vision du personnnage.

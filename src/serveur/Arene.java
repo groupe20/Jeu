@@ -867,6 +867,28 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		return res;
 	}
 
+	@Override
+	public boolean fuite(int refRMI, int refCible) throws RemoteException {		
+		boolean res = false;
+		
+		VuePersonnage client = personnages.get(refRMI);
+		
+		if (client.isActionExecutee()) {
+			// si une action a deja ete executee
+			logActionDejaExecutee(refRMI);
+			
+		} else {
+			// sinon, on tente de jouer l'interaction
+			new Deplacement(client, getVoisins(refRMI)).seloignerDe(refCible);
+			client.executeAction();
+			
+			res = true;
+		}
+		
+		return res;
+	}
+	
+	
 	/**
 	 * Ajoute l'increment donne a la caracteristique donne de l'element 
 	 * correspondant a la vue donnee. 
