@@ -54,6 +54,9 @@ public class Duel extends Interaction<VuePersonnage> {
 				// initiative
 				incrementeInitiative(defenseur);
 				decrementeInitiative(attaquant);
+			}else{
+				logs(Level.INFO, Constantes.nomRaccourciClient(defenseur) + " esquive le coup de "
+						+ Constantes.nomRaccourciClient(attaquant));
 			}
 		} catch (RemoteException e) {
 			logs(Level.INFO, "\nErreur lors d'une attaque : " + e.toString());
