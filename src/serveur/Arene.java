@@ -24,6 +24,7 @@ import serveur.element.Potion;
 import serveur.interaction.Deplacement;
 import serveur.interaction.Duel;
 import serveur.interaction.Ramassage;
+import serveur.interaction.Stockage;
 import serveur.vuelement.VueElement;
 import serveur.vuelement.VuePersonnage;
 import serveur.vuelement.VuePotion;
@@ -703,6 +704,8 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		VuePersonnage vuePersonnage = personnages.get(refRMI);
 		VuePotion vuePotion = potions.get(refPotion);
 		
+		Personnage perso = vuePersonnage.getElement();
+
 		if (vuePersonnage.isActionExecutee()) {
 			// si une action a deja ete executee
 			logActionDejaExecutee(refRMI);
@@ -713,10 +716,15 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			
 			// on teste la distance entre le personnage et la potion
 			if (distance <= Constantes.DISTANCE_MIN_INTERACTION) {
-				new Ramassage(this, vuePersonnage, vuePotion).interagit();
-				personnages.get(refRMI).executeAction();
-				
-				res = true;
+				if (perso.inventaire == null) {
+					new Stockage(this, vuePersonnage, vuePotion).interagit();
+					personnages.get(refRMI).executeAction();				
+					res = true;
+				} else {
+					new Ramassage(this, vuePersonnage, vuePotion).interagit();
+					personnages.get(refRMI).executeAction();				
+					res = true;
+				}
 			} else {
 				logger.warning(Constantes.nomClasse(this), nomRaccourciClient(refRMI) + 
 						" a tente d'interagir avec " + vuePotion.getElement().getNom() + 

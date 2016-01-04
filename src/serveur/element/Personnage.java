@@ -22,7 +22,8 @@ public class Personnage extends Element {
 	 * @param groupe d'etudiants du personnage
 	 * @param caracts caracteristiques du personnage
 	 */
-	private Potion inventaire;
+	
+	public Potion inventaire;
 	
 	public Personnage(String nom, String groupe, HashMap<Caracteristique, Integer> caracts) {
 		super(nom, groupe, caracts);
@@ -66,9 +67,5 @@ public class Personnage extends Element {
 	 */
 	public Potion getInventaire() {
 		return inventaire;
-	}
-	
-	public void suppInv(){
-		this.inventaire=null;
 	}
 }

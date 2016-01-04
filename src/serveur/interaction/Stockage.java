@@ -9,6 +9,8 @@ import java.util.logging.Level;
 
 import serveur.Arene;
 import serveur.element.Caracteristique;
+import serveur.element.Personnage;
+import serveur.element.Potion;
 import serveur.vuelement.VuePersonnage;
 import serveur.vuelement.VuePotion;
 import utilitaires.Constantes;
@@ -36,7 +38,11 @@ public class Stockage extends Interaction<VuePotion> {
 	@Override
 	public void interagit() {
 		try {
-			logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de rammasser " + 
+			Personnage pAttaquant = attaquant.getElement();
+			Potion pPotion = defenseur.getElement();
+
+			
+			logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de stocker " + 
 					Constantes.nomRaccourciClient(defenseur));
 			
 			// si le personnage est vivant
@@ -45,18 +51,19 @@ public class Stockage extends Interaction<VuePotion> {
 				// caracteristiques de la potion
 				HashMap<Caracteristique, Integer> valeursPotion = defenseur.getElement().getCaracts();
 				
-				for(Caracteristique c : valeursPotion.keySet()) {
-					arene.incrementeCaractElement(attaquant, c, valeursPotion.get(c));
+				// Stockage de la potion
+				if (pAttaquant.inventaire == null){
+					pAttaquant.inventaire = pPotion;
 				}
 				
-				logs(Level.INFO, "Potion bue !");
+				logs(Level.INFO, "Potion stockée !");
 				
 				// test si mort
 				if(!attaquant.getElement().estVivant()) {
 					arene.setPhrase(attaquant.getRefRMI(), "Je me suis empoisonne, je meurs ");
 					logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
 				}
-
+				
 				// suppression de la potion
 				arene.ejectePotion(defenseur.getRefRMI());
 				

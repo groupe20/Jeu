@@ -161,30 +161,6 @@ public class Calculs {
 	}
 	
 	/**
-	 * Cherche l'adversaire ayant le plus grand nombre de pv vers lequel se diriger, dans la limite
-	 * de la vision du personnnage.
-	 * @param origine position a partir de laquelle on cherche
-	 * @param voisins liste des voisins
-	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
-	 */
-	public static int cherchePlusGrandAdversaire(Point origine, HashMap<Integer, Point> voisins) {
-
-		int refPlusGrand = 0;
-		int max = 0 ;
-		
-		
-		for(int refVoisin : voisins.keySet()) 
-		{
-			if ()//vie de refVoisin > max
-			{
-				refPlusGrand = refVoisin;
-			}
-		}
-		
-		return refPlusGrand;
-	}
-	
-	/**
 	 * Genere un entier dans un intervalle donne.
 	 * @param min borne inferieure de l'intervalle
 	 * @param max borne superieure de l'intervalle

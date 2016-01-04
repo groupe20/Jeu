@@ -42,14 +42,15 @@ public class Duel extends Interaction<VuePersonnage> {
 			// ejection du defenseur
 			defenseur.setPosition(positionEjection);
 			
+
+			
 			//possibilité d'esquive
 			if(initDefenseur < (initAttaquant+50)){
 
+
 				//possibilité de bloquer le coup
 				if(initDefenseur > 50) {
-					perteVie=perteVie/2 ;
-					logs(Level.INFO, Constantes.nomRaccourciClient(defenseur) + " bloque le coup de "
-							+ Constantes.nomRaccourciClient(attaquant));
+					perteVie=perteVie/2;
 				}
 		
 				// degats

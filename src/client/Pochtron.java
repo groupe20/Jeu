@@ -11,6 +11,7 @@ import serveur.IArene;
 import serveur.element.Caracteristique;
 import serveur.element.Element;
 import serveur.element.Personnage;
+import serveur.element.Potion;
 import utilitaires.Calculs;
 import utilitaires.Constantes;
 
@@ -25,6 +26,8 @@ public class Pochtron extends StrategiePersonnage {
 	 */
 	protected Console console;
 
+	
+	
 	/**
 	 * Cree un personnage, la console associe et sa strategie.
 	 * @param ipArene ip de communication avec l'arene
@@ -36,24 +39,15 @@ public class Pochtron extends StrategiePersonnage {
 	 * @param position position initiale du personnage dans l'arene
 	 * @param logger gestionnaire de log
 	 */
+	
 	public Pochtron(String ipArene, int port, String ipConsole, 
 			String nom, String groupe, HashMap<Caracteristique, Integer> caracts,
 			int nbTours, Point position, LoggerProjet logger) {
 		
-		super(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger) ;
-		logger.info("Lanceur", "Creation de la console...");
-		
-		
-		try {
-			console = new Console(ipArene, port, ipConsole, this, 
-					new Personnage(nom, groupe, caracts), 
-					nbTours, position, logger);
-			logger.info("Lanceur", "Creation de la console reussie");
-			
-		} catch (Exception e) {
-			logger.info("Personnage", "Erreur lors de la creation de la console : \n" + e.toString());
-			e.printStackTrace();
-		}
+		super(ipArene, port, ipConsole, 
+				 nom,  groupe,  caracts,
+				 nbTours,  position,  logger);
+
 	}
 
 	// TODO etablir une strategie afin d'evoluer dans l'arene de combat
