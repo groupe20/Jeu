@@ -92,39 +92,68 @@ public class Pochtron extends Perso {
 			console.setPhrase("J'erre...");
 			arene.deplace(refRMI, 0); 
 			
-		} else {
-			int refCible = Calculs.cherchePotionProche(position, voisins, arene);
-			int distPlusProche = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
+		} 
+		else
+		{
+			int refCibleAdv = Calculs.chercheAdversaireProche(position, voisins, arene);
+			int distPlusProcheAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAdv));
 
-			Element elemPlusProche = arene.elementFromRef(refCible);
+			Element advPlusProche = arene.elementFromRef(refCibleAdv);
 
-			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION) { // si suffisamment proches
-				// j'interagis directement
-				if(elemPlusProche instanceof Potion) { // potion
-					// ramassage
-					console.setPhrase("Je ramasse une potion");
-					arene.ramassePotion(refRMI, refCible);
-
-				} /*else { // personnage
-					// duel
-					console.setPhrase("Je fais un duel avec " + elemPlusProche.getNom());
-					arene.deplace(refRMI, 0); 
-
-				}*/
+			if (Calculs.potionPresente(position, voisins, arene))
+			{
 				
-			} else { // si voisins, mais plus eloignes
-				// je vais vers le plus proche
-				if(elemPlusProche instanceof Potion) { // potion
-					console.setPhrase("Je vais vers mon voisin " + elemPlusProche.getNom());
-					arene.deplace(refRMI, refCible);
-				}else {
-					arene.deplace(refRMI, 0); 
-				}
+				int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
+				int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
+				
+				Element potPlusProche = arene.elementFromRef(refCiblePot);
+
+				if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
+				{ // si suffisamment proches
+					// j'interagis directement
+						// ramassage
+						console.setPhrase("Je ramasse une potion");
+						arene.ramassePotion(refRMI, refCiblePot);
+
 					
+					
+				} 
+				else 
+				{ // si voisins, mais plus eloignes
+					// je vais vers le plus proche
+					console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
+					arene.deplace(refRMI, refCiblePot);
+				}
+				
+				if(distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION)
+				{	//si par hasard, je suis à portée de duel, je fais le duel
+					console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
+					arene.lanceAttaque(refRMI, refCibleAdv);
+				}
+			}
+			else
+			{
+				if(distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION)
+				{	//si par hasard, je suis à portée de duel, je fais le duel
+					console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
+					arene.lanceAttaque(refRMI, refCibleAdv);
+				}
+				else
+				{
+					//sinon, j'erre
+					console.setPhrase("J'erre...");
+					arene.deplace(refRMI, 0); 
 				}
 			}
 		}
+
+
+		
+
+
+
 	}
+}
 
 	
 

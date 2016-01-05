@@ -11,6 +11,7 @@ import static utilitaires.Constantes.*;
 
 import serveur.element.Caracteristique;
 import serveur.element.Element ;
+import serveur.element.Personnage;
 import serveur.element.Potion ;
 import serveur.IArene;
 /**
@@ -107,7 +108,7 @@ public class Calculs {
 	}
 
 	/**
-	 * Cherche l'element le plus proche vers lequel se didiger, dans la limite
+	 * Cherche l'element le plus proche dans la limite
 	 * de la vision du personnnage.
 	 * @param origine position a partir de laquelle on cherche
 	 * @param voisins liste des voisins
@@ -129,10 +130,33 @@ public class Calculs {
 		return refPlusProche;
 	}
 	
+	/**
+	 * Vérifie s'il y a une potion présente parmis la liste de voisins
+	 * @param origine position a partir de laquelle on cherche
+	 * @param voisins liste des voisins
+	 * @return boolean
+	 * @throws RemoteException 
+	 */
 	
+	public static boolean potionPresente(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException
+	{
+		Element e ;
+		
+		for(int refVoisin : voisins.keySet()) 
+		{
+			e = arene.elementFromRef(refVoisin) ;
+
+			if (e instanceof Potion)
+			{
+				return true ;
+			}
+		}
+		
+		return false ;
+	}
 	 
 	/**
-	 * Cherche la potion la plus proche vers lequel se diriger, dans la limite
+	 * Cherche la potion la plus proche dans la limite
 	 * de la vision du personnnage.
 	 * @param origine position a partir de laquelle on cherche
 	 * @param voisins liste des voisins
@@ -161,6 +185,38 @@ public class Calculs {
 		
 		return refPlusProche;
 	}
+	
+	/**
+	 * Cherche l'adversaire le plus proche dans la limite
+	 * de la vision du personnnage.
+	 * @param origine position a partir de laquelle on cherche
+	 * @param voisins liste des voisins
+	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
+	 * @throws RemoteException 
+	 */
+	public static int chercheAdversaireProche(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException {
+		int distPlusProche = VISION;
+		int refPlusProche = 0;
+		Element e ;
+		
+		for(int refVoisin : voisins.keySet()) 
+		{
+			e = arene.elementFromRef(refVoisin) ;
+
+			if (e instanceof Personnage)
+			{
+				Point target = voisins.get(refVoisin);
+				
+				if (distanceChebyshev(origine, target) <= distPlusProche) {
+					distPlusProche = Calculs.distanceChebyshev(origine, target);
+					refPlusProche = refVoisin;
+				}
+			}
+		}
+		
+		return refPlusProche;
+	}
+	
 	 /**
 	+	* Cherche l'adversaire ayant le plus grand nombre de pv vers lequel se diriger, dans la limite
 	+	* de la vision du personnnage.
