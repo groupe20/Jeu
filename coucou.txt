@@ -15,7 +15,7 @@ duel.java -> esquive + bloquage
 
 
 A faire pour VLocale : 
-- La teleportation dans lancePotion
+- La teleportation dans ramassage.Java
 - l'invisibilité ------------------
 - l'invinssibilité -----------------
 - faire de StrategiePersonnage une classe dont héritera chaque nouveau Personnage.
