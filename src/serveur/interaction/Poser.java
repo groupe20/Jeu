@@ -4,7 +4,6 @@ import lanceur.ErreurLancement;
 import serveur.Arene;
 import serveur.element.Personnage;
 import serveur.vuelement.VuePersonnage;
-import utilitaires.Calculs;
 
 public class Poser {
 
