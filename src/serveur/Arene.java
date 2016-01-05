@@ -40,7 +40,6 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 
 	private static final long serialVersionUID = -354976419811607146L;
 
-	private static final Caracteristique INVENTAIRE = null;
 
 	/**
 	 * Port a utiliser pour la connexion.
