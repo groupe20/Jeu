@@ -1,4 +1,4 @@
-Enzo : Stockage.java
+Enzo : Stockage.java, 
 Mathieu : Poser.java
 Victor : 
 Jack : 
@@ -14,4 +14,14 @@ Personnage :
 duel.java -> esquive + bloquage
 
 
-A faire : faire de StrategiePersonnage une classe dont héritera chaque nouveau Personnage.
+A faire pour VLocale : 
+- La teleportation dans lancePotion
+- l'invisibilité ------------------
+- l'invinssibilité -----------------
+- faire de StrategiePersonnage une classe dont héritera chaque nouveau Personnage.
+
+
+
+A faire pour VTournoi : 
+
+- Strategie de ouf pour un de nos personnages (l'intello ?)
