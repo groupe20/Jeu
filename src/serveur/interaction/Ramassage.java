@@ -44,6 +44,12 @@ public class Ramassage extends Interaction<VuePotion> {
 				if (Potion.getNom().equals("teleportation")) {
 					//teleporter
 				}
+				if (Potion.getNom().equals("invisible")) {
+					//invisible
+				}
+				if (Potion.getNom().equals("invincible")) {
+					//invincible
+				}
 				else {
 					for(Caracteristique c : valeursPotion.keySet()) {
 						arene.incrementeCaractElement(attaquant, c, valeursPotion.get(c));

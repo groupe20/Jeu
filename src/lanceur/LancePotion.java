@@ -88,7 +88,11 @@ public class LancePotion {
 					 potion=new Potion("teleportation", groupe, caractsPotion);
 					 break;
 					 
-			case 3 : break;//invisibilité
+			case 3 : caractsPotion.put(Caracteristique.VIE, 0);
+			 		 caractsPotion.put(Caracteristique.FORCE, 0);
+			 		 caractsPotion.put(Caracteristique.INITIATIVE, 0); 
+			 		 potion=new Potion("invisible", groupe, caractsPotion);
+			 		 break;
 			}
 			
 			
