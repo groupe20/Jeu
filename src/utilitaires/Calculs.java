@@ -294,7 +294,7 @@ public class Calculs {
 
 		int refMoinsPv = 0;
 		Element e ;
-		int min = 0 ;
+		int min = 500;
 		
 		for(int refVoisin : voisins.keySet()) 
 		{
@@ -303,6 +303,7 @@ public class Calculs {
 			 if (vieElement < min && groupe.equals(e.getGroupe()) && e instanceof Personnage)
 			 {
 				 refMoinsPv = refVoisin;
+				 min=vieElement;
 			 }
 		}
 		
