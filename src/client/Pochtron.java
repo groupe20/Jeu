@@ -111,11 +111,6 @@ public class Pochtron extends Perso {
 				advPlusProche = arene.elementFromRef(refCibleAdv);
 				adv = true ;
         	}
-        	else
-        	{
-        		
-        	}
-
 
 			if (Calculs.potionPresente(voisins, arene))
 			{
@@ -139,14 +134,14 @@ public class Pochtron extends Perso {
 					arene.deplace(refRMI, refCiblePot);
 				}
 				
-				if (adv)
+				/*if (adv)
 				{
 					if(distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION)
 					{	//si par hasard, je suis à portée de duel, je fais le duel
 						console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
 						arene.lanceAttaque(refRMI, refCibleAdv);
 					}
-				}
+				}*/
 			}
 			else
 			{
@@ -156,6 +151,11 @@ public class Pochtron extends Perso {
 					{	//si par hasard, je suis à portée de duel, je fais le duel
 						console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
 						arene.lanceAttaque(refRMI, refCibleAdv);
+					}
+					else 
+					{	//sinon on se déplace vers ce dernier
+						console.setPhrase("Je vais vers mon voisin " + advPlusProche.getNom());
+						arene.deplace(refRMI, refCibleAdv);
 					}
 				}
 				else
