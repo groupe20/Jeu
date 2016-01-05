@@ -115,10 +115,7 @@ public class Pochtron extends Perso {
 					// j'interagis directement
 						// ramassage
 						console.setPhrase("Je ramasse une potion");
-						arene.ramassePotion(refRMI, refCiblePot);
-
-					
-					
+						arene.ramassePotion(refRMI, refCiblePot);	
 				} 
 				else 
 				{ // si voisins, mais plus eloignes
@@ -148,11 +145,6 @@ public class Pochtron extends Perso {
 				}
 			}
 		}
-
-
-		
-
-
 
 	}
 }

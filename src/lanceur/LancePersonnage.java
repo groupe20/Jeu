@@ -9,6 +9,7 @@ import client.Fuyard;
 import client.Intello;
 import client.Kamikaze;
 import client.Pochtron;
+import client.Soigneur;
 import client.StrategiePersonnage;
 import logger.LoggerProjet;
 import serveur.element.Caracteristique;
@@ -75,6 +76,9 @@ public class LancePersonnage {
 				break;
 			case "Fuyard":
 				new Fuyard(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
+				break;
+			case "Soigneur":
+				new Soigneur(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
 				break;
 			}
 			
