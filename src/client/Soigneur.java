@@ -13,7 +13,7 @@ import utilitaires.Constantes;
 /**
  * Strategie d'un personnage. 
  */
-public class Fuyard extends Perso {
+public class Soigneur extends Perso {
     
     /**
      * Console permettant d'ajouter une phrase et de recuperer le serveur 
@@ -31,7 +31,7 @@ public class Fuyard extends Perso {
      * @param position position initiale du personnage dans l'arene
      * @param logger gestionnaire de log
      */
-    public Fuyard(String ipArene, int port, String ipConsole, 
+    public Soigneur(String ipArene, int port, String ipConsole, 
             String nom, String groupe, HashMap<Caracteristique, Integer> caracts,
             int nbTours, Point position, LoggerProjet logger) {
         
@@ -67,6 +67,8 @@ public class Fuyard extends Perso {
         // position de l'element courant
         Point position = null;
         
+
+        
         try 
         {
             refRMI = console.getRefRMI();
@@ -86,58 +88,64 @@ public class Fuyard extends Perso {
             
         } 
         else 
-        {
-        	Element player = arene.elementFromRef(refRMI) ;
-        	String gr = player.getGroupe() ;
-        	
-        	if (Calculs.adversairePresent(voisins, arene, gr))
+        {	
+        	Element healer = arene.elementFromRef(refRMI) ;
+            String gr = healer.getGroupe() ;
+            
+        	if (Calculs.alliePresent(voisins, arene, gr))
         	{
-	            int refCibleAdv = Calculs.chercheAdversaireProche(position, voisins, arene, gr);
-	            int distPlusProcheAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAdv));
-	            Element advPlusProche = arene.elementFromRef(refCibleAdv);
+        		int refCibleAllie = Calculs.chercheAllieProche(position, voisins, arene, gr);
+	            int distAllie = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAllie));
+	            Element allieMoinsPv = arene.elementFromRef(refCibleAllie);
 	            
-	            if(distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION)
-				{	//si par malchance, je suis à portée de duel, je fais le duel
-					console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
-					arene.lanceAttaque(refRMI, refCibleAdv);
-				}
+	            if(distAllie <= Constantes.DISTANCE_MIN_INTERACTION)
+	            {
+	            	//si a portee, je le soigne
+	            	console.setPhrase("Je soigne " + allieMoinsPv.getNom());
+					//TODO
+	            	//arene.soigner(refRMI,refCibleAllie);
+	            }
 	            else
-	            {	//sinon je fuis le duel
-		            console.setPhrase("Je fuis le duel avec " + advPlusProche.getNom());
-		            arene.fuite(refRMI, refCibleAdv);
+	            {
+	            	console.setPhrase("Je vais vers mon voisin " + allieMoinsPv.getNom() + " pour le soigner");
+					arene.deplace(refRMI, refCibleAllie);
 	            }
         	}
         	else
         	{
-        		int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
-				int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
-				
-				Element potPlusProche = arene.elementFromRef(refCiblePot);
+        		if (Calculs.potionPresente(voisins, arene))
+        		{
+        			int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
+    				int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
+    				
+    				Element potPlusProche = arene.elementFromRef(refCiblePot);
 
-				if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
-				{ // si suffisamment proches
-					// j'interagis directement
-						// ramassage
-						console.setPhrase("Je ramasse une potion");
-						arene.ramassePotion(refRMI, refCiblePot);
+    				if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
+    				{ // si suffisamment proche
+    						// ramassage
+    						console.setPhrase("Je ramasse une potion");
+    						arene.ramassePotion(refRMI, refCiblePot);
 
-					
-					
-				} 
-				else 
-				{ // si voisins, mais plus eloignes
-					// je vais vers le plus proche
-					console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
-					arene.deplace(refRMI, refCiblePot);
-				}
+    					
+    					
+    				} 
+    				else 
+    				{ // si potions, mais plus eloignees
+    					// je vais vers la plus proche
+    					console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
+    					arene.deplace(refRMI, refCiblePot);
+    				}
+        		}
+        		else
+        		{	//si je n'ai ni potions, ni alliés a soigner, j'erre
+        			console.setPhrase("J'erre...");
+                    arene.deplace(refRMI, 0); 
+        		}
         	}
-            
-            
-            
-            
+        	
+   
             
             
         }
     }
 }
-    
