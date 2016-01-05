@@ -1,5 +1,6 @@
 package serveur.interaction;
 
+import java.awt.Point;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -42,11 +43,18 @@ public class Ramassage extends Interaction<VuePotion> {
 				HashMap<Caracteristique, Integer> valeursPotion = defenseur.getElement().getCaracts();
 				
 				if (Potion.getNom().equals("teleportation")) {
-					//teleporter
-				}
-				if (Potion.getNom().equals("invisible")) {
-					//invisible
-				}
+                    arene.setPhrase(attaquant.getRefRMI(), "Je me teleporte");
+                    Point p;
+                    p = attaquant.getPosition();
+                    p.x = (int)(Math.random() * (Constantes.XMAX_ARENE-Constantes.XMIN_ARENE)) + Constantes.XMIN_ARENE;
+                    p.y = (int)(Math.random() * (Constantes.YMAX_ARENE-Constantes.YMIN_ARENE)) + Constantes.YMIN_ARENE;
+                    arene.deplace(attaquant.getRefRMI(), p);
+                }
+                if (Potion.getNom().equals("invisible")) {
+                    arene.setPhrase(attaquant.getRefRMI(), "Je deviens invisible ");
+                
+                }
+
 				if (Potion.getNom().equals("invincible")) {
 					//invincible
 				}
