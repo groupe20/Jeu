@@ -249,26 +249,34 @@ public class Calculs {
 	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
 	 * @throws RemoteException 
 	 */
-	public static int chercheAdversaireProche(Point origine, HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException {
+	public static int chercheAdversaireProche(Point origine, HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException 
+	{
 		int distPlusProche = VISION;
 		int refPlusProche = 0;
 		Element e ;
 		
+		System.err.println("Je suis dans chercheAdversaireProche");
+		
 		for(int refVoisin : voisins.keySet()) 
 		{
 			e = arene.elementFromRef(refVoisin) ;
-
-			if (e instanceof Personnage && !groupe.equals(e.getGroupe()))
+			System.err.println(e.getGroupe() + groupe + groupe.equals(e.getGroupe()));
+			if (e instanceof Personnage)
 			{
-				Point target = voisins.get(refVoisin);
-				
-				if (distanceChebyshev(origine, target) <= distPlusProche) {
-					distPlusProche = Calculs.distanceChebyshev(origine, target);
-					refPlusProche = refVoisin;
+				if (!groupe.equals(e.getGroupe()))
+				{
+					System.err.println("Je suis après le if");
+					Point target = voisins.get(refVoisin);
+					
+					if (distanceChebyshev(origine, target) <= distPlusProche)
+					{
+						distPlusProche = Calculs.distanceChebyshev(origine, target);
+						refPlusProche = refVoisin;
+					}
 				}
 			}
 		}
-		
+		System.err.println("Je suis avant le return");
 		return refPlusProche;
 	}
 	
@@ -292,7 +300,7 @@ public class Calculs {
 		{
 			e = arene.elementFromRef(refVoisin) ;
 			int vieElement = e.getCaract(Caracteristique.VIE);
-			 if (vieElement < min && groupe.equals(e.getGroupe()))
+			 if (vieElement < min && groupe.equals(e.getGroupe()) && e instanceof Personnage)
 			 {
 				 refMoinsPv = refVoisin;
 			 }
