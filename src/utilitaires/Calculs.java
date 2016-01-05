@@ -333,6 +333,7 @@ public class Calculs {
 			 if (vieElement > max && !groupe.equals(e.getGroupe()))
 			 {
 				 refPlusGrand = refVoisin;
+				 max = vieElement;
 			 }
 		 }
 	
