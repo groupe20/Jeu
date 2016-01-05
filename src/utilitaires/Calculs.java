@@ -132,13 +132,13 @@ public class Calculs {
 	
 	/**
 	 * Vérifie s'il y a une potion présente parmis la liste de voisins
-	 * @param origine position a partir de laquelle on cherche
 	 * @param voisins liste des voisins
+	 * @param arene
 	 * @return boolean
 	 * @throws RemoteException 
 	 */
 	
-	public static boolean potionPresente(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException
+	public static boolean potionPresente(HashMap<Integer, Point> voisins, IArene arene) throws RemoteException
 	{
 		Element e ;
 		
@@ -157,13 +157,14 @@ public class Calculs {
 	
 	/**
 	 * Vérifie s'il y a un adversaire présent parmis la liste de voisins
-	 * @param origine position a partir de laquelle on cherche
 	 * @param voisins liste des voisins
+	 * @param arene
+	 * @param groupe nom du groupe auquel appartient l'attaquant
 	 * @return boolean
 	 * @throws RemoteException 
 	 */
 	
-	public static boolean adversairePresent(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException
+	public static boolean adversairePresent(HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException
 	{
 		Element e ;
 		
@@ -171,7 +172,33 @@ public class Calculs {
 		{
 			e = arene.elementFromRef(refVoisin) ;
 
-			if (e instanceof Personnage)
+			if (e instanceof Personnage && !groupe.equals(e.getGroupe()))
+			{
+				return true ;
+			}
+		}
+		
+		return false ;
+	}
+	
+	/**
+	 * Vérifie s'il y a un allié présent parmis la liste de voisins
+	 * @param voisins liste des voisins
+	 * @param arene
+	 * @param groupe nom du groupe auquel appartient l'attaquant
+	 * @return boolean
+	 * @throws RemoteException 
+	 */
+	
+	public static boolean alliePresent(HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException
+	{
+		Element e ;
+		
+		for(int refVoisin : voisins.keySet()) 
+		{
+			e = arene.elementFromRef(refVoisin) ;
+
+			if (e instanceof Personnage && groupe.equals(e.getGroupe()))
 			{
 				return true ;
 			}
@@ -185,6 +212,7 @@ public class Calculs {
 	 * de la vision du personnnage.
 	 * @param origine position a partir de laquelle on cherche
 	 * @param voisins liste des voisins
+	 * @param arene
 	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
 	 * @throws RemoteException 
 	 */
@@ -216,10 +244,12 @@ public class Calculs {
 	 * de la vision du personnnage.
 	 * @param origine position a partir de laquelle on cherche
 	 * @param voisins liste des voisins
+	 * @param aren
+	 * @param groupe nom du groupe de l'attaquant
 	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
 	 * @throws RemoteException 
 	 */
-	public static int chercheAdversaireProche(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException {
+	public static int chercheAdversaireProche(Point origine, HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException {
 		int distPlusProche = VISION;
 		int refPlusProche = 0;
 		Element e ;
@@ -228,7 +258,7 @@ public class Calculs {
 		{
 			e = arene.elementFromRef(refVoisin) ;
 
-			if (e instanceof Personnage)
+			if (e instanceof Personnage && !groupe.equals(e.getGroupe()))
 			{
 				Point target = voisins.get(refVoisin);
 				
@@ -242,17 +272,45 @@ public class Calculs {
 		return refPlusProche;
 	}
 	
+	/**
+	 * Cherche l'allié ayant le moins de pv dans la limite
+	 * de la vision du personnnage.
+	 * @param origine position a partir de laquelle on cherche
+	 * @param voisins liste des voisins
+	 * @param aren
+	 * @param groupe nom du groupe de l'attaquant
+	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
+	 * @throws RemoteException 
+	 */
+	public static int chercheAllieProche(Point origine, HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException {
+
+		int refMoinsPv = 0;
+		Element e ;
+		int min = 0 ;
+		
+		for(int refVoisin : voisins.keySet()) 
+		{
+			e = arene.elementFromRef(refVoisin) ;
+			int vieElement = e.getCaract(Caracteristique.VIE);
+			 if (vieElement < min)
+			 {
+				 refMoinsPv = refVoisin;
+			 }
+		}
+		
+		return refMoinsPv;
+	}
+	
 	 /**
-	+	* Cherche l'adversaire ayant le plus grand nombre de pv vers lequel se diriger, dans la limite
-	+	* de la vision du personnnage.
-	+	* @param origine position a partir de laquelle on cherche
-	+	* @param voisins liste des voisins
-	+	* @return reference de l'element le plus proche, 0 si il n'y en a pas
-	+	
-	 * @throws RemoteException */
+	  * Cherche l'adversaire ayant le plus grand nombre de pv vers lequel se diriger, dans la limite
+	  * de la vision du personnnage.e
+	  * @param voisins liste des voisins
+	  * @param arene
+	  * @return reference de l'element le plus proche, 0 si il n'y en a pas	
+	  * @throws RemoteException */
 	
 	
-	 public static int cherchePlusGrandAdversaire(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException 
+	 public static int cherchePlusGrandAdversaire(HashMap<Integer, Point> voisins, IArene arene) throws RemoteException 
 	 {
 	
 		 int refPlusGrand = 0;
@@ -272,7 +330,13 @@ public class Calculs {
 	
 	 	return refPlusGrand;
 	 }
-	 
+	 /**
+	  * TODO
+	  * Simulation d'un duel 
+	  * @param e1 joueur 1
+	  * @param e2 joueur 2
+	  * @return true si joueur 1 gagne, false sinon
+	  */
 	 public boolean vainqueurDuel (Element e1, Element e2)
 	 {
 		 if ((e1.getCaract(Caracteristique.VIE) < e2.getCaract(Caracteristique.VIE)) || (e1.getCaract(Caracteristique.FORCE) < e2.getCaract(Caracteristique.FORCE)))

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
 
+import client.Fuyard;
 import client.Kamikaze;
 import client.Pochtron;
 import client.StrategiePersonnage;
@@ -78,9 +79,10 @@ public class LancePersonnage {
 					Calculs.valeurCaracAleatoire(Caracteristique.FORCE)); 
 			
 			Point position = Calculs.positionAleatoireArene();
+			Point position2 = Calculs.positionAleatoireArene();
 			
-			new Pochtron(ipArene, port, ipConsole, "Pochtron", groupe, caracts, nbTours, position, logger);
-			new StrategiePersonnage(ipArene, port, ipConsole, "Poutine", groupe, caracts, nbTours, position, logger);
+			new Fuyard(ipArene, port, ipConsole, "Baltringue", groupe, caracts, nbTours, position, logger);
+			new StrategiePersonnage(ipArene, port, ipConsole, "Poutine", groupe, caracts, nbTours, position2, logger);
 			logger.info("Lanceur", "Creation du personnage reussie");
 			
 		} catch (Exception e) {
