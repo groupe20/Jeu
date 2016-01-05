@@ -708,6 +708,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		VuePotion vuePotion = potions.get(refPotion);
 		
 		Personnage perso = vuePersonnage.getElement();
+		int invPerso = perso.getCaract(Caracteristique.INVENTAIRE);
 
 		if (vuePersonnage.isActionExecutee()) {
 			// si une action a deja ete executee
@@ -719,7 +720,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			
 			// on teste la distance entre le personnage et la potion
 			if (distance <= Constantes.DISTANCE_MIN_INTERACTION) {
-				if (perso.inventaire == null) {
+				if (invPerso == 0) {
 					new Stockage(this, vuePersonnage, vuePotion).interagit();
 					personnages.get(refRMI).executeAction();
 

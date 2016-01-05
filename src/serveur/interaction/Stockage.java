@@ -39,43 +39,35 @@ public class Stockage extends Interaction<VuePotion> {
 	
 	@Override
 	public void interagit() {
-		try {
-			Personnage pAttaquant = attaquant.getElement();
-			Potion pPotion = defenseur.getElement();
+		Personnage pAttaquant = attaquant.getElement();
+		Potion pPotion = defenseur.getElement();
 
+		
+		logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de stocker " + 
+				Constantes.nomRaccourciClient(defenseur));
+		
+		// si le personnage est vivant
+		if(attaquant.getElement().estVivant()) {
+
+			// caracteristiques de la potion
+			HashMap<Caracteristique, Integer> valeursPotion = defenseur.getElement().getCaracts();
 			
-			logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de stocker " + 
-					Constantes.nomRaccourciClient(defenseur));
-			
-			// si le personnage est vivant
-			if(attaquant.getElement().estVivant()) {
-
-				// caracteristiques de la potion
-				HashMap<Caracteristique, Integer> valeursPotion = defenseur.getElement().getCaracts();
-				
-				// Stockage de la potion
-				if (pAttaquant.inventaire == null){
-					pAttaquant.inventaire = pPotion;
-				}
-				
-
+			// Stockage de la potion
+			if (pAttaquant.getCaract(Caracteristique.INVENTAIRE) == 0){
+				pAttaquant.inventaire = pPotion;
+				pAttaquant.incrementeCaract(Caracteristique.INVENTAIRE, 1);
+				//arene.incrementeCaractElement(attaquant, INVENTAIRE, 1);
 				logs(Level.INFO, "Potion stockée !");
-				
-				// test si mort
-				if(!attaquant.getElement().estVivant()) {
-					arene.setPhrase(attaquant.getRefRMI(), "Je me suis empoisonne, je meurs ");
-					logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
-				}
-				
-				// suppression de la potion
-				arene.ejectePotion(defenseur.getRefRMI());
-				
-			} else {
-				logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " ou " + 
-						Constantes.nomRaccourciClient(defenseur) + " est deja mort... Rien ne se passe");
+
 			}
-		} catch (RemoteException e) {
-			logs(Level.INFO, "\nErreur lors d'un ramassage : " + e.toString());
+		
+			
+			// suppression de la potion
+			arene.ejectePotion(defenseur.getRefRMI());
+			
+		} else {
+			logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " ou " + 
+					Constantes.nomRaccourciClient(defenseur) + " est deja mort... Rien ne se passe");
 		}
 	}
 }

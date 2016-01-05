@@ -21,7 +21,6 @@ public class ThreadPotion extends Thread {
 		try {
 			this.a.ajoutePotion(this.p,Calculs.positionAleatoireArene());
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

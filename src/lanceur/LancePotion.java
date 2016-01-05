@@ -18,7 +18,7 @@ public class LancePotion {
 	public static void main(String[] args) {
 		String nom = "Anduril";
 		
-		String groupe = "G20"; 
+		String groupe = "1"; 
 	
 		
 		// init des arguments
