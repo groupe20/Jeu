@@ -11,7 +11,6 @@ import serveur.IArene;
 import serveur.element.Caracteristique;
 import serveur.element.Element;
 import serveur.element.Personnage;
-import serveur.element.Potion;
 import utilitaires.Calculs;
 import utilitaires.Constantes;
 
@@ -95,12 +94,15 @@ public class Pochtron extends Perso {
 		} 
 		else
 		{
-			int refCibleAdv = Calculs.chercheAdversaireProche(position, voisins, arene);
+			Element player = arene.elementFromRef(refRMI) ;
+        	String gr = player.getGroupe() ;
+        	
+			int refCibleAdv = Calculs.chercheAdversaireProche(position, voisins, arene, gr);
 			int distPlusProcheAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAdv));
 
 			Element advPlusProche = arene.elementFromRef(refCibleAdv);
 
-			if (Calculs.potionPresente(position, voisins, arene))
+			if (Calculs.potionPresente(voisins, arene))
 			{
 				
 				int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);

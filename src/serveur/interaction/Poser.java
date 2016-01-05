@@ -4,6 +4,7 @@ import lanceur.ErreurLancement;
 import serveur.Arene;
 import serveur.element.Personnage;
 import serveur.vuelement.VuePersonnage;
+import utilitaires.Calculs;
 
 public class Poser {
 
@@ -22,8 +23,9 @@ public class Poser {
 		
 		try{
 		// ajout de la potion
-		this.arene.ajoutePotion(p.getInventaire(),this.personnage.getPosition());
+			new ThreadPotion("p",this.arene,p.inventaire).start();
 		//logger.info("Lanceur", "Lancement de la potion reussi");
+		//arene.setPhrase(personnage.getRefRMI(), "J'ai posé la potion!!! ");
 		}
 		catch (Exception e) {
 			//logger.severe("Lanceur", "Erreur lancement :\n" + e.getCause());

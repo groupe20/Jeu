@@ -10,7 +10,6 @@ import logger.LoggerProjet;
 import serveur.IArene;
 import serveur.element.Caracteristique;
 import serveur.element.Element;
-import serveur.element.Personnage;
 import utilitaires.Calculs;
 import utilitaires.Constantes;
 
@@ -87,7 +86,7 @@ public class Kamikaze extends Perso {
 		} 
 		else
 		{
-			int refCible = Calculs.cherchePlusGrandAdversaire(position, voisins, arene);
+			int refCible = Calculs.cherchePlusGrandAdversaire(voisins, arene);
 			int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
 			Element elemPlusGrandAdv = arene.elementFromRef(refCible);
