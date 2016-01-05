@@ -80,14 +80,20 @@ public class Kamikaze extends Perso {
 			e.printStackTrace();
 		}
 		
-		if (voisins.isEmpty()) { // je n'ai pas de voisins, j'erre
+		Element player = arene.elementFromRef(refRMI) ;
+    	String gr = player.getGroupe() ;
+		
+		if (!Calculs.adversairePresent(voisins, arene, gr)) 
+		{ // je n'ai pas d'adversaires, j'erre
 			console.setPhrase("J'erre...");
 			arene.deplace(refRMI, 0); 
 			
 		} 
 		else
 		{
-			int refCible = Calculs.cherchePlusGrandAdversaire(voisins, arene);
+
+        	
+			int refCible = Calculs.cherchePlusGrandAdversaire(voisins, arene, gr);
 			int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
 			Element elemPlusGrandAdv = arene.elementFromRef(refCible);
