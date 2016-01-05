@@ -24,9 +24,7 @@ public abstract class Perso {
      * @param position position initiale du personnage dans l'arene
      * @param logger gestionnaire de log
      */
-    
-        
-    
+   
     
     /** 
      * Decrit la strategie.

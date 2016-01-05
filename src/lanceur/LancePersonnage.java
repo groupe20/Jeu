@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
 
+import client.Fuyard;
+import client.Intello;
 import client.Kamikaze;
+import client.Perso;
 import client.Pochtron;
 import client.StrategiePersonnage;
 import logger.LoggerProjet;
@@ -21,12 +24,9 @@ public class LancePersonnage {
 	
 	private static String usage = "USAGE : java " + LancePersonnage.class.getName() + " [ port [ ipArene ] ]";
 
-	public static void main(String[] args) {
-		String nom = "Poutine";
-		
-		// TODO remplacer la ligne suivante par votre numero de groupe
-		String groupe = "G" + 20; 
-		
+	public static void main(String p, String nom, String groupe) {
+
+				
 		// nombre de tours pour ce personnage avant d'etre deconnecte 
 		// (30 minutes par defaut)
 		// si negatif, illimite
@@ -36,28 +36,10 @@ public class LancePersonnage {
 		int port = Constantes.PORT_DEFAUT;
 		String ipArene = Constantes.IP_DEFAUT;
 		
-		if (args.length > 0) {
-			if (args[0].equals("--help") || args[0].equals("-h")) {
-				ErreurLancement.aide(usage);
-			}
-			
-			if (args.length > 2) {
-				ErreurLancement.TROP_ARGS.erreur(usage);
-			}
-			
-			try {
-				port = Integer.parseInt(args[0]);
-			} catch (NumberFormatException e) {
-				ErreurLancement.PORT_NAN.erreur(usage);
-			}
-			
-			if (args.length > 1) {
-				ipArene = args[1];
-			}
-		}
 		
 		// creation du logger
-		LoggerProjet logger = null;
+		LoggerProjet logger = null;		
+		
 		try {
 			logger = new LoggerProjet(true, "personnage_" + nom + groupe);
 		} catch (IOException e) {
@@ -79,8 +61,24 @@ public class LancePersonnage {
 			
 			Point position = Calculs.positionAleatoireArene();
 			
-			new Pochtron(ipArene, port, ipConsole, "Pochtron", groupe, caracts, nbTours, position, logger);
-			new StrategiePersonnage(ipArene, port, ipConsole, "Poutine", groupe, caracts, nbTours, position, logger);
+			switch (p){
+			case "Pochtron":
+				new Pochtron(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
+				break;
+			case "StrategiePersonnage":
+				new StrategiePersonnage(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
+				break;
+			case "Intello":
+				new Intello(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
+				break;
+			case "Kamikaze":
+				new Kamikaze(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
+				break;
+			case "Fuyard":
+				new Fuyard(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
+				break;
+			}
+			
 			logger.info("Lanceur", "Creation du personnage reussie");
 			
 		} catch (Exception e) {
@@ -89,4 +87,7 @@ public class LancePersonnage {
 			System.exit(ErreurLancement.suivant);
 		}
 	}
+
+
+
 }

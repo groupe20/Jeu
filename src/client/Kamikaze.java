@@ -17,7 +17,7 @@ import utilitaires.Constantes;
 /**
  * Personnage qui attaque les personnages qui ont le plus de vie
  */
-public class Kamikaze extends StrategiePersonnage {
+public class Kamikaze extends Perso {
 	
 	/**
 	 * Console permettant d'ajouter une phrase et de recuperer le serveur 
@@ -39,9 +39,19 @@ public class Kamikaze extends StrategiePersonnage {
 	public Kamikaze(String ipArene, int port, String ipConsole, 
 			String nom, String groupe, HashMap<Caracteristique, Integer> caracts,
 			int nbTours, Point position, LoggerProjet logger) {
-		
-		super(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger) ;
-
+		        
+        logger.info("Lanceur", "Creation de la console...");
+        
+        try {
+            console = new Console(ipArene, port, ipConsole, this, 
+                    new Personnage(nom, groupe, caracts), 
+                    nbTours, position, logger);
+            logger.info("Lanceur", "Creation de la console reussie");
+            
+        } catch (Exception e) {
+            logger.info("Personnage", "Erreur lors de la creation de la console : \n" + e.toString());
+            e.printStackTrace();
+        }
 	}
 
 	// TODO etablir une strategie afin d'evoluer dans l'arene de combat
@@ -87,9 +97,7 @@ public class Kamikaze extends StrategiePersonnage {
 				// j'interagis directement
 				// duel
 				console.setPhrase("Je fais un duel avec " + elemPlusGrandAdv.getNom());
-				arene.lanceAttaque(refRMI, refCible);
-
-				
+				arene.lanceAttaque(refRMI, refCible);				
 				
 			} 
 			else 
