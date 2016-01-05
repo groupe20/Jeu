@@ -50,10 +50,13 @@ public class Ramassage extends Interaction<VuePotion> {
                     p.y = (int)(Math.random() * (Constantes.YMAX_ARENE-Constantes.YMIN_ARENE)) + Constantes.YMIN_ARENE;
                     arene.deplace(attaquant.getRefRMI(), p);
                 }
-                if (Potion.getNom().equals("invisible")) {
-                    arene.setPhrase(attaquant.getRefRMI(), "Je deviens invisible ");
-                
+                if (Potion.getNom().equals("immobilité")) {
+                    arene.setPhrase(attaquant.getRefRMI(), "Je deviens immobile");
+                    arene.deplace(attaquant.getRefRMI(), attaquant.getPosition());
                 }
+
+                
+                
 
 				if (Potion.getNom().equals("invincible")) {
 					//invincible

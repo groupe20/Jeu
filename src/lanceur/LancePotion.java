@@ -91,7 +91,7 @@ public class LancePotion {
 			case 3 : caractsPotion.put(Caracteristique.VIE, 0);
 			 		 caractsPotion.put(Caracteristique.FORCE, 0);
 			 		 caractsPotion.put(Caracteristique.INITIATIVE, 0); 
-			 		 potion=new Potion("invisible", groupe, caractsPotion);
+			 		 potion=new Potion("immobilité", groupe, caractsPotion);
 			 		 break;
 			}
 			
