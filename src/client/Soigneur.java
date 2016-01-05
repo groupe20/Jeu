@@ -102,8 +102,7 @@ public class Soigneur extends Perso {
 	            {
 	            	//si a portee, je le soigne
 	            	console.setPhrase("Je soigne " + allieMoinsPv.getNom());
-					//TODO
-	            	//arene.soigner(refRMI,refCibleAllie);
+	            	arene.lanceSoin(refRMI,refCibleAllie);
 	            }
 	            else
 	            {

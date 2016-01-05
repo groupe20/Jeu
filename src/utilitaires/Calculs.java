@@ -292,7 +292,7 @@ public class Calculs {
 		{
 			e = arene.elementFromRef(refVoisin) ;
 			int vieElement = e.getCaract(Caracteristique.VIE);
-			 if (vieElement < min && groupe.equals(e.getGroupe()))
+			 if (vieElement < min && groupe.equals(e.getGroupe()) && e instanceof Personnage)
 			 {
 				 refMoinsPv = refVoisin;
 			 }
