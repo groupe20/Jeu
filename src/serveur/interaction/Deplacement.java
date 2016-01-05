@@ -50,8 +50,8 @@ public class Deplacement {
 	public void seDirigeVers(int refObjectif) throws RemoteException {
 		Point pvers;
 
-		// on ne bouge que si la reference n'est pas la notre
-		if (refObjectif != personnage.getRefRMI()) {
+		// on ne bouge que si la reference n'est pas la notre et que l'on est pas immobile
+		if ((refObjectif != personnage.getRefRMI()) && (this.personnage.getElement().nbToursImm == 0)) {
 			
 			// la reference est nulle (en fait, nulle ou negative) : 
 			// le personnage erre
@@ -68,6 +68,9 @@ public class Deplacement {
 			if(pvers != null) {
 				seDirigeVers(pvers);
 			}
+		}
+		else{
+			this.personnage.getElement().nbToursImm--;
 		}
 	}
 

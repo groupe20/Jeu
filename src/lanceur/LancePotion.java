@@ -65,7 +65,7 @@ public class LancePotion {
 			
 			Potion potion = null;
 			int lower = 0;
-			int higher = 3;
+			int higher = 4;
 
 			int typePotion = (int)(Math.random() * (higher-lower)) + lower;
 

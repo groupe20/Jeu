@@ -24,10 +24,12 @@ public class Personnage extends Element {
 	 */
 	
 	public Potion inventaire;
+	public int nbToursImm;
 	
 	public Personnage(String nom, String groupe, HashMap<Caracteristique, Integer> caracts) {
 		super(nom, groupe, caracts);
 		this.inventaire = null;
+		this.nbToursImm=0;
 	}
 	
 	/**
