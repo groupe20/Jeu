@@ -39,6 +39,8 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 
 	private static final long serialVersionUID = -354976419811607146L;
 
+	private static final Caracteristique INVENTAIRE = null;
+
 	/**
 	 * Port a utiliser pour la connexion.
 	 */
@@ -719,7 +721,8 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			if (distance <= Constantes.DISTANCE_MIN_INTERACTION) {
 				if (perso.inventaire == null) {
 					new Stockage(this, vuePersonnage, vuePotion).interagit();
-					personnages.get(refRMI).executeAction();				
+					personnages.get(refRMI).executeAction();
+
 					res = true;
 				} else {
 					new Ramassage(this, vuePersonnage, vuePotion).interagit();
@@ -909,6 +912,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		// increment de la caracteristique
 		pers.incrementeCaract(carac, increment);
 		
+			
 		if(pers.estVivant()) {
 			if (increment < 0) {
 				console.log(Level.INFO, Constantes.nomClasse(this), "J'ai perdu " + -increment + " points de " + carac);
@@ -923,6 +927,8 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			}
 		}
 	}
+	
+
 	
 	public LoggerProjet getLogger() {
 		return logger;

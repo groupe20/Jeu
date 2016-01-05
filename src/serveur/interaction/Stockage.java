@@ -22,6 +22,8 @@ import utilitaires.Constantes;
 
 public class Stockage extends Interaction<VuePotion> {
 	
+	private static final Caracteristique INVENTAIRE = null;
+
 	/**
 	 * Cree une interaction de stockage.
 	 * @param arene arene
@@ -56,6 +58,7 @@ public class Stockage extends Interaction<VuePotion> {
 					pAttaquant.inventaire = pPotion;
 				}
 				
+
 				logs(Level.INFO, "Potion stockée !");
 				
 				// test si mort

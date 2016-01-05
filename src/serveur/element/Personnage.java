@@ -21,6 +21,7 @@ public class Personnage extends Element {
 	 * @param nom du personnage
 	 * @param groupe d'etudiants du personnage
 	 * @param caracts caracteristiques du personnage
+	 * @param inventaire permet de stocker une potion
 	 */
 	
 	public Potion inventaire;
@@ -47,6 +48,7 @@ public class Personnage extends Element {
 		}
 	}
 	
+	
 	/**
 	 * Tue ce personnage en mettant son nombre de points de vie a 0.
 	 */
@@ -71,6 +73,9 @@ public class Personnage extends Element {
 		return inventaire;
 	}
 	
+	/**
+	 * Vide l'inventaire du personnage
+	 */
 	public void suppInventaire(){
 		this.inventaire=null;
 	}

@@ -22,7 +22,6 @@ import utilitaires.Constantes;
  */
 public class LancePersonnage {
 	
-	private static String usage = "USAGE : java " + LancePersonnage.class.getName() + " [ port [ ipArene ] ]";
 
 	public static void main(String p, String nom, String groupe) {
 
