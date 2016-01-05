@@ -21,6 +21,7 @@ import serveur.element.Caracteristique;
 import serveur.element.Element;
 import serveur.element.Personnage;
 import serveur.element.Potion;
+import serveur.interaction.Attaque_Critique;
 import serveur.interaction.Deplacement;
 import serveur.interaction.Duel;
 import serveur.interaction.Poser;
@@ -796,8 +797,17 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 					logger.info(Constantes.nomClasse(this), nomRaccourciClient(refRMI) + 
 							" attaque " + nomRaccourciClient(consoleAdv.getRefRMI()));
 			
-					new Duel(this, client, clientAdv).interagit();
-					personnages.get(refRMI).executeAction();
+					
+					if (client.getElement().getCaract(Caracteristique.FUREUR) == 50){
+						
+						new Attaque_Critique(this,client,clientAdv).interagit();
+						personnages.get(refRMI).executeAction();
+					}
+					else{
+						
+						new Duel(this, client, clientAdv).interagit();
+						personnages.get(refRMI).executeAction();
+					}
 					
 					// si l'adversaire est mort
 					if (!persAdv.estVivant()) {

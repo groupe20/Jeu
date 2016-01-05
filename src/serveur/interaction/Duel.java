@@ -32,10 +32,13 @@ public class Duel extends Interaction<VuePersonnage> {
 		try {
 			Personnage pAttaquant = attaquant.getElement();
 			Personnage pDefenseur = defenseur.getElement();
+			
 			int forceAttaquant = pAttaquant.getCaract(Caracteristique.FORCE);
 			int initAttaquant = pAttaquant.getCaract(Caracteristique.INITIATIVE);
 			int initDefenseur = pDefenseur.getCaract(Caracteristique.INITIATIVE);
-			int perteVie = forceAttaquant;
+			int defDefenseur = pDefenseur.getCaract(Caracteristique.DEFENSE);
+			
+			int perteVie = forceAttaquant*(defDefenseur/100);
 		
 			Point positionEjection = positionEjection(defenseur.getPosition(), attaquant.getPosition(), forceAttaquant);
 
@@ -46,12 +49,6 @@ public class Duel extends Interaction<VuePersonnage> {
 			
 			//possibilité d'esquive
 			if(initDefenseur < (initAttaquant+50)){
-
-
-				//possibilité de bloquer le coup
-				if(initDefenseur > 50) {
-					perteVie=perteVie/2;
-				}
 		
 				// degats
 				if (perteVie > 0) {
@@ -64,6 +61,10 @@ public class Duel extends Interaction<VuePersonnage> {
 				// initiative
 				incrementeInitiative(defenseur);
 				decrementeInitiative(attaquant);
+				arene.incrementeCaractElement(defenseur, Caracteristique.DEFENSE, -10);
+				arene.incrementeCaractElement(defenseur, Caracteristique.FUREUR, 10);
+
+
 				
 			}
 			else {
@@ -103,7 +104,7 @@ public class Duel extends Interaction<VuePersonnage> {
 	 * @param forceAtt force de l'attaquant
 	 * @return position d'ejection du personnage
 	 */
-	private Point positionEjection(Point posDefenseur, Point positionAtt, int forceAtt) {
+	protected Point positionEjection(Point posDefenseur, Point positionAtt, int forceAtt) {
 		int distance = forceVersDistance(forceAtt);
 		
 		// abscisses 

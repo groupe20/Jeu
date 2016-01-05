@@ -26,7 +26,17 @@ public enum Caracteristique {
 	/**
 	 * Inventaire : Permet de stocker une potion. 
 	 */
-	INVENTAIRE("Inventaire", "INV", 0, 1, 0);
+	INVENTAIRE("Inventaire", "INV", 0, 1, 0),
+	
+	/**
+	 * Fureur : permet de réaliser une attaque critique
+	 */
+	FUREUR("Fureur", "FUR", 0, 50, 0),
+	
+	/**
+	 * Defense : pourcentage de dégâts pouvant être bloqués
+	 */
+	DEFENSE("Defense", "DEF", 0, 50, 50);
 	
 	/**
 	 * Nom complet.
