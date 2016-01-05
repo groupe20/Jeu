@@ -292,7 +292,7 @@ public class Calculs {
 		{
 			e = arene.elementFromRef(refVoisin) ;
 			int vieElement = e.getCaract(Caracteristique.VIE);
-			 if (vieElement < min)
+			 if (vieElement < min && groupe.equals(e.getGroupe()))
 			 {
 				 refMoinsPv = refVoisin;
 			 }
@@ -310,7 +310,7 @@ public class Calculs {
 	  * @throws RemoteException */
 	
 	
-	 public static int cherchePlusGrandAdversaire(HashMap<Integer, Point> voisins, IArene arene) throws RemoteException 
+	 public static int cherchePlusGrandAdversaire(HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException 
 	 {
 	
 		 int refPlusGrand = 0;
@@ -322,7 +322,7 @@ public class Calculs {
 		 {
 			 e = arene.elementFromRef(refVoisin) ;
 			 int vieElement = e.getCaract(Caracteristique.VIE);
-			 if (vieElement > max)
+			 if (vieElement > max && !groupe.equals(e.getGroupe()))
 			 {
 				 refPlusGrand = refVoisin;
 			 }
