@@ -10,13 +10,16 @@ import logger.LoggerProjet;
 import serveur.IArene;
 import serveur.element.Caracteristique;
 import serveur.element.Element;
+import serveur.element.Personnage;
+import serveur.element.Potion;
 import utilitaires.Calculs;
 import utilitaires.Constantes;
 
+
 /**
- * Personnage qui va vers les potions
+ * Personnage qui va uniquement vers les potions
  */
-public class Pochtron extends StrategiePersonnage {
+public class Pochtron extends Perso {
 	
 	/**
 	 * Console permettant d'ajouter une phrase et de recuperer le serveur 
@@ -42,11 +45,22 @@ public class Pochtron extends StrategiePersonnage {
 			String nom, String groupe, HashMap<Caracteristique, Integer> caracts,
 			int nbTours, Point position, LoggerProjet logger) {
 		
-		super(ipArene, port, ipConsole, 
-				 nom,  groupe,  caracts,
-				 nbTours,  position,  logger);
-
+		logger.info("Lanceur", "Creation de la console...");
+		
+		try {
+			console = new Console(ipArene, port, ipConsole, this, 
+					new Personnage(nom, groupe, caracts), 
+					nbTours, position, logger);
+			logger.info("Lanceur", "Creation de la console reussie");
+			
+		} catch (Exception e) {
+			logger.info("Personnage", "Erreur lors de la creation de la console : \n" + e.toString());
+			e.printStackTrace();
+		}
 	}
+
+
+
 
 	// TODO etablir une strategie afin d'evoluer dans l'arene de combat
 	// une proposition de strategie (simple) est donnee ci-dessous
@@ -78,32 +92,41 @@ public class Pochtron extends StrategiePersonnage {
 			console.setPhrase("J'erre...");
 			arene.deplace(refRMI, 0); 
 			
-		} 
-		else
-		{
+		} else {
 			int refCible = Calculs.cherchePotionProche(position, voisins, arene);
 			int distPlusProche = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
-			Element potPlusProche = arene.elementFromRef(refCible);
+			Element elemPlusProche = arene.elementFromRef(refCible);
 
-			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION)
-			{ // si suffisamment proches
+			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION) { // si suffisamment proches
 				// j'interagis directement
+				if(elemPlusProche instanceof Potion) { // potion
 					// ramassage
 					console.setPhrase("Je ramasse une potion");
 					arene.ramassePotion(refRMI, refCible);
 
+				} /*else { // personnage
+					// duel
+					console.setPhrase("Je fais un duel avec " + elemPlusProche.getNom());
+					arene.deplace(refRMI, 0); 
+
+				}*/
 				
-				
-			} 
-			else 
-			{ // si voisins, mais plus eloignes
+			} else { // si voisins, mais plus eloignes
 				// je vais vers le plus proche
-				console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
-				arene.deplace(refRMI, refCible);
+				if(elemPlusProche instanceof Potion) { // potion
+					console.setPhrase("Je vais vers mon voisin " + elemPlusProche.getNom());
+					arene.deplace(refRMI, refCible);
+				}else {
+					arene.deplace(refRMI, 0); 
+				}
+					
+				}
 			}
 		}
 	}
 
 	
-}
+
+
+

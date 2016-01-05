@@ -19,7 +19,7 @@ import utilitaires.Constantes;
  * Strategie d'un personnage. 
  */
 
-public class StrategiePersonnage {
+public class StrategiePersonnage extends Perso {
 	
 	/**
 	 * Console permettant d'ajouter une phrase et de recuperer le serveur 

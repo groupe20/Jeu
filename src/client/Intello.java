@@ -15,7 +15,7 @@ import utilitaires.Calculs;
 import utilitaires.Constantes;
 
 /**
- * Strategie d'un personnage. 
+ * Strategie d'un personnage intelligent. 
  */
 public class Intello extends StrategiePersonnage {
 	

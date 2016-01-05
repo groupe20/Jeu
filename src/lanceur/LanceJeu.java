@@ -17,14 +17,15 @@ public class LanceJeu {
 		LanceIHM.main(args);
 		LancePersonnage.main(args);
 		LancePersonnage.main(args);
+		LancePersonnage.main(args);
 
+		
 		LancePotion.main(args);
 		LancePotion.main(args);
 		LancePersonnage.main(args);
 
 		LancePotion.main(args);
-		LancePotion.main(args);
-		LancePotion.main(args);
+
 
 
 	}
