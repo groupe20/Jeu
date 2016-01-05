@@ -194,6 +194,11 @@ public class Calculs {
 	 
 	 public boolean vainqueurDuel (Element e1, Element e2)
 	 {
+		 if ((e1.getCaract(Caracteristique.VIE) < e2.getCaract(Caracteristique.VIE)) || (e1.getCaract(Caracteristique.FORCE) < e2.getCaract(Caracteristique.FORCE)))
+		 {
+			 return false ;
+		 }
+		 
 		 return true ;
 	 }
 	/**
