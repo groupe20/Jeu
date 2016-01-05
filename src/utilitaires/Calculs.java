@@ -154,6 +154,31 @@ public class Calculs {
 		
 		return false ;
 	}
+	
+	/**
+	 * Vérifie s'il y a un adversaire présent parmis la liste de voisins
+	 * @param origine position a partir de laquelle on cherche
+	 * @param voisins liste des voisins
+	 * @return boolean
+	 * @throws RemoteException 
+	 */
+	
+	public static boolean adversairePresent(Point origine, HashMap<Integer, Point> voisins, IArene arene) throws RemoteException
+	{
+		Element e ;
+		
+		for(int refVoisin : voisins.keySet()) 
+		{
+			e = arene.elementFromRef(refVoisin) ;
+
+			if (e instanceof Personnage)
+			{
+				return true ;
+			}
+		}
+		
+		return false ;
+	}
 	 
 	/**
 	 * Cherche la potion la plus proche dans la limite

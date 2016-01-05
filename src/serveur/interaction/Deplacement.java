@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import serveur.vuelement.VuePersonnage;
 import utilitaires.Calculs;
+import utilitaires.Constantes;
 
 /**
  * Represente le deplacement d'un personnage.
@@ -72,30 +73,63 @@ public class Deplacement {
 
 	
 	public void seloignerDe(int refObjectif) throws RemoteException {
-		Point paway;
+        Point pVoisin;
+        Point paway = null;
+        
+        Point pPerso = personnage.getPosition();
+        
+        // on ne bouge que si la reference n'est pas la notre
+        if (refObjectif != personnage.getRefRMI()) {
+            
+            // la reference est nulle (en fait, nulle ou negative) : 
+            // le personnage erre
+            if (refObjectif <= 0) { 
+                paway = Calculs.positionAleatoireArene();
+                        
+            }
+                // sinon :
+                // la cible devient le point sur lequel se trouve l'element objectif
+                pVoisin = voisins.get(refObjectif);
+    
+            // on ne bouge que si l'element existe
+            if(pVoisin != null) {
+                if ((pPerso.x <= pVoisin.x) && (pPerso.x > Constantes.XMIN_ARENE+1 )){
+                    pPerso.x --;
+                }
+                else if ((pPerso.x >= pVoisin.x) && (pPerso.x < Constantes.XMAX_ARENE-1 )){
+                    pPerso.x ++;
+                }
+            
+                if ((pPerso.y <= pVoisin.y) && (pPerso.y > Constantes.YMIN_ARENE+1 )){
+                    pPerso.y --;
+                }
+                else if ((pPerso.y >= pVoisin.y) &&(pPerso.y < Constantes.YMAX_ARENE-1)){
+                    pPerso.y ++;
+                }
+                
+                if ((pPerso.x == Constantes.XMAX_ARENE) && (pPerso.y == Constantes.YMAX_ARENE)) {
+                    pPerso.x --;
+                    pPerso.y --;
+                }
+                else if ((pPerso.x == Constantes.XMAX_ARENE) && (pPerso.y == Constantes.YMIN_ARENE)) {
+                    pPerso.x --;
+                    pPerso.y ++;
+                }
+                else if ((pPerso.x == Constantes.XMIN_ARENE) && (pPerso.y == Constantes.YMIN_ARENE)) {
+                    pPerso.x ++;
+                    pPerso.y ++;
+                }
+                else if ((pPerso.x == Constantes.XMIN_ARENE) && (pPerso.y == Constantes.YMAX_ARENE)) {
+                    pPerso.x ++;
+                    pPerso.y --;
+                }
+                paway.x=-pPerso.x;
+                paway.y=-pPerso.y;
+                seDirigeVers(paway);
+            }
+        }
+    }
 
-		// on ne bouge que si la reference n'est pas la notre
-		if (refObjectif != personnage.getRefRMI()) {
-			
-			// la reference est nulle (en fait, nulle ou negative) : 
-			// le personnage erre
-			if (refObjectif <= 0) { 
-				paway = Calculs.positionAleatoireArene();
-						
-			} else { 
-				// sinon :
-				// la cible devient le point sur lequel se trouve l'element objectif
-				paway = voisins.get(refObjectif);
-			}
-	
-			// on ne bouge que si l'element existe
-			if(paway != null) {
-				paway.x=-paway.x;
-				paway.y=-paway.y;
-				seDirigeVers(paway);
-			}
-		}
-	}
 
 	
 	/**
