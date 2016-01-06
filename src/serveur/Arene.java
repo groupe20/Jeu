@@ -700,6 +700,92 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		
 		logElements();
 	}
+	
+	@Override
+	public boolean stockPotion(int refRMI, int refPotion) throws RemoteException
+	{
+		boolean res = false ;
+		
+		VuePersonnage vuePersonnage = personnages.get(refRMI) ;
+		VuePotion vuePotion = potions.get(refPotion) ;
+		
+		Personnage perso = vuePersonnage.getElement() ;
+		int invPerso = perso.getCaract(Caracteristique.INVENTAIRE);
+		
+		if (vuePersonnage.isActionExecutee())
+		{
+			// si une action a deja ete executee
+			logActionDejaExecutee(refRMI);
+			
+		}
+		else
+		{
+			// sinon, on tente de jouer l'interaction
+			int distance = Calculs.distanceChebyshev(vuePersonnage.getPosition(), vuePotion.getPosition());
+			
+			// on teste la distance entre le personnage et la potion
+			if (distance <= Constantes.DISTANCE_MIN_INTERACTION) 
+			{
+				if (invPerso == 0) 
+				{
+					new Stockage(this, vuePersonnage, vuePotion).interagit();
+					personnages.get(refRMI).executeAction();
+
+					res = true;
+				}
+				else
+				{
+					logger.warning(Constantes.nomClasse(this), nomRaccourciClient(refRMI) + 
+							" a tente de stocker " + vuePotion.getElement().getNom() + 
+							", alors qu'il a l'inventaire plein.");
+				}
+			}
+			else 
+			{
+				logger.warning(Constantes.nomClasse(this), nomRaccourciClient(refRMI) + 
+						" a tente d'interagir avec " + vuePotion.getElement().getNom() + 
+						", alors qu'il est trop eloigne !\nDistance = " + distance);
+			}
+		}
+	
+		return res ;
+	}
+	
+	@Override
+	public boolean boireInv(int refRMI) throws RemoteException {
+	        
+	        boolean res=false;
+	        VuePersonnage vuePersonnage = personnages.get(refRMI);
+	        
+	        Personnage p= vuePersonnage.getElement();
+	        
+	        Potion pot = p.getInventaire();
+	        
+	        if (vuePersonnage.isActionExecutee()) {
+	            // si une action a deja ete executee
+	            logActionDejaExecutee(refRMI);
+	            
+	        } else {
+	                
+	            
+	            if (p.inventaire == null) {
+	                    
+	                personnages.get(refRMI).executeAction();
+	                res = true;
+	            } else {
+	                new BoireInv(this, vuePersonnage, pot).interagit();
+	                personnages.get(refRMI).executeAction();                
+	                res = true;
+	            }
+	        } 
+	        
+	        
+	        return res;
+	        
+	        
+	        
+	}
+
 
 	@Override
 	public boolean ramassePotion(int refRMI, int refPotion) throws RemoteException {
@@ -707,9 +793,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		
 		VuePersonnage vuePersonnage = personnages.get(refRMI);
 		VuePotion vuePotion = potions.get(refPotion);
-		
-		Personnage perso = vuePersonnage.getElement();
-		int invPerso = perso.getCaract(Caracteristique.INVENTAIRE);
+
 
 		if (vuePersonnage.isActionExecutee()) {
 			// si une action a deja ete executee
@@ -720,18 +804,16 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			int distance = Calculs.distanceChebyshev(vuePersonnage.getPosition(), vuePotion.getPosition());
 			
 			// on teste la distance entre le personnage et la potion
-			if (distance <= Constantes.DISTANCE_MIN_INTERACTION) {
-				if (invPerso == 0) {
-					new Stockage(this, vuePersonnage, vuePotion).interagit();
-					personnages.get(refRMI).executeAction();
+			if (distance <= Constantes.DISTANCE_MIN_INTERACTION) 
+			{
 
-					res = true;
-				} else {
 					new Ramassage(this, vuePersonnage, vuePotion).interagit();
 					personnages.get(refRMI).executeAction();				
 					res = true;
-				}
-			} else {
+				
+			}
+			else 
+			{
 				logger.warning(Constantes.nomClasse(this), nomRaccourciClient(refRMI) + 
 						" a tente d'interagir avec " + vuePotion.getElement().getNom() + 
 						", alors qu'il est trop eloigne !\nDistance = " + distance);
@@ -803,8 +885,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 						new Attaque_Critique(this,client,clientAdv).interagit();
 						personnages.get(refRMI).executeAction();
 					}
-					else
-					{
+					else{
 						
 						new Duel(this, client, clientAdv).interagit();
 						personnages.get(refRMI).executeAction();
