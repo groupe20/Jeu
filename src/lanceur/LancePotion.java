@@ -98,6 +98,9 @@ public class LancePotion {
 			 		 potion=new Potion("immobilite", groupe, caractsPotion);
 			 		 break;
 			case 4 : 
+					caractsPotion.put(Caracteristique.VIE, 0);
+			 		caractsPotion.put(Caracteristique.FORCE, 0);
+			 		caractsPotion.put(Caracteristique.INITIATIVE, 0);
 					caractsPotion.put(Caracteristique.VITESSE, 1); 
 					potion=new Potion("nitro", groupe, caractsPotion);
 					break;

@@ -702,7 +702,9 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		logElements();
 	}
 	
-	@Override
+	/**
+	 * Permet de stocker une potion dans son inventaire
+	 */
 	public boolean stockPotion(int refRMI, int refPotion) throws RemoteException
 	{
 		boolean res = false ;
@@ -799,7 +801,9 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 	}
 
 
-	@Override
+/**
+ * Permet de boire la potion directement
+ */
 	public boolean ramassePotion(int refRMI, int refPotion) throws RemoteException {
 		boolean res = false;
 		
@@ -836,7 +840,9 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 	}
 	
 	
-	@Override
+/**
+ * Permet de deposer une potion qui etait en stock 
+ */
 	public boolean deposePotion(int refRMI) throws RemoteException {
 		boolean res=false;
 		VuePersonnage vuePersonnage = personnages.get(refRMI);

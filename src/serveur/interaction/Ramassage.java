@@ -49,6 +49,7 @@ public class Ramassage extends Interaction<VuePotion> {
                     p.x = (int)(Math.random() * (Constantes.XMAX_ARENE-Constantes.XMIN_ARENE)) + Constantes.XMIN_ARENE;
                     p.y = (int)(Math.random() * (Constantes.YMAX_ARENE-Constantes.YMIN_ARENE)) + Constantes.YMIN_ARENE;
                     arene.deplace(attaquant.getRefRMI(), p);
+
                 }
 				else if (Potion.getNom().equals("immobilité")) {
                     arene.setPhrase(attaquant.getRefRMI(), "Je deviens immobile pour 5 tours");
@@ -67,7 +68,9 @@ public class Ramassage extends Interaction<VuePotion> {
 						logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
 					}
 				}
-
+				if (!Potion.getNom().equals("nitro")) {
+	                    attaquant.getElement().getCaracts().put(Caracteristique.VITESSE, 1);
+				}
 				// suppression de la potion
 				arene.ejectePotion(defenseur.getRefRMI());
 				
