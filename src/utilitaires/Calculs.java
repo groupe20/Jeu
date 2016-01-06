@@ -375,6 +375,38 @@ public class Calculs {
 	
 	 	return refPlusGrand;
 	 }
+	 
+	 /**
+	  * Cherche l'adversaire ayant le plus petit nombre de pv vers lequel se diriger, dans la limite
+	  * de la vision du personnnage.e
+	  * @param voisins liste des voisins
+	  * @param arene
+	  * @return reference de l'element le plus proche, 0 si il n'y en a pas	
+	  * @throws RemoteException */
+	
+	
+	 public static int cherchePlusFaibleAdversaire(HashMap<Integer, Point> voisins, IArene arene, String groupe) throws RemoteException 
+	 {
+	
+		 int refPlusFaible = 0;
+		 int max = 100 ;
+		 Element e ;
+	
+	
+		 for(int refVoisin : voisins.keySet())
+		 {
+			 e = arene.elementFromRef(refVoisin) ;
+			 int vieElement = e.getCaract(Caracteristique.VIE);
+			 if (vieElement < max && !groupe.equals(e.getGroupe()) && e instanceof Personnage)
+			 {
+				 refPlusFaible = refVoisin;
+				 max = vieElement;
+			 }
+		 }
+	
+	 	return refPlusFaible;
+	 }
+	 
 	 /**
 	  * TODO
 	  * Simulation d'un duel 

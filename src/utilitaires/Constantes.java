@@ -62,6 +62,12 @@ public class Constantes {
 	public static final int DISTANCE_MIN_INTERACTION = 2;
 
 	/**
+	 * Distance d'interaction 
+	 * pour un crevard
+	 */
+	public static final int DISTANCE_MIN_INTERACTION_CREVARD = 10;
+	
+	/**
 	 * Abscisse minimale de l'arene.
 	 */
 	public static final int XMIN_ARENE = 0;
