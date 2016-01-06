@@ -138,9 +138,9 @@ public class IHM extends JFrame implements Runnable {
 	/**
 	 * Couleurs predefinies.
 	 */
-	public static Color grisFonce = new Color(50, 150, 100);
-	public static Color noir = new Color(66, 66, 66);
-	public static Color grisClair = new Color(100, 200, 0);
+	public static Color grisFonce = new Color(130, 150, 150);
+	public static Color noir = new Color(0, 0, 0);
+	public static Color grisClair = new Color(125, 215, 245);
 
 	/**
 	 * Initialise l'IHM.
