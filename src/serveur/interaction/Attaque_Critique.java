@@ -32,7 +32,7 @@ public class Attaque_Critique extends Duel {
 			Personnage pAttaquant = attaquant.getElement();
 			
 			int forceAttaquant = pAttaquant.getCaract(Caracteristique.FORCE);
-			int fureurAttaquant = pAttaquant.getCaract(Caracteristique.FUREUR);
+			int fureurAttaquant = pAttaquant.getCaract(Caracteristique.CRITIQUE);
 			
 			int perteVie = forceAttaquant + fureurAttaquant;
 		
@@ -52,7 +52,7 @@ public class Attaque_Critique extends Duel {
 			
 				// màj caracteristiques
 				arene.incrementeCaractElement(defenseur, Caracteristique.DEFENSE, -15);
-				arene.incrementeCaractElement(attaquant, Caracteristique.FUREUR, 50);
+				arene.incrementeCaractElement(attaquant, Caracteristique.CRITIQUE, 50);
 
 
 		} catch (RemoteException e) {

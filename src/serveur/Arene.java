@@ -798,7 +798,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 							" attaque " + nomRaccourciClient(consoleAdv.getRefRMI()));
 			
 					
-					if (client.getElement().getCaract(Caracteristique.FUREUR) == 50){
+					if (client.getElement().getCaract(Caracteristique.CRITIQUE) == 50){
 						
 						new Attaque_Critique(this,client,clientAdv).interagit();
 						personnages.get(refRMI).executeAction();

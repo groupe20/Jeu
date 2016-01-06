@@ -62,7 +62,7 @@ public class Duel extends Interaction<VuePersonnage> {
 				incrementeInitiative(defenseur);
 				decrementeInitiative(attaquant);
 				arene.incrementeCaractElement(defenseur, Caracteristique.DEFENSE, -10);
-				arene.incrementeCaractElement(defenseur, Caracteristique.FUREUR, 10);
+				arene.incrementeCaractElement(defenseur, Caracteristique.CRITIQUE, 10);
 
 
 				

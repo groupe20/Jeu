@@ -31,12 +31,17 @@ public enum Caracteristique {
 	/**
 	 * Fureur : permet de réaliser une attaque critique
 	 */
-	FUREUR("Fureur", "FUR", 0, 50, 0),
+	CRITIQUE("Critique", "CRIT", 0, 50, 0),
 	
 	/**
 	 * Defense : pourcentage de dégâts pouvant être bloqués
 	 */
-	DEFENSE("Defense", "DEF", 0, 50, 50);
+	DEFENSE("Defense", "DEF", 0, 50, 50),
+	
+	/**
+	 * Vitesse : vitesse de déplacement
+	 */
+	VITESSE("Vitesse", "VIT", 1, 3, 1);
 	
 	/**
 	 * Nom complet.
