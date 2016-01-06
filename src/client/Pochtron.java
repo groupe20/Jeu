@@ -119,52 +119,51 @@ public class Pochtron extends Perso {
 				
 				Element potPlusProche = arene.elementFromRef(refCiblePot);
 
-				if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
-				{ // si suffisamment proches
-					// j'interagis directement
-						// ramassage
-						console.setPhrase("Je ramasse une potion");
-						arene.ramassePotion(refRMI, refCiblePot);	
-				} 
-				else 
-				{ // si voisins, mais plus eloignes
-					// je vais vers le plus proche
-					console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());
-					arene.deplace(refRMI, refCiblePot);
+				if(adv && (distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION))
+				{	//si par hasard, je suis à portée de duel, je fais le duel
+					console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
+					arene.lanceAttaque(refRMI, refCibleAdv);
+				}
+				else
+				{
+					if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
+					{ // si suffisamment proches
+						// j'interagis directement
+							// ramassage
+							console.setPhrase("Je ramasse une potion");
+							arene.ramassePotion(refRMI, refCiblePot);	
+					} 
+					else 
+					{ // si voisins, mais plus eloignes
+						// je vais vers le plus proche
+						console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());
+						arene.deplace(refRMI, refCiblePot);
+					}
 				}
 				
-				/*if (adv)
-				{
-					if(distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION)
-					{	//si par hasard, je suis à portée de duel, je fais le duel
-						console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
-						arene.lanceAttaque(refRMI, refCibleAdv);
-					}
-				}*/
+
+					
 			}
 			else
 			{
-				if (adv)
-				{
-					if(distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION)
+
+					if(adv && (distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION))
 					{	//si par hasard, je suis à portée de duel, je fais le duel
 						console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
 						arene.lanceAttaque(refRMI, refCibleAdv);
 					}
 					else 
-					{	//sinon on se déplace vers ce dernier
-						console.setPhrase("Je vais vers la potion" + advPlusProche.getNom());
-						arene.deplace(refRMI, refCibleAdv);
+					{	//sinon j'erre
+						console.setPhrase("J'erre...");
+						arene.deplace(refRMI, 0);
 					}
-				}
-				else
-				{
-					//sinon, j'erre
-					console.setPhrase("J'erre...");
-					arene.deplace(refRMI, 0); 
-				}
+
 			}
 		}
+		
+		
+		
+		
 
 	}
 }

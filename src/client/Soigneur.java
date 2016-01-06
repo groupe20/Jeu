@@ -93,7 +93,7 @@ public class Soigneur extends Perso {
         	Element player = arene.elementFromRef(refRMI) ;
         	gr = player.getGroupe() ;
         	int refCibleAllie = 0 ;
-        	int distPlusProcheAllie = 0 ;
+        	int distAllie = 0 ;
         	Element alliePlusProche = null ;
         	boolean allie = false ;
         	
@@ -104,7 +104,7 @@ public class Soigneur extends Perso {
 				refCibleAllie = Calculs.chercheAllieProche(position, voisins, arene, gr);
 				System.err.println(refCibleAllie);
 
-				distPlusProcheAllie = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAllie));
+				distAllie = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAllie));
 	        	System.err.println("lol");
 
 				System.err.println(refCibleAllie);
@@ -114,7 +114,7 @@ public class Soigneur extends Perso {
 
         	if (allie)
 			{
-				if(distPlusProcheAllie <= Constantes.DISTANCE_MIN_INTERACTION)
+				if(distAllie <= Constantes.DISTANCE_MIN_INTERACTION)
 				{	//si par hasard, je suis à portée de soigner, je soigne
 					console.setPhrase("Je soigne " + alliePlusProche.getNom());
 					arene.lanceSoin(refRMI, refCibleAllie);
@@ -150,14 +150,8 @@ public class Soigneur extends Perso {
 						arene.deplace(refRMI, refCiblePot);
 					}
 					
-					/*if (adv)
-					{
-						if(distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION)
-						{	//si par hasard, je suis à portée de duel, je fais le duel
-							console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
-							arene.lanceAttaque(refRMI, refCibleAdv);
-						}
-					}*/
+					
+					
 				}
 				
 				else
