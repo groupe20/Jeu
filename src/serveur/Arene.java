@@ -1090,15 +1090,15 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			
 		if(pers.estVivant()) {
 			if (increment < 0) {
-				console.log(Level.INFO, Constantes.nomClasse(this), "J'ai perdu " + -increment + " points de " + carac);
+				console.log(Level.INFO, Constantes.nomClasse(this), pers.getNom() + " (" + pers.getGroupe() + ") " + ": J'ai perdu " + -increment + " points de " + carac);
 				
 				if (carac == Caracteristique.VIE) {
-					setPhrase(refRMI, "Ouch, j'ai perdu " + increment + " points de vie.");
+					setPhrase(refRMI, pers.getNom() + " (" + pers.getGroupe() + ") " + ": Ouch, j'ai perdu " + increment + " points de vie.");
 				}
 				
 			} else {
 				console.log(Level.INFO, Constantes.nomClasse(this), 
-						"J'ai gagne " + increment + " points de " + carac);
+						pers.getNom() + " (" + pers.getGroupe() + ") " + ": J'ai gagne " + increment + " points de " + carac);
 			}
 		}
 	}
