@@ -141,6 +141,12 @@ public class Fuyard extends Perso {
 							arene.deplace(refRMI, refCiblePot);
     					}
         			}
+        			else {
+        				//sinon je fuis le duel
+    	            	System.err.println("cas fuite");
+    		            console.setPhrase("Je fuis le duel avec " + advPlusProche.getNom());
+    		            arene.fuite(refRMI, refCibleAdv);
+        			}
 	            }
 	            else
 	            {	//sinon je fuis le duel
