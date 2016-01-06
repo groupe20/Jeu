@@ -1,7 +1,10 @@
 package serveur.interaction;
 
+import java.rmi.RemoteException;
+
 import lanceur.ErreurLancement;
 import serveur.Arene;
+import serveur.element.Caracteristique;
 import serveur.element.Personnage;
 import serveur.vuelement.VuePersonnage;
 
@@ -17,7 +20,7 @@ public class Poser {
 		this.arene=arene;
 	}
 	
-	public boolean pose(){
+	public boolean pose() throws RemoteException{
 		Personnage p = this.personnage.getElement();
 		
 		try{
@@ -34,6 +37,7 @@ public class Poser {
 		}
 		
 		p.suppInventaire();
+		arene.incrementeCaractElement(personnage, Caracteristique.INVENTAIRE, -1);
 		return true;
 		
 	}
