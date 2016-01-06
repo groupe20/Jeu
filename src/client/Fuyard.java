@@ -107,29 +107,17 @@ public class Fuyard extends Perso {
 	            	if (player.inventaire.getNom().equals("teleportation") || player.inventaire.getNom().equals("nitro"))
 	            	{
 	            		console.setPhrase("Je me casse d'ici, trop dangereux");
-    					arene.boireInv(refRMI);
+    				arene.boireInv(refRMI);
 	            	}
 	            	else
 	            	{
 	            		console.setPhrase("J'ai un cadeau pour toi frère !");
-    					arene.boireInv(refRMI);
+    				arene.deposePotion(refRMI);
 	            	}
 	            }
 	            else
 	            {	//sinon je fuis le duel
-	            	if (player.getCaract(Caracteristique.INVENTAIRE) != 0)
-	            	{
-	            		if (player.inventaire.getNom().equals("teleportation"))
-	            		{
-	            			console.setPhrase("Je me casse d'ici, trop dangereux");
-	    					//TODO arene.boire();
-	            		}
-	            		else if (player.inventaire.getNom().equals("immobilité") || player.inventaire.getNom().equals("mortelle"))
-	            		{
-	            			console.setPhrase("Je pose la potion pour pieger les autres !");
-	    					arene.deposePotion(refRMI) ;
-	            		}
-	            	}
+	            	
 		            console.setPhrase("Je fuis le duel avec " + advPlusProche.getNom());
 		            arene.fuite(refRMI, refCibleAdv);
 		            
