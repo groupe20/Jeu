@@ -111,4 +111,7 @@ public abstract class Element implements Serializable {
 		this.inventaire=null;
 	}
 	
+	public String getType(){
+		return this.type;
+	}
 }

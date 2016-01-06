@@ -3,14 +3,18 @@ package interfacegraphique.interfacesimple;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -117,11 +121,21 @@ public class AreneJPanel extends JPanel {
 		
 		// dessiner les elements
 		for(VuePotion vuePotion : potions) {
-			dessineElement(g, vuePotion);
+			try {
+				dessineElement(g, vuePotion);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		for(VuePersonnage vuePersonnage : personnages) {
-			dessineElement(g, vuePersonnage);
+			try {
+				dessineElement(g, vuePersonnage);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		// affiche le decompte avant le debut de partie
@@ -145,8 +159,9 @@ public class AreneJPanel extends JPanel {
 	 * Dessine la vue d'un element.
 	 * @param g graphics
 	 * @param vueElement vue de l'element a dessiner
+	 * @throws IOException 
 	 */
-	private void dessineElement(Graphics g, VueElement<?> vueElement) {
+	private void dessineElement(Graphics g, VueElement<?> vueElement) throws IOException {
 		// affiche l'arene comme un rectangle
 		Rectangle rect = this.getBounds();
 		
@@ -178,21 +193,30 @@ public class AreneJPanel extends JPanel {
 	 * @param vueElement vue de l'element a dessiner
 	 * @param coordX abscisse de l'element
 	 * @param coordY ordonnee de l'element
+	 * @throws IOException 
 	 */
-	private void dessineElementGeometrique(Graphics g, VueElement<?> vueElement, int coordX, int coordY) {
+	private void dessineElementGeometrique(Graphics g, VueElement<?> vueElement, int coordX, int coordY) throws IOException {
+		Image img=null;
+
 		if (vueElement.isSelectionne()) {
 			g.setColor(SELECTED_COLOR);
-			g.fill3DRect(coordX - 5, coordY - 5, ELEMENT_SIZE + 10, ELEMENT_SIZE + 10, true);
-			g.setColor(vueElement.getCouleur());
+			g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);
+			g.setColor(vueElement.getCouleur());	
 		}
 		
-		if(vueElement instanceof VuePersonnage) {
-			g.fill3DRect(coordX, coordY, ELEMENT_SIZE, ELEMENT_SIZE, true);	
-		} else {
-			Polygon p = new Polygon(); // triangle
-			p = creeTriangle(coordX + ELEMENT_SIZE/2, coordY + ELEMENT_SIZE/2 - 1, ELEMENT_SIZE);
-			g.fillPolygon(p);
-		}
+		switch(vueElement.getElement().getType()){
+			
+			case "Pochtron" : img = ImageIO.read(new File("images/pochtron.png"));break;
+			case "Intello" : img = ImageIO.read(new File("images/intello.png"));break;
+			case "Kamikaze" : img = ImageIO.read(new File("images/kamikaze.png"));break;
+			case "Soigneur" : img = ImageIO.read(new File("images/docteur.png"));break;
+			case "Fuyard" : img = ImageIO.read(new File("images/fuyard.png"));break;
+			case "other" :	img = ImageIO.read(new File("images/potion.png"));break;
+			case "mortelle" : img = ImageIO.read(new File("images/mortelle.png"));break;
+			
+			}
+			
+		g.drawImage(img, coordX , coordY , null);
 	}
 
 	/**
