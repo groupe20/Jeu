@@ -96,18 +96,12 @@ public class Soigneur extends Perso {
         	int distAllie = 0 ;
         	Element alliePlusProche = null ;
         	boolean allie = false ;
-        	
-        	System.err.println("lol");
+
         	
         	if (Calculs.alliePresent(voisins, arene, gr))
         	{
 				refCibleAllie = Calculs.chercheAllieProche(position, voisins, arene, gr);
-				System.err.println(refCibleAllie);
-
 				distAllie = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAllie));
-	        	System.err.println("lol");
-
-				System.err.println(refCibleAllie);
 				alliePlusProche = arene.elementFromRef(refCibleAllie);
 				allie = true ;
         	}
@@ -130,13 +124,11 @@ public class Soigneur extends Perso {
 			{
 				if (Calculs.potionPresente(voisins, arene))
 				{
-					System.err.println("test1") ;
 					int refCiblePot = Calculs.cherchePotionForce(voisins, arene, player.getCaract(Caracteristique.VIE));
-					System.err.println(refCiblePot) ;
+					
 					if (refCiblePot > 0)
 					{
 						int distBestPot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
-						System.err.println("test2") ;
 						Element bestPot = arene.elementFromRef(refCiblePot);
 						
 						

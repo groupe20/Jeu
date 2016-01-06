@@ -263,23 +263,16 @@ public class Calculs {
 			 
 			 if (e.getNom().equals("basic"))
 			 {
-				 System.err.println("j'ai trouvé une potion basic") ;
 				 int viePot = e.getCaract(Caracteristique.VIE);
 				 int forcePot = e.getCaract(Caracteristique.FORCE);
-				 System.err.println(viePot + forcePot) ;
 				 if (vie+viePot > 0 && forcePot > max)
 				 {
 					 refBestPot = refVoisin;
 					 max = forcePot;
 				 }
 			 }
-			 else
-			 {
-				 System.err.println("je n'ai pas trouvé une potion basic") ;
-			 }
-			 System.err.println("fin de boucle") ;
+
 		}
-		System.err.println("sortie de boucle") ;
 	
 	 	return refBestPot;
 	}
@@ -305,7 +298,6 @@ public class Calculs {
 		for(int refVoisin : voisins.keySet()) 
 		{
 			e = arene.elementFromRef(refVoisin) ;
-			System.err.println(e.getGroupe() + groupe + groupe.equals(e.getGroupe()));
 			if (e instanceof Personnage && !groupe.equals(e.getGroupe()))
 			{
 	
