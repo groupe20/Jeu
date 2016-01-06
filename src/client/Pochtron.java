@@ -116,7 +116,6 @@ public class Pochtron extends Perso {
 
 				int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
 				int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
-				System.err.println("salut") ;
 				Element potPlusProche = arene.elementFromRef(refCiblePot);
 
 				if(adv && (distPlusProcheAdv <= Constantes.DISTANCE_MIN_INTERACTION))
