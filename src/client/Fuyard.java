@@ -101,6 +101,20 @@ public class Fuyard extends Perso {
 					console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
 					arene.lanceAttaque(refRMI, refCibleAdv);
 				}
+	            else if ((distPlusProcheAdv <= 3) && (player.inventaire != null))
+	            {
+	            	//je suis dans une situation critique et je dispose d'une potion
+	            	if (player.inventaire.getNom().equals("teleportation") || player.inventaire.getNom().equals("nitro"))
+	            	{
+	            		console.setPhrase("Je me casse d'ici, trop dangereux");
+    					arene.boireInv(refRMI);
+	            	}
+	            	else
+	            	{
+	            		console.setPhrase("J'ai un cadeau pour toi frère !");
+    					arene.boireInv(refRMI);
+	            	}
+	            }
 	            else
 	            {	//sinon je fuis le duel
 	            	if (player.getCaract(Caracteristique.INVENTAIRE) != 0)
@@ -127,20 +141,31 @@ public class Fuyard extends Perso {
 				int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
 				
 				Element potPlusProche = arene.elementFromRef(refCiblePot);
-
-				if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION && (potPlusProche.getNom().equals("teleportation") || potPlusProche.getNom().equals("immobilité") || potPlusProche.getNom().equals("mortelle")))
-				{ // si suffisamment proches
-					// j'interagis directement
-						// ramassage
-						console.setPhrase("Je ramasse une potion");
-						arene.ramassePotion(refRMI, refCiblePot);				
-					
-				} 
+				if (player.inventaire == null) //si mon inventaire est vide
+				{
+					if (!potPlusProche.getNom().equals("basic"))
+					{
+						if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
+						{ // si suffisamment proches
+							// j'interagis directement
+								// ramassage
+								console.setPhrase("Je ramasse une potion");
+								arene.stockPotion(refRMI, refCiblePot);				
+							
+						} 
+						else
+						{ // si voisins, mais plus eloignes
+							// je vais vers le plus proche
+							console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());
+							arene.deplace(refRMI, refCiblePot);
+						}
+					}
+				}
 				else
-				{ // si voisins, mais plus eloignes
-					// je vais vers le plus proche
-					console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());
-					arene.deplace(refRMI, refCiblePot);
+				{
+					//si inventaire plein, j'erre
+					console.setPhrase("J'erre...");
+		            arene.deplace(refRMI, 0); 
 				}
         	}
             
