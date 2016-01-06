@@ -76,7 +76,7 @@ public class Deplacement {
 	}
 
 	
-	public void seloignerDe(int refObjectif) throws RemoteException {
+	public void seloignerDe (int refObjectif) throws RemoteException {
         Point pVoisin;
         Point paway=new Point();
         boolean calc = false;
@@ -93,31 +93,30 @@ public class Deplacement {
                 paway = Calculs.positionAleatoireArene();
                         
             }
-                // sinon :
-                // la cible devient le point sur lequel se trouve l'element objectif
-                pVoisin = voisins.get(refObjectif);
-    
-            // on ne bouge que si l'element existe
+            // sinon :
+            // la cible devient le point sur lequel se trouve l'element objectif
+            pVoisin = voisins.get(refObjectif);
 
+            // on ne bouge que si l'element voisin existe
             if(pVoisin != null) {
-                if ((pPerso.x <= pVoisin.x) && (pPerso.x > Constantes.XMIN_ARENE+1 )){
+                if ((pPerso.x <= pVoisin.x) && (pPerso.x >= Constantes.XMIN_ARENE )){
                     pPerso.x --;
                     calc=true;
                 }
-                else if ((pPerso.x >= pVoisin.x) && (pPerso.x < Constantes.XMAX_ARENE-1 )){
+                else if ((pPerso.x >= pVoisin.x) && (pPerso.x <= Constantes.XMAX_ARENE )){
                     pPerso.x ++;
                     calc=true;
                 }
             
-                if ((pPerso.y <= pVoisin.y) && (pPerso.y > Constantes.YMIN_ARENE+1 )){
+                if ((pPerso.y <= pVoisin.y) && (pPerso.y >= Constantes.YMIN_ARENE )){
                     pPerso.y --;
                     calc=true;
                 }
-                else if ((pPerso.y >= pVoisin.y) &&(pPerso.y < Constantes.YMAX_ARENE-1)){
+                else if ((pPerso.y >= pVoisin.y) && (pPerso.y <= Constantes.YMAX_ARENE)){
                     pPerso.y ++;
                     calc=true;
                 }
-                
+            
                 if ((pPerso.x == Constantes.XMAX_ARENE) && (pPerso.y == Constantes.YMAX_ARENE)) {
                     pPerso.x --;
                     pPerso.y --;
@@ -148,6 +147,7 @@ public class Deplacement {
 
                 seDirigeVers(paway);
             }
+            
         }
     }
 
