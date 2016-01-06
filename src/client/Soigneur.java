@@ -130,24 +130,36 @@ public class Soigneur extends Perso {
 			{
 				if (Calculs.potionPresente(voisins, arene))
 				{
-
-					int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
-					int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
-					
-					Element potPlusProche = arene.elementFromRef(refCiblePot);
-
-					if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
-					{ // si suffisamment proches
-						// j'interagis directement
-							// ramassage
-							console.setPhrase("Je ramasse une potion");
-							arene.ramassePotion(refRMI, refCiblePot);	
-					} 
-					else 
-					{ // si voisins, mais plus eloignes
-						// je vais vers le plus proche
-						console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
-						arene.deplace(refRMI, refCiblePot);
+					System.err.println("test1") ;
+					int refCiblePot = Calculs.cherchePotionForce(voisins, arene, player.getCaract(Caracteristique.VIE));
+					System.err.println(refCiblePot) ;
+					if (refCiblePot > 0)
+					{
+						int distBestPot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
+						System.err.println("test2") ;
+						Element bestPot = arene.elementFromRef(refCiblePot);
+						
+						
+	
+						if(bestPot.getNom().equals("basic") && distBestPot <= Constantes.DISTANCE_MIN_INTERACTION)
+						{ // si suffisamment proches
+							// j'interagis directement
+								// ramassage
+								console.setPhrase("Je ramasse une potion");
+								arene.ramassePotion(refRMI, refCiblePot);	
+						} 
+						else 
+						{ // si voisins, mais plus eloignes
+							// je vais vers le plus proche
+							console.setPhrase("Je vais vers mon voisin " + bestPot.getNom());
+							arene.deplace(refRMI, refCiblePot);
+						}
+					}
+					else
+					{
+						//sinon, j'erre
+						console.setPhrase("J'erre...");
+						arene.deplace(refRMI, 0); 
 					}
 					
 					

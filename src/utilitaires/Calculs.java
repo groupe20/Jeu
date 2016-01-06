@@ -241,6 +241,50 @@ public class Calculs {
 	}
 	
 	/**
+	 * Cherche la potion de regain de force dans la limite
+	 * de la vision du personnnage.
+	 * @param voisins liste des voisins
+	 * @param arene
+	 * @param vie du soigneur cherchant la potion
+	 * @return reference de l'element le plus proche, 0 si il n'y en a pas
+	 * @throws RemoteException 
+	 */
+	
+	public static int cherchePotionForce(HashMap<Integer, Point> voisins, IArene arene, int vie) throws RemoteException
+	{
+		int refBestPot = 0;
+		int max = 0 ;
+		Element e ;
+	
+	
+		for(int refVoisin : voisins.keySet())
+		{
+			 e = arene.elementFromRef(refVoisin) ;
+			 
+			 if (e.getNom().equals("basic"))
+			 {
+				 System.err.println("j'ai trouvé une potion basic") ;
+				 int viePot = e.getCaract(Caracteristique.VIE);
+				 int forcePot = e.getCaract(Caracteristique.FORCE);
+				 System.err.println(viePot + forcePot) ;
+				 if (vie+viePot > 0 && forcePot > max)
+				 {
+					 refBestPot = refVoisin;
+					 max = forcePot;
+				 }
+			 }
+			 else
+			 {
+				 System.err.println("je n'ai pas trouvé une potion basic") ;
+			 }
+			 System.err.println("fin de boucle") ;
+		}
+		System.err.println("sortie de boucle") ;
+	
+	 	return refBestPot;
+	}
+	
+	/**
 	 * Cherche l'adversaire le plus proche dans la limite
 	 * de la vision du personnnage.
 	 * @param origine position a partir de laquelle on cherche

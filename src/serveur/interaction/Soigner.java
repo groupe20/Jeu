@@ -37,7 +37,9 @@ public class Soigner extends Interaction<VuePersonnage> {
 				
 				if ((vieDefenseur + gainVie) > 100) arene.incrementeCaractElement(defenseur, Caracteristique.VIE, 100-vieDefenseur);
 				else arene.incrementeCaractElement(defenseur, Caracteristique.VIE,gainVie);
-			
+				
+				
+				
 				logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " soigne avec un montant ("
 					+ gainVie + " points de vie)  " + Constantes.nomRaccourciClient(defenseur));
 			}
@@ -45,7 +47,7 @@ public class Soigner extends Interaction<VuePersonnage> {
 			// initiative
 			
 			decrementeInitiative(attaquant);
-			decrementeInitiative(defenseur);
+			decrementeForce(attaquant) ;
 			
 		}
 		catch(RemoteException e){
@@ -62,6 +64,11 @@ public class Soigner extends Interaction<VuePersonnage> {
 	private void decrementeInitiative(VuePersonnage attaquant) throws RemoteException {
 		arene.incrementeCaractElement(attaquant, Caracteristique.INITIATIVE, 
 				-Constantes.INCR_DECR_INITIATIVE_DUEL);
+	}
+	
+	private void decrementeForce(VuePersonnage attaquant) throws RemoteException {
+		arene.incrementeCaractElement(attaquant, Caracteristique.FORCE, 
+				-10);
 	}
 }
 
