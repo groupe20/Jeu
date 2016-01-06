@@ -56,9 +56,7 @@ public class Stockage extends Interaction<VuePotion> {
 			if (pAttaquant.getCaract(Caracteristique.INVENTAIRE) == 0){
 				pAttaquant.inventaire = pPotion;
 				pAttaquant.incrementeCaract(Caracteristique.INVENTAIRE, 1);
-				//arene.incrementeCaractElement(attaquant, INVENTAIRE, 1);
 				logs(Level.INFO, "Potion stockée !");
-
 			}
 		
 			

@@ -29,6 +29,7 @@ public class PotionTableModel extends ElementTableModel<VuePotion> {
 			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.VIE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.VIE)));
 			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.FORCE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.FORCE)));
 			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.INITIATIVE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.INITIATIVE)));
+			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.VITESSE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.VITESSE)));
 
 
 	}
