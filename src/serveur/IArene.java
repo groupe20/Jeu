@@ -247,6 +247,10 @@ public interface IArene extends Remote {
 	boolean deposePotion(int refRMI) throws RemoteException;
 
 	boolean lanceSoin(int refRMI, int refRMIAdv) throws RemoteException;
+
+	boolean boireInv(int refRMI) throws RemoteException;
+
+	boolean stockPotion(int refRMI, int refPotion) throws RemoteException;
 	
 }
 

@@ -22,6 +22,7 @@ import serveur.element.Element;
 import serveur.element.Personnage;
 import serveur.element.Potion;
 import serveur.interaction.Attaque_Critique;
+import serveur.interaction.BoireInv;
 import serveur.interaction.Deplacement;
 import serveur.interaction.Duel;
 import serveur.interaction.Poser;
