@@ -31,6 +31,10 @@ public abstract class Element implements Serializable {
 	 */
 	public Potion inventaire;
 
+	/**
+	 * Type de l'élément
+	 */
+	public String type;
 	
 	/**
 	 * Cree un element avec son nom et son groupe. Les caracteristiques sont
@@ -38,11 +42,12 @@ public abstract class Element implements Serializable {
 	 * @param nom nom de l'element
 	 * @param groupe d'etudiants de l'element
 	 */
-	public Element(String nom, String groupe) {
+	public Element(String nom, String groupe, String t) {
 		this.nom = nom;
 		this.groupe = groupe;
 		this.caracts = Caracteristique.mapCaracteristiquesDefaut();
 		this.inventaire= null;
+		this.type = t;
 	}
 	
 	/**
@@ -51,8 +56,8 @@ public abstract class Element implements Serializable {
 	 * @param groupe d'etudiants de l'element
 	 * @param caracts caracteristiques de l'element
 	 */
-	public Element(String nom, String groupe, HashMap<Caracteristique, Integer> caracts) {	
-		this(nom, groupe);
+	public Element(String nom, String groupe, HashMap<Caracteristique, Integer> caracts, String t) {	
+		this(nom, groupe, t);
 
 		// toutes les caracteristiques sont toujours initialisees
 		// les caracteristiques donnees remplacent celles par defaut

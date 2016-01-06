@@ -48,7 +48,7 @@ public class Pochtron extends Perso {
 		
 		try {
 			console = new Console(ipArene, port, ipConsole, this, 
-					new Personnage(nom, groupe, caracts), 
+					new Personnage(nom, groupe, caracts,"Pochtron"), 
 					nbTours, position, logger);
 			logger.info("Lanceur", "Creation de la console reussie");
 			

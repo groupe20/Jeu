@@ -26,8 +26,8 @@ public class Personnage extends Element {
 	
 	public int nbToursImm;
 	
-	public Personnage(String nom, String groupe, HashMap<Caracteristique, Integer> caracts) {
-		super(nom, groupe, caracts);
+	public Personnage(String nom, String groupe, HashMap<Caracteristique, Integer> caracts, String type) {
+		super(nom, groupe, caracts, type);
 		this.nbToursImm=0;
 	}
 	

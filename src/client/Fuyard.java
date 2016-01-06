@@ -39,7 +39,7 @@ public class Fuyard extends Perso {
         
         try {
             console = new Console(ipArene, port, ipConsole, this, 
-                    new Personnage(nom, groupe, caracts), 
+                    new Personnage(nom, groupe, caracts,"Fuyard"), 
                     nbTours, position, logger);
             logger.info("Lanceur", "Creation de la console reussie");
             

@@ -225,7 +225,7 @@ public class IHMTournoi extends IHM {
 			demandeMotDePasse();
 		} else {
 			try {
-				arene.lancePotion(new Potion(nom, "Arene", ht), position, motDePasse);
+				arene.lancePotion(new Potion(nom, "Arene", ht,null), position, motDePasse);
 			} catch (RemoteException e) {
 				erreurConnexion(e);
 			}

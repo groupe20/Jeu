@@ -74,35 +74,35 @@ public class LancePotion {
 					caractsPotion.put(Caracteristique.FORCE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.FORCE));
 					caractsPotion.put(Caracteristique.INITIATIVE, Calculs.valeurCaracAleatoirePosNeg(Caracteristique.INITIATIVE)); 
 					caractsPotion.put(Caracteristique.VITESSE, 0); 
-					potion=new Potion("basic", groupe, caractsPotion);
+					potion=new Potion("basic", groupe, caractsPotion,"other");
 					break;
 			
 			case 1 : caractsPotion.put(Caracteristique.VIE, -100);
 					 caractsPotion.put(Caracteristique.FORCE, 0);
 					 caractsPotion.put(Caracteristique.INITIATIVE, 0); 
 					 caractsPotion.put(Caracteristique.VITESSE, 0);
-					 potion=new Potion("mortelle", groupe, caractsPotion);
+					 potion=new Potion("mortelle", groupe, caractsPotion,"mortelle");
 					 break;
 					 
 			case 2 : caractsPotion.put(Caracteristique.VIE, 0);
 					 caractsPotion.put(Caracteristique.FORCE, 0);
 					 caractsPotion.put(Caracteristique.INITIATIVE, 0); 
 					 caractsPotion.put(Caracteristique.VITESSE, 0);
-					 potion=new Potion("teleportation", groupe, caractsPotion);
+					 potion=new Potion("teleportation", groupe, caractsPotion,"other");
 					 break;
 					 
 			case 3 : caractsPotion.put(Caracteristique.VIE, 0);
 			 		 caractsPotion.put(Caracteristique.FORCE, 0);
 			 		 caractsPotion.put(Caracteristique.INITIATIVE, 0);
 					 caractsPotion.put(Caracteristique.VITESSE, 0);
-			 		 potion=new Potion("immobilite", groupe, caractsPotion);
+			 		 potion=new Potion("immobilite", groupe, caractsPotion,"other");
 			 		 break;
 			case 4 : 
 					caractsPotion.put(Caracteristique.VIE, 0);
 			 		caractsPotion.put(Caracteristique.FORCE, 0);
 			 		caractsPotion.put(Caracteristique.INITIATIVE, 0);
 					caractsPotion.put(Caracteristique.VITESSE, 1); 
-					potion=new Potion("nitro", groupe, caractsPotion);
+					potion=new Potion("nitro", groupe, caractsPotion,"other");
 					break;
 			}
 			
