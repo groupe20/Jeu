@@ -217,7 +217,8 @@ public class IHM extends JFrame implements Runnable {
 						"Projet de programmation L3 - Université Paul Sabatier\n" + 
 						"Repris par Clement Chaumel, Valentin Chevalier, Christophe Claustre\n" +
 						"lors du TER L3 de 2014/2015\n" +
-						"Modifie pour le projet de programmation 2015/2016", "A propos",
+						"Modifie pour le projet de programmation 2015/2016"+
+						"\nPar TRUPIANO Enzo, PATANE Jacques, GREZIT Victor, Kostiuk Mathieu", "A propos",
 						JOptionPane.PLAIN_MESSAGE);
 			}
 		};
