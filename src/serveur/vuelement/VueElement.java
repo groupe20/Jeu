@@ -80,6 +80,7 @@ public class VueElement<T extends Element> implements Serializable {
 		{
 			couleur = new Color(255,0,255, 200);
 		}
+		else couleur = new Color(0,0,0,200);
 
 		phrase = "";
 	}
