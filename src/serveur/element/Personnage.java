@@ -24,12 +24,10 @@ public class Personnage extends Element {
 	 * @param inventaire permet de stocker une potion
 	 */
 	
-	public Potion inventaire;
 	public int nbToursImm;
 	
 	public Personnage(String nom, String groupe, HashMap<Caracteristique, Integer> caracts) {
 		super(nom, groupe, caracts);
-		this.inventaire = null;
 		this.nbToursImm=0;
 	}
 	
@@ -66,17 +64,5 @@ public class Personnage extends Element {
 		return vie != null && vie > 0;
 	}
 	
-	/**
-	 * Retourne la potion stocké dans l'inventaire
-	 */
-	public Potion getInventaire() {
-		return inventaire;
-	}
-	
-	/**
-	 * Vide l'inventaire du personnage
-	 */
-	public void suppInventaire(){
-		this.inventaire=null;
-	}
+
 }

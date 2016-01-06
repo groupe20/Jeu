@@ -103,7 +103,7 @@ public class Fuyard extends Perso {
 				}
 	            else
 	            {	//sinon je fuis le duel
-	            	/*if (player.inventaire != null)
+	            	if (player.getCaract(Caracteristique.INVENTAIRE) != 0)
 	            	{
 	            		if (player.inventaire.getNom().equals("teleportation"))
 	            		{
@@ -112,10 +112,10 @@ public class Fuyard extends Perso {
 	            		}
 	            		else if (player.inventaire.getNom().equals("immobilité") || player.inventaire.getNom().equals("mortelle"))
 	            		{
-	            			console.setPhrase("Je pose la potion !");
+	            			console.setPhrase("Je pose la potion pour pieger les autres !");
 	    					arene.deposePotion(refRMI) ;
 	            		}
-	            	}*/
+	            	}
 		            console.setPhrase("Je fuis le duel avec " + advPlusProche.getNom());
 		            arene.fuite(refRMI, refCibleAdv);
 		            
@@ -133,9 +133,7 @@ public class Fuyard extends Perso {
 					// j'interagis directement
 						// ramassage
 						console.setPhrase("Je ramasse une potion");
-						arene.ramassePotion(refRMI, refCiblePot);
-
-					
+						arene.ramassePotion(refRMI, refCiblePot);				
 					
 				} 
 				else 

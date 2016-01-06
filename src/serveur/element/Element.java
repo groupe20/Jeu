@@ -27,6 +27,12 @@ public abstract class Element implements Serializable {
 	protected HashMap<Caracteristique, Integer> caracts = new HashMap<Caracteristique,Integer>();
 	
 	/**
+	 * Inventaire de l'element (Pour un personnage)
+	 */
+	public Potion inventaire;
+
+	
+	/**
 	 * Cree un element avec son nom et son groupe. Les caracteristiques sont
 	 * initialisees a leur valeur par defaut. 
 	 * @param nom nom de l'element
@@ -36,6 +42,7 @@ public abstract class Element implements Serializable {
 		this.nom = nom;
 		this.groupe = groupe;
 		this.caracts = Caracteristique.mapCaracteristiquesDefaut();
+		this.inventaire= null;
 	}
 	
 	/**
@@ -84,4 +91,19 @@ public abstract class Element implements Serializable {
 	public String toString() {
 		return getNomGroupe() + " " + caracts;
 	}
+	
+	/**
+	 * Retourne la potion stocké dans l'inventaire
+	 */
+	public Potion getInventaire() {
+		return inventaire;
+	}
+	
+	/**
+	 * Vide l'inventaire du personnage
+	 */
+	public void suppInventaire(){
+		this.inventaire=null;
+	}
+	
 }
