@@ -3,7 +3,6 @@ package serveur.vuelement;
 import java.awt.Color;
 import java.awt.Point;
 import java.io.Serializable;
-import java.util.Random;
 
 import serveur.element.Element;
 import utilitaires.Calculs;
@@ -61,23 +60,25 @@ public class VueElement<T extends Element> implements Serializable {
 		this.position = position;
 		this.refRMI = ref;
 		
-		/*Random r = new Random(ref);
-		couleur = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255), 200);
-		*/
+
 		if (groupe.equals("1"))
 		{
-			couleur = new Color(0,0,255, 200);
+			//bleu
+			couleur = new Color(117,223,255, 200);
 		}
 		else if (groupe.equals("2"))
 		{
-			couleur = new Color(255,0,0, 200);
+			//orange
+			couleur = new Color(255,132,0, 200);
 		}
 		else if (groupe.equals("3"))
 		{
+			//vert
 			couleur = new Color(0,255,0, 200);
 		}
 		else if (groupe.equals("4"))
 		{
+			//violet
 			couleur = new Color(255,0,255, 200);
 		}
 		else couleur = new Color(0,0,0,200);
