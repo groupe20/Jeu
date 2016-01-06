@@ -101,18 +101,20 @@ public class Fuyard extends Perso {
 					console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
 					arene.lanceAttaque(refRMI, refCibleAdv);
 				}
-	            else if ((distPlusProcheAdv <= 3) && (player.inventaire != null))
+	            else if ((distPlusProcheAdv > 2) && (distPlusProcheAdv < 5) && (player.inventaire != null))
 	            {
 	            	//je suis dans une situation critique et je dispose d'une potion
 	            	if (player.inventaire.getNom().equals("teleportation") || player.inventaire.getNom().equals("nitro"))
 	            	{
+	            		//je me téléporte ou j'accélère
 	            		console.setPhrase("Je me casse d'ici, trop dangereux");
-    				arene.boireInv(refRMI);
+	            		arene.boireInv(refRMI);
 	            	}
 	            	else
 	            	{
-	            		console.setPhrase("J'ai un cadeau pour toi frère !");
-    				arene.deposePotion(refRMI);
+	            		//je pose un piege (mortelle ou immobilite)
+	            		console.setPhrase("J'ai un cadeau pour toi " + advPlusProche.getNom());
+	            		arene.deposePotion(refRMI);
 	            	}
 	            }
 	            else
