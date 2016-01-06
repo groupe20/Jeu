@@ -262,10 +262,8 @@ public class Calculs {
 		{
 			e = arene.elementFromRef(refVoisin) ;
 			System.err.println(e.getGroupe() + groupe + groupe.equals(e.getGroupe()));
-			if (e instanceof Personnage)
+			if (e instanceof Personnage && !groupe.equals(e.getGroupe()))
 			{
-				if (!groupe.equals(e.getGroupe()))
-				{
 	
 					Point target = voisins.get(refVoisin);
 					
@@ -274,7 +272,7 @@ public class Calculs {
 						distPlusProche = Calculs.distanceChebyshev(origine, target);
 						refPlusProche = refVoisin;
 					}
-				}
+				
 			}
 		}
 
@@ -332,7 +330,7 @@ public class Calculs {
 		 {
 			 e = arene.elementFromRef(refVoisin) ;
 			 int vieElement = e.getCaract(Caracteristique.VIE);
-			 if (vieElement > max && !groupe.equals(e.getGroupe()))
+			 if (vieElement > max && !groupe.equals(e.getGroupe()) && e instanceof Personnage)
 			 {
 				 refPlusGrand = refVoisin;
 				 max = vieElement;

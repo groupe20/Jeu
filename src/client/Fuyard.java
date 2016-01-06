@@ -131,10 +131,9 @@ public class Fuyard extends Perso {
 				int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
 				
 				Element potPlusProche = arene.elementFromRef(refCiblePot);
-				if (player.inventaire == null) //si mon inventaire est vide
-				{
-					if (!potPlusProche.getNom().equals("basic"))
-					{
+				if (player.inventaire == null && !potPlusProche.getNom().equals("basic")) 
+				{	//si mon inventaire est vide (les basic m'interessent pas)
+				
 						if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
 						{ // si suffisamment proches
 							// j'interagis directement
@@ -149,7 +148,7 @@ public class Fuyard extends Perso {
 							console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());
 							arene.deplace(refRMI, refCiblePot);
 						}
-					}
+					
 				}
 				else
 				{
