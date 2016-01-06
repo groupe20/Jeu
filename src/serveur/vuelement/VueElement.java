@@ -56,14 +56,31 @@ public class VueElement<T extends Element> implements Serializable {
 	 * @param position position courante
 	 * @param ref reference
 	 */
-	public VueElement(T element, Point position, int ref) {
+	public VueElement(T element, Point position, int ref, String groupe) {
 		this.element = element;
 		this.position = position;
 		this.refRMI = ref;
 		
-		Random r = new Random(ref);
+		/*Random r = new Random(ref);
 		couleur = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255), 200);
-		
+		*/
+		if (groupe.equals("1"))
+		{
+			couleur = new Color(0,0,255, 200);
+		}
+		else if (groupe.equals("2"))
+		{
+			couleur = new Color(255,0,0, 200);
+		}
+		else if (groupe.equals("3"))
+		{
+			couleur = new Color(0,255,0, 200);
+		}
+		else if (groupe.equals("4"))
+		{
+			couleur = new Color(255,0,255, 200);
+		}
+
 		phrase = "";
 	}
 

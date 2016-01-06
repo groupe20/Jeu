@@ -19,20 +19,21 @@ public class LanceJeu {
 		LancePersonnage.main("Kamikaze", "kami", "1");
 		LancePersonnage.main("Pochtron", "pochtron", "1");
 		LancePersonnage.main("Soigneur", "doc", "1");
-		/*LancePersonnage.main("Soigneur", "doc", "1");
-		LancePersonnage.main("Soigneur", "doc", "1");
-		LancePersonnage.main("Soigneur", "doc", "1");
-		LancePersonnage.main("Soigneur", "doc", "1");
-		LancePersonnage.main("Soigneur", "doc", "1");*/
-
 		
-		LancePersonnage.main("Fuyard", "fuyard2", "2");
-		LancePersonnage.main("Kamikaze", "kami2", "2");
-		LancePersonnage.main("Pochtron", "pochtron2", "2");
-		LancePersonnage.main("StrategiePersonnage", "strat2", "2");
+		LancePersonnage.main("Fuyard", "fuyard", "2");
+		LancePersonnage.main("Kamikaze", "kami", "2");
+		LancePersonnage.main("Pochtron", "pochtron", "2");
+		LancePersonnage.main("StrategiePersonnage", "strat", "2");
 
+		LancePersonnage.main("Fuyard", "fuyard", "3");
+		LancePersonnage.main("Kamikaze", "kami", "3");
+		LancePersonnage.main("Pochtron", "pochtron", "3");
+		LancePersonnage.main("StrategiePersonnage", "strat", "3");
 
-
+		LancePersonnage.main("Fuyard", "fuyard", "4");
+		LancePersonnage.main("Kamikaze", "kami", "4");
+		LancePersonnage.main("Pochtron", "pochtron", "4");
+		LancePersonnage.main("StrategiePersonnage", "strat", "4");
 		
 		LancePotion.main(args);
 		LancePotion.main(args);

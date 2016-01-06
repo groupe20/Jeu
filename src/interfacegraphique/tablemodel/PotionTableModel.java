@@ -24,8 +24,6 @@ public class PotionTableModel extends ElementTableModel<VuePotion> {
 		// nom de la potion (index 1)
 		colonnes.add(new InformationColonne<VuePotion>("Nom", 0, String.class, new ValeurColonneNom())); 
 		
-		// groupe de la potion
-		colonnes.add(new InformationColonne<VuePotion>("Groupe", 0, String.class, new ValeurColonneGroupe()));
 		
 		// caracteristiques
 			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.VIE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.VIE)));
@@ -33,9 +31,6 @@ public class PotionTableModel extends ElementTableModel<VuePotion> {
 			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.INITIATIVE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.INITIATIVE)));
 
 
-		
-		/*// phrase du personnage
-		colonnes.add(new InformationColonne<VuePotion>("Phrase", 300, String.class, new ValeurColonnePhrase())); */
 	}
    
 }

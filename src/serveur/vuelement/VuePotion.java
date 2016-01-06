@@ -18,7 +18,7 @@ public class VuePotion extends VueElement<Potion> implements Comparable<VuePotio
 	 * @param ref reference RMI
 	 */
 	public VuePotion(Potion potion, Point position, int ref) {
-		super(potion, position, ref);
+		super(potion, position, ref, "0");
 	}
 
 	@Override

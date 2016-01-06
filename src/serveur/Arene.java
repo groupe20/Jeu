@@ -378,7 +378,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			logger.info(Constantes.nomClasse(this), "Demande de connexion (" + adr + ")");
 			
 			// ajout du personnage a la liste
-			personnages.put(refRMI, new VuePersonnage(ipConsole, personnage, nbTours, position, refRMI));
+			personnages.put(refRMI, new VuePersonnage(ipConsole, personnage, nbTours, position, refRMI, personnage.getGroupe()));
 	
 			logger.info(Constantes.nomClasse(this), "Connexion acceptee (" + adr + ")");
 			logElements();

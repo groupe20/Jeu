@@ -50,9 +50,9 @@ public class VuePersonnage extends VueElement<Personnage> implements Comparable<
 	 * @param ref reference RMI
 	 */
 	public VuePersonnage(String adresseIp, Personnage personnage, int nbTours, 
-			Point position, int ref) {
+			Point position, int ref, String groupe) {
 		
-		super(personnage, position, ref);
+		super(personnage, position, ref, groupe);
 		this.adresseIp = adresseIp;
 		this.actionExecutee = false;
 		this.NB_TOURS = nbTours;
