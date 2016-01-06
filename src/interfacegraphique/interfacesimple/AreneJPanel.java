@@ -182,12 +182,12 @@ public class AreneJPanel extends JPanel {
 	private void dessineElementGeometrique(Graphics g, VueElement<?> vueElement, int coordX, int coordY) {
 		if (vueElement.isSelectionne()) {
 			g.setColor(SELECTED_COLOR);
-			g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE + 10, ELEMENT_SIZE + 10);
+			g.fill3DRect(coordX - 5, coordY - 5, ELEMENT_SIZE + 10, ELEMENT_SIZE + 10, true);
 			g.setColor(vueElement.getCouleur());
 		}
 		
 		if(vueElement instanceof VuePersonnage) {
-			g.fillOval(coordX, coordY, ELEMENT_SIZE, ELEMENT_SIZE);	
+			g.fill3DRect(coordX, coordY, ELEMENT_SIZE, ELEMENT_SIZE, true);	
 		} else {
 			Polygon p = new Polygon(); // triangle
 			p = creeTriangle(coordX + ELEMENT_SIZE/2, coordY + ELEMENT_SIZE/2 - 1, ELEMENT_SIZE);
@@ -307,11 +307,12 @@ public class AreneJPanel extends JPanel {
 	 */
 	private Polygon creeTriangle(int coordX, int coordY, int base) {
 		Polygon p = new Polygon();
-		int hauteur = (int) (1.2 * base);
+		int hauteur = (int) (1.2 * base); 
 		
-		p.addPoint(coordX - base/2, coordY + hauteur/2);			
+		p.addPoint(coordX - base/2, coordY + hauteur/2);
 		p.addPoint(coordX + base/2 , coordY + hauteur/2);			
 		p.addPoint(coordX, coordY - hauteur/2);
+		p.addPoint(coordX, coordY + (int)(hauteur*1.5));
 		
 		return p;
 	}

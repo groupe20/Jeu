@@ -45,8 +45,8 @@ public class LanceJeu {
 		LancePotion.main(args);
 		LancePotion.main(args);
 		LancePotion.main(args);
-		LancePotion.main(args);
 		LancePotion.main(args);*/
+		LancePotion.main(args);
 
 
 	}

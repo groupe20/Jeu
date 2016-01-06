@@ -40,7 +40,7 @@ public class Portrait extends JPanel {
 		g.setColor(color);
 		
 		if(personnage) {
-			g.fillOval(10, 10, this.getWidth() - 20, this.getWidth() - 20);	
+			g.fill3DRect(10, 10, this.getWidth() - 20, this.getWidth() - 20, true);	
 			
 		} else {
 			Polygon p = new Polygon();
