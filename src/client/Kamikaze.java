@@ -81,7 +81,7 @@ public class Kamikaze extends Perso {
 		}
 		
 		Element player = arene.elementFromRef(refRMI) ;
-    	String gr = player.getGroupe() ;
+    		String gr = player.getGroupe() ;
 		
 		if (!Calculs.adversairePresent(voisins, arene, gr)) 
 		{ // je n'ai pas d'adversaires, j'erre
@@ -96,20 +96,20 @@ public class Kamikaze extends Perso {
 			int refCible = Calculs.cherchePlusGrandAdversaire(voisins, arene, gr);
 			int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
-			Element elemPlusGrandAdv = arene.elementFromRef(refCible);
+			Element plusGrandAdv = arene.elementFromRef(refCible);
 
 			if(distPlusGrandAdv <= Constantes.DISTANCE_MIN_INTERACTION)
 			{ // si suffisamment proches
 				// j'interagis directement
 				// duel
-				console.setPhrase("Je fais un duel avec " + elemPlusGrandAdv.getNom());
+				console.setPhrase("Je fais un duel avec " + plusGrandAdv.getNom());
 				arene.lanceAttaque(refRMI, refCible);				
 				
 			} 
 			else 
 			{ // si voisins, mais plus eloignes
 				// je vais vers le plus proche
-				console.setPhrase("Je vais vers mon ennemi " + elemPlusGrandAdv.getNom());
+				console.setPhrase("Je vais vers mon ennemi " + plusGrandAdv.getNom());
 				arene.deplace(refRMI, refCible);
 			}
 		}
