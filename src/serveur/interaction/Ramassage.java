@@ -51,7 +51,7 @@ public class Ramassage extends Interaction<VuePotion> {
                     arene.deplace(attaquant.getRefRMI(), p);
 
                 }
-				else if (Potion.getNom().equals("immobilité")) {
+				else if (Potion.getNom().equals("immobilite")) {
                     arene.setPhrase(attaquant.getRefRMI(), "Je deviens immobile pour 5 tours");
                     this.attaquant.getElement().nbToursImm=5;
                     System.err.println("nb tour: " + this.attaquant.getElement().nbToursImm);

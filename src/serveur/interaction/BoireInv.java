@@ -15,29 +15,35 @@ import utilitaires.Constantes;
 public class BoireInv extends Interaction<VuePersonnage> {
 	
 	
-	private Potion Potion;
+	private Potion p;
 	
 	public BoireInv(Arene ar, VuePersonnage buveur, Potion Potion){
 		super(ar,buveur,null);
-		this.Potion=Potion;
+		this.p=Potion;
 	}
 
 	@Override
 	public void interagit() {
 		
 		Personnage pAttaquant = attaquant.getElement();
+		VuePersonnage v = attaquant;
 
 		try {
-			logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de boire la potion dans son inventaire: " + 
-					Potion.getNom());
+			//logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de boire la potion dans son inventaire: " + p.getNom());
 			
 			// si le personnage est vivant
-			if(attaquant.getElement().estVivant()) {
+			if(true) {
+				//logs(Level.INFO, "vivant !");
+
 
 				// caracteristiques de la potion
-				HashMap<Caracteristique, Integer> valeursPotion = Potion.getCaracts();
+				//logs(Level.INFO, "avant recup !");
+
+				HashMap<Caracteristique, Integer> valeursPotion = p.getCaracts();
+				//logs(Level.INFO, "recup !");
+
 				
-				if (Potion.getNom().equals("teleportation")) {
+				if (p.getNom().equals("teleportation")) {
                     arene.setPhrase(attaquant.getRefRMI(), "Je me teleporte");
                     Point p;
                     p = attaquant.getPosition();
@@ -45,36 +51,39 @@ public class BoireInv extends Interaction<VuePersonnage> {
                     p.y = (int)(Math.random() * (Constantes.YMAX_ARENE-Constantes.YMIN_ARENE)) + Constantes.YMIN_ARENE;
                     arene.deplace(attaquant.getRefRMI(), p);
                 }
-				else if (Potion.getNom().equals("immobilité")) {
+
+				else if (p.getNom().equals("immobilite")) {
                     arene.setPhrase(attaquant.getRefRMI(), "Je deviens immobile pour 5 tours");
                     this.attaquant.getElement().nbToursImm=5;
                 }				
 				else {
 					for(Caracteristique c : valeursPotion.keySet()) {
 						arene.incrementeCaractElement(attaquant, c, valeursPotion.get(c));
+						//logs(Level.INFO, "LOL !");
+
 					}
 					
-					logs(Level.INFO, "Potion bue !");
+					//logs(Level.INFO, "Potion bue !");
 					
 					// test si mort
 					if(!attaquant.getElement().estVivant()) {
 						arene.setPhrase(attaquant.getRefRMI(), "Je me suis empoisonne, je meurs ");
-						logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
+						//logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
 					}
 				}
 
 				// suppression de la potion de l'inventaire
 				pAttaquant.inventaire = null;
 				pAttaquant.incrementeCaract(Caracteristique.INVENTAIRE, -1);
-				logs(Level.INFO, "Potion bue !");
+				//logs(Level.INFO, "Potion bue !");
 				
 				
 			} else {
 				logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " ou " + 
-						Potion.getNom() + " est deja mort... Rien ne se passe");
+						p.getNom() + " est deja mort... Rien ne se passe");
 			}
 		} catch (RemoteException e) {
-			logs(Level.INFO, "\nErreur lors d'un ramassage : " + e.toString());
+			//logs(Level.INFO, "\nErreur lors d'un ramassage : " + e.toString());
 		}
 	}
 }
