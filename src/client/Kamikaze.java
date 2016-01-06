@@ -63,7 +63,8 @@ public class Kamikaze extends Perso {
 	 * @param voisins element voisins de cet element (elements qu'il voit)
 	 * @throws RemoteException
 	 */
-	public void executeStrategie(HashMap<Integer, Point> voisins) throws RemoteException {
+	public void executeStrategie(HashMap<Integer, Point> voisins) throws RemoteException 
+	{
 		// arene
 		IArene arene = console.getArene();
 		
@@ -91,27 +92,53 @@ public class Kamikaze extends Perso {
 		} 
 		else
 		{
+			if (Calculs.potionPresente(voisins, arene))
+			{
+				int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene) ;
+    			int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
+    			Element plusProchePot = arene.elementFromRef(refCiblePot);
+    			
+				if((plusProchePot.getNom().equals("mortelle") || plusProchePot.getNom().equals("immobilite")) && distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
+				{	//si je tombe sur un piege mortelle ou immobilite, je bois la potion
+					console.setPhrase("Je ramasse une potion " + plusProchePot.getNom());
+					arene.ramassePotion(refRMI, refCiblePot);
+				}
+				else
+				{
+					attaquer(position, voisins, arene, refRMI, gr) ;
+				}
 
-        	
-			int refCible = Calculs.cherchePlusGrandAdversaire(voisins, arene, gr);
-			int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
-			Element plusGrandAdv = arene.elementFromRef(refCible);
-
-			if(distPlusGrandAdv <= Constantes.DISTANCE_MIN_INTERACTION)
-			{ // si suffisamment proches
-				// j'interagis directement
-				// duel
-				console.setPhrase("Je fais un duel avec " + plusGrandAdv.getNom());
-				arene.lanceAttaque(refRMI, refCible);				
-				
-			} 
-			else 
-			{ // si voisins, mais plus eloignes
-				// je vais vers le plus proche
-				console.setPhrase("Je vais vers mon ennemi " + plusGrandAdv.getNom());
-				arene.deplace(refRMI, refCible);
 			}
+			else
+			{
+				attaquer(position, voisins, arene, refRMI, gr) ;
+			}
+			
+		}
+	}
+	
+	public void attaquer (Point position, HashMap<Integer, Point> voisins, IArene arene, int refRMI, String gr) throws RemoteException
+	{
+	
+		int refCible = Calculs.cherchePlusGrandAdversaire(voisins, arene, gr);
+		int distPlusGrandAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
+	
+		Element plusGrandAdv = arene.elementFromRef(refCible);
+	
+		if(distPlusGrandAdv <= Constantes.DISTANCE_MIN_INTERACTION)
+		{ // si suffisamment proches
+			// j'interagis directement
+			// duel
+			console.setPhrase("Je fais un duel avec " + plusGrandAdv.getNom());
+			arene.lanceAttaque(refRMI, refCible);				
+			
+		} 
+		else 
+		{ // si voisins, mais plus eloignes
+			// je vais vers le plus proche
+			console.setPhrase("Je vais vers mon ennemi " + plusGrandAdv.getNom());
+			arene.deplace(refRMI, refCible);
 		}
 	}
 

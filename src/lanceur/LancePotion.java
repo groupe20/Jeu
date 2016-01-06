@@ -95,7 +95,7 @@ public class LancePotion {
 			 		 caractsPotion.put(Caracteristique.FORCE, 0);
 			 		 caractsPotion.put(Caracteristique.INITIATIVE, 0);
 					 caractsPotion.put(Caracteristique.VITESSE, 0);
-			 		 potion=new Potion("immobilité", groupe, caractsPotion);
+			 		 potion=new Potion("immobilite", groupe, caractsPotion);
 			 		 break;
 			case 4 : 
 					caractsPotion.put(Caracteristique.VITESSE, 1); 
