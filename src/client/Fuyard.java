@@ -103,7 +103,6 @@ public class Fuyard extends Perso {
 				}
 	            else if ((distPlusProcheAdv > 2) && (distPlusProcheAdv < 5) && (player.inventaire != null))
 	            {
-	            	System.err.println("cas critique");
 
 	            	//je suis dans une situation critique et je dispose d'une potion
 	            	if (player.inventaire.getNom().equals("teleportation") || player.inventaire.getNom().equals("nitro"))
@@ -143,14 +142,12 @@ public class Fuyard extends Perso {
         			}
         			else {
         				//sinon je fuis le duel
-    	            	System.err.println("cas fuite");
     		            console.setPhrase("Je fuis le duel avec " + advPlusProche.getNom());
     		            arene.fuite(refRMI, refCibleAdv);
         			}
 	            }
 	            else
 	            {	//sinon je fuis le duel
-	            	System.err.println("cas fuite");
 		            console.setPhrase("Je fuis le duel avec " + advPlusProche.getNom());
 		            arene.fuite(refRMI, refCibleAdv);
 		            
@@ -159,7 +156,6 @@ public class Fuyard extends Perso {
         	else
         	{
         		if (Calculs.potionPresente(voisins, arene)){
-        			System.err.println("cas potion");
 
         			int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
         			int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
