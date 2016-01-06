@@ -119,6 +119,29 @@ public class Fuyard extends Perso {
 	            		arene.deposePotion(refRMI);
 	            	}
 	            }
+	            //On ramasse la potion si elle est plus proche que l'adversaire
+	            else if (Calculs.potionPresente(voisins,arene)){
+	            	int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
+        			int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
+				
+        			Element potPlusProche = arene.elementFromRef(refCiblePot);
+        			if (player.inventaire == null && !potPlusProche.getNom().equals("basic") && distPlusProchePot <= distPlusProcheAdv){
+        				if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
+    					{ // si suffisamment proches
+    						// j'interagis directement
+    						// ramassage
+							console.setPhrase("Je ramasse une potion");
+							arene.stockPotion(refRMI, refCiblePot);				
+						
+    					} 
+    					else
+    					{ // si voisins, mais plus eloignes
+    						// je vais vers le plus proche
+    						console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());
+							arene.deplace(refRMI, refCiblePot);
+    					}
+        			}
+	            }
 	            else
 	            {	//sinon je fuis le duel
 	            	System.err.println("cas fuite");
@@ -176,5 +199,6 @@ public class Fuyard extends Perso {
             
         }
     }
+    
 }
     
