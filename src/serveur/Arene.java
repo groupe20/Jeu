@@ -803,7 +803,8 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 						new Attaque_Critique(this,client,clientAdv).interagit();
 						personnages.get(refRMI).executeAction();
 					}
-					else{
+					else
+					{
 						
 						new Duel(this, client, clientAdv).interagit();
 						personnages.get(refRMI).executeAction();

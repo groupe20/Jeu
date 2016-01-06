@@ -52,7 +52,7 @@ public class Attaque_Critique extends Duel {
 			
 				// màj caracteristiques
 				arene.incrementeCaractElement(defenseur, Caracteristique.DEFENSE, -15);
-				arene.incrementeCaractElement(attaquant, Caracteristique.CRITIQUE, 50);
+				arene.incrementeCaractElement(attaquant, Caracteristique.CRITIQUE, -50);
 
 
 		} catch (RemoteException e) {

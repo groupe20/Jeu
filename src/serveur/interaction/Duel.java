@@ -38,7 +38,7 @@ public class Duel extends Interaction<VuePersonnage> {
 			int initDefenseur = pDefenseur.getCaract(Caracteristique.INITIATIVE);
 			int defDefenseur = pDefenseur.getCaract(Caracteristique.DEFENSE);
 			
-			int perteVie = forceAttaquant*(defDefenseur/100);
+			int perteVie = forceAttaquant - forceAttaquant*(defDefenseur/100);
 		
 			Point positionEjection = positionEjection(defenseur.getPosition(), attaquant.getPosition(), forceAttaquant);
 
@@ -47,8 +47,8 @@ public class Duel extends Interaction<VuePersonnage> {
 			
 
 			
-			//possibilité d'esquive
-			if(initDefenseur < (initAttaquant+50)){
+		//possibilité d'esquive
+			if(initDefenseur < (initAttaquant+100)){
 		
 				// degats
 				if (perteVie > 0) {
