@@ -136,10 +136,10 @@ public class Fuyard extends Perso {
 						arene.ramassePotion(refRMI, refCiblePot);				
 					
 				} 
-				else 
+				else
 				{ // si voisins, mais plus eloignes
 					// je vais vers le plus proche
-					console.setPhrase("Je vais vers mon voisin " + potPlusProche.getNom());
+					console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());
 					arene.deplace(refRMI, refCiblePot);
 				}
         	}

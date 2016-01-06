@@ -29,17 +29,17 @@ public enum Caracteristique {
 	INVENTAIRE("Inventaire", "INV", 0, 1, 0),
 	
 	/**
-	 * Fureur : permet de réaliser une attaque critique
+	 * Fureur : permet de réaliser une attaque critique.
 	 */
 	CRITIQUE("Critique", "CRIT", 0, 50, 0),
 	
 	/**
-	 * Defense : pourcentage de dégâts pouvant être bloqués
+	 * Defense : pourcentage de dégâts pouvant être bloqués.
 	 */
 	DEFENSE("Defense", "DEF", 0, 50, 50),
 	
 	/**
-	 * Vitesse : vitesse de déplacement
+	 * Vitesse : vitesse de déplacement.
 	 */
 	VITESSE("Vitesse", "VIT", 1, 3, 1);
 	
