@@ -107,47 +107,39 @@ public class Deplacement {
                 else if ((pPerso.x >= pVoisin.x) && (pPerso.x < Constantes.XMAX_ARENE-1 )){
                     pPerso.x ++;
                     calc=true;
-
                 }
             
                 if ((pPerso.y <= pVoisin.y) && (pPerso.y > Constantes.YMIN_ARENE+1 )){
                     pPerso.y --;
                     calc=true;
-
                 }
                 else if ((pPerso.y >= pVoisin.y) &&(pPerso.y < Constantes.YMAX_ARENE-1)){
                     pPerso.y ++;
                     calc=true;
-
                 }
                 
                 if ((pPerso.x == Constantes.XMAX_ARENE) && (pPerso.y == Constantes.YMAX_ARENE)) {
                     pPerso.x --;
                     pPerso.y --;
                     calc=true;
-
                 }
                 else if ((pPerso.x == Constantes.XMAX_ARENE) && (pPerso.y == Constantes.YMIN_ARENE)) {
                     pPerso.x --;
                     pPerso.y ++;
                     calc=true;
-
                 }
                 else if ((pPerso.x == Constantes.XMIN_ARENE) && (pPerso.y == Constantes.YMIN_ARENE)) {
                     pPerso.x ++;
                     pPerso.y ++;
                     calc=true;
-
                 }
                 else if ((pPerso.x == Constantes.XMIN_ARENE) && (pPerso.y == Constantes.YMAX_ARENE)) {
                     pPerso.x ++;
                     pPerso.y --;
                     calc=true;
-
                 }
                 if (!calc){
                     paway = Calculs.positionAleatoireArene();
-
                 }
 
                 System.err.println("x: "+pPerso.x+" y: "+pPerso.y);

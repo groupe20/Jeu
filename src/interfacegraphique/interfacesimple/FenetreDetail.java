@@ -18,7 +18,6 @@ import interfacegraphique.interfacesimple.components.DetailCaracteristique;
 import interfacegraphique.interfacesimple.components.Portrait;
 import serveur.element.Caracteristique;
 import serveur.vuelement.VueElement;
-import serveur.vuelement.VuePersonnage;
 
 /**
  * Gere la fenetre d'affichage des details d'un element (personnage ou potion). 

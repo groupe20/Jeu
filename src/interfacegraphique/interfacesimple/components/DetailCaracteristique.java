@@ -33,7 +33,7 @@ public class DetailCaracteristique extends JPanel {
 	 * @param valeur valeur de la caracteristique
 	 */
 	public DetailCaracteristique(Caracteristique caract, int valeur) {
-		Color couleur = null;
+		Color couleur= null;
 		
 		switch(caract) {
 		case FORCE: 
@@ -47,12 +47,16 @@ public class DetailCaracteristique extends JPanel {
 			break;
 		case INVENTAIRE:
 			couleur = Color.ORANGE;
+			break;
 		case CRITIQUE:
 			couleur = Color.PINK;
+			break;
 		case DEFENSE:
-			couleur = Color.BLACK;
+			couleur = Color.YELLOW;
+			break;
 		case VITESSE:
 			couleur = Color.MAGENTA;
+			break;
 		}
 		
 		// valeur ramenee sur 100, en fonction du max de la caracteristique

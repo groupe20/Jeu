@@ -225,7 +225,7 @@ public class AreneJPanel extends JPanel {
 			case "mortelle" : img = ImageIO.read(new File("images/mortelle.png"));break;
 			
 			}
-		g.drawImage(img, coordX , coordY , null);
+			g.drawImage(img, coordX-1 , coordY-1 , null);
 	}
 
 	/**
