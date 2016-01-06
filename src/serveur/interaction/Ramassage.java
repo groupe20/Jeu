@@ -54,6 +54,7 @@ public class Ramassage extends Interaction<VuePotion> {
 				else if (Potion.getNom().equals("immobilité")) {
                     arene.setPhrase(attaquant.getRefRMI(), "Je deviens immobile pour 5 tours");
                     this.attaquant.getElement().nbToursImm=5;
+                    System.err.println("nb tour: " + this.attaquant.getElement().nbToursImm);
                 }				
 				else {
 					for(Caracteristique c : valeursPotion.keySet()) {
@@ -68,6 +69,7 @@ public class Ramassage extends Interaction<VuePotion> {
 						logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " vient de boire un poison... Mort >_<");
 					}
 				}
+				
 				if (!Potion.getNom().equals("nitro")) {
 	                    attaquant.getElement().getCaracts().put(Caracteristique.VITESSE, 1);
 				}
