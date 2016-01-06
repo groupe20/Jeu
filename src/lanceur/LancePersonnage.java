@@ -20,6 +20,7 @@ import utilitaires.Constantes;
  * Lance une Console avec un Element sur l'Arene. 
  * A lancer apres le serveur, eventuellement plusieurs fois.
  */
+
 public class LancePersonnage {
 	
 

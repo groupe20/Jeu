@@ -20,7 +20,7 @@ public class LanceJeu {
 		LancePersonnage.main("Pochtron", "pochtron", "1");
 		LancePersonnage.main("Soigneur", "doc", "1");
 		
-		LancePersonnage.main("Fuyard", "fuyard", "2");
+	/*	LancePersonnage.main("Fuyard", "fuyard", "2");
 		LancePersonnage.main("Kamikaze", "kami", "2");
 		LancePersonnage.main("Pochtron", "pochtron", "2");
 		LancePersonnage.main("Soigneur", "doc", "2");
@@ -28,7 +28,7 @@ public class LanceJeu {
 		LancePersonnage.main("Fuyard", "fuyard", "3");
 		LancePersonnage.main("Kamikaze", "kami", "3");
 		LancePersonnage.main("Pochtron", "pochtron", "3");
-		LancePersonnage.main("Soigneur", "doc", "3");
+		LancePersonnage.main("Soigneur", "doc", "3");*/
 
 		LancePersonnage.main("Fuyard", "fuyard", "4");
 		LancePersonnage.main("Kamikaze", "kami", "4");

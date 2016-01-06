@@ -107,7 +107,6 @@ public class Pochtron extends Perso {
         	{
 				refCibleAdv = Calculs.chercheAdversaireProche(position, voisins, arene, gr);
 				distPlusProcheAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCibleAdv));
-				System.err.println(refCibleAdv);
 				advPlusProche = arene.elementFromRef(refCibleAdv);
 				adv = true ;
         	}
@@ -154,7 +153,7 @@ public class Pochtron extends Perso {
 					}
 					else 
 					{	//sinon on se déplace vers ce dernier
-						console.setPhrase("Je vais vers mon voisin " + advPlusProche.getNom());
+						console.setPhrase("Je vais vers la potion" + advPlusProche.getNom());
 						arene.deplace(refRMI, refCibleAdv);
 					}
 				}

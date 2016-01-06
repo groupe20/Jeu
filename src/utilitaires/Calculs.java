@@ -255,7 +255,7 @@ public class Calculs {
 		int refPlusProche = 0;
 		Element e ;
 		
-		System.err.println("Je suis dans chercheAdversaireProche");
+
 		
 		for(int refVoisin : voisins.keySet()) 
 		{
@@ -265,7 +265,7 @@ public class Calculs {
 			{
 				if (!groupe.equals(e.getGroupe()))
 				{
-					System.err.println("Je suis après le if");
+	
 					Point target = voisins.get(refVoisin);
 					
 					if (distanceChebyshev(origine, target) <= distPlusProche)
@@ -276,7 +276,7 @@ public class Calculs {
 				}
 			}
 		}
-		System.err.println("Je suis avant le return");
+
 		return refPlusProche;
 	}
 	

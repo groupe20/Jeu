@@ -109,7 +109,10 @@ public class Kamikaze extends Perso {
 			else 
 			{ // si voisins, mais plus eloignes
 				// je vais vers le plus proche
-				console.setPhrase("Je vais vers mon voisin " + elemPlusGrandAdv.getNom());
+				if (elemPlusGrandAdv.getGroupe() == gr) {
+					console.setPhrase("Je vais vers mon ami " + elemPlusGrandAdv.getNom());
+				}
+				else console.setPhrase("Je vais vers mon ennemi " + elemPlusGrandAdv.getNom());
 				arene.deplace(refRMI, refCible);
 			}
 		}
