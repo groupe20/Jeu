@@ -115,7 +115,7 @@ public class Soigneur extends Perso {
         	if (allie)
 			{
 				if(distPlusProcheAllie <= Constantes.DISTANCE_MIN_INTERACTION)
-				{	//si par hasard, je suis à portée de duel, je fais le duel
+				{	//si par hasard, je suis à portée de soigner, je soigne
 					console.setPhrase("Je soigne " + alliePlusProche.getNom());
 					arene.lanceSoin(refRMI, refCibleAllie);
 				}

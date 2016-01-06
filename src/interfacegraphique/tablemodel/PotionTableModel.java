@@ -28,12 +28,14 @@ public class PotionTableModel extends ElementTableModel<VuePotion> {
 		colonnes.add(new InformationColonne<VuePotion>("Groupe", 0, String.class, new ValeurColonneGroupe()));
 		
 		// caracteristiques
-		for(Caracteristique car : Caracteristique.values()) {
-			colonnes.add(new InformationColonne<VuePotion>(car.toString(), 40, Integer.class, new ValeurColonneCaract(car)));
-		}
+			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.VIE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.VIE)));
+			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.FORCE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.FORCE)));
+			colonnes.add(new InformationColonne<VuePotion>(Caracteristique.INITIATIVE.toString(), 40, Integer.class, new ValeurColonneCaract(Caracteristique.INITIATIVE)));
+
+
 		
-		// phrase du personnage
-		colonnes.add(new InformationColonne<VuePotion>("Phrase", 300, String.class, new ValeurColonnePhrase())); 
+		/*// phrase du personnage
+		colonnes.add(new InformationColonne<VuePotion>("Phrase", 300, String.class, new ValeurColonnePhrase())); */
 	}
    
 }
