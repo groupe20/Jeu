@@ -207,16 +207,20 @@ public class AreneJPanel extends JPanel {
 		switch(vueElement.getElement().getType()){
 			
 			case "Pochtron" : img = ImageIO.read(new File("images/pochtron.png"));
-			g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
-break;
-			case "Intello" : img = ImageIO.read(new File("images/intello.png"));		g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
-break;
-			case "Kamikaze" : img = ImageIO.read(new File("images/kamikaze.png"));		g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
-break;
-			case "Soigneur" : img = ImageIO.read(new File("images/docteur.png"));		g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
-break;
-			case "Fuyard" : img = ImageIO.read(new File("images/fuyard.png"));		g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
-break;
+							  g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
+							  break;
+			case "Intello" : img = ImageIO.read(new File("images/intello.png"));
+							 g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
+							 break;
+			case "Kamikaze" : img = ImageIO.read(new File("images/kamikaze.png"));		
+							  g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
+                              break;
+			case "Soigneur" : img = ImageIO.read(new File("images/docteur.png"));		
+			                  g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
+                              break;
+			case "Fuyard" : img = ImageIO.read(new File("images/fuyard.png"));		
+			                g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
+			                break;
 			case "other" :	img = ImageIO.read(new File("images/potion.png"));break;
 			case "mortelle" : img = ImageIO.read(new File("images/mortelle.png"));break;
 			
