@@ -752,6 +752,18 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 		return res ;
 	}
 	
+	
+	/**
+     * Execute le stockage d'une potion par un personnage, si possible.
+     * Le stockage echoue si une action a deja ete executee ce tour par ce 
+     * personnage, ou si la potion est trop loin du personnage, ou si
+     * l'inventaire est plein.
+     * @param refRMI reference RMI du personnage voulant ramasser une potion
+     * @param refPotion reference RMI de la potion qui doit etre ramasse
+     * @return vrai si l'action a ete effectuee, faux sinon
+     * @throws RemoteException
+     */
+	
 	@Override
 	public boolean boireInv(int refRMI) throws RemoteException {
 	        
