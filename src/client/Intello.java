@@ -94,16 +94,15 @@ public class Intello extends Perso {
 				
 				if (Calculs.adversairePresent(voisins, arene, gr)){
 					if (Calculs.potionPresente(voisins, arene)){
-						System.err.println("LOLOL");
 						
 						int refPotionProche = Calculs.cherchePotionProche(position, voisins, arene);
 						int refAdvProche = Calculs.chercheAdversaireProche(position, voisins, arene, gr);
 						int distPotProche = Calculs.distanceChebyshev(position, arene.getPosition(refPotionProche));
 						int distAdvProche = Calculs.distanceChebyshev(position, arene.getPosition(refAdvProche));
+
 						
 						if (distAdvProche < distPotProche){
 							if (arene.doitAttaquer(refRMI, refAdvProche)){
-								System.err.println("S'apprete a attaquer");
 							attaquer(arene,refRMI,refAdvProche,distAdvProche);
 							}
 							else{
@@ -115,8 +114,21 @@ public class Intello extends Perso {
 							boire(arene,refRMI, refPotionProche,distPotProche);
 						}
 						else {
-							console.setPhrase("J'erre...");
-							arene.deplace(refRMI, 0); 
+							if (distAdvProche < 5){
+								console.setPhrase("Je fuis le duel avec "+arene.elementFromRef(refAdvProche).getNom());
+								arene.fuite(refRMI, refAdvProche);
+							}
+							else if (Calculs.alliePresent(voisins, arene, gr)){
+								int refAlliePresent = Calculs.chercheAllieProche(position, voisins, arene, gr);
+								
+								console.setPhrase("Je vais vers mon allie " + arene.elementFromRef(refAlliePresent).getNom());
+								arene.deplace(refRMI, refAlliePresent);
+								
+							}
+							else {
+								console.setPhrase("J'erre...");
+								arene.deplace(refRMI, 0); 
+							}
 						}
 						
 					}

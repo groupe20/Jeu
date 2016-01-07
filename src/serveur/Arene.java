@@ -849,18 +849,22 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 	public boolean doitAttaquer (int refRMI, int refCible) {
 		boolean attaque = true;		
 		VuePersonnage vuePers = personnages.get(refRMI);
-		VuePotion vueVois = potions.get(refCible);		
+		VuePersonnage vueVois = personnages.get(refCible);	
+		
+
 		
 		// On recupere les caracteristiques du personnages
 		int viePers = vuePers.getElement().getCaract(Caracteristique.VIE);
 		int forcePers = vuePers.getElement().getCaract(Caracteristique.FORCE);
 		int initPers = vuePers.getElement().getCaract(Caracteristique.INITIATIVE);
+		
 
 		// On recupere les caracteristiques du voisin
 		int vieVois = vueVois.getElement().getCaract(Caracteristique.VIE);
 		int forceVois = vueVois.getElement().getCaract(Caracteristique.FORCE);
 		int initVois = vueVois.getElement().getCaract(Caracteristique.INITIATIVE);
 		
+
 
 		
 		// Si le voisin a une meilleur initiative
@@ -884,17 +888,17 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			int nbAttaqueEntreInit = 0;
 			int initPersBis = initPers;
 			int initVoisBis = initVois;
-			while (initPers > initVois) {
+			while (initPersBis > initVoisBis) {
 				initPersBis = initPersBis - 10;
 				initVoisBis = initVoisBis + 10;
 				nbAttaqueEntreInit ++;
 			}
-			// 100-40
-			if (nbCoupsAvantMort > nbAttaqueEntreInit){
+			if (nbAttaqueEntreInit == 0){
 				attaque = false;
 			}
 		}
 		
+
 		return attaque;
 		
 	}

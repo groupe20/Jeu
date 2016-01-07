@@ -141,7 +141,6 @@ public class Deplacement {
                     paway = Calculs.positionAleatoireArene();
                 }
 
-                System.err.println("x: "+pPerso.x+" y: "+pPerso.y);
                 paway.x=-pPerso.x;
                 paway.y=-pPerso.y;
 
