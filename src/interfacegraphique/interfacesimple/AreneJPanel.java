@@ -221,7 +221,7 @@ public class AreneJPanel extends JPanel {
 			case "Fuyard" : img = ImageIO.read(new File("images/fuyard.png"));		
 			                g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
 			                break;
-			case "Crevard" : //img = ImageIO.read(new File("images/fuyard.png"));		
+			case "Crevard" : img = ImageIO.read(new File("images/target17.png"));		
 				            g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);	
 				            break;
 			case "other" :	img = ImageIO.read(new File("images/potion.png"));break;

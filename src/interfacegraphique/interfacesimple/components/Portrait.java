@@ -86,6 +86,12 @@ public class Portrait extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}break;
+		case "Crevard" : try {
+				img = ImageIO.read(new File("images/criminal24.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}break;
 		
 		}
 		
