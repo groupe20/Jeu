@@ -15,8 +15,7 @@ public class LancePotionTP {
 	public static void main(String[] args) {
 		String nom = "Diablo potion";
 		
-		// TODO remplacer la ligne suivante par votre numero de groupe
-		String groupe = "G" + Calculs.nombreAleatoire(0,99); 
+		String groupe = "G" + 20; 
 		
 		// init des arguments
 		int port = Constantes.PORT_DEFAUT;
