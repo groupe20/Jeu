@@ -61,7 +61,7 @@ public class AreneJPanel extends JPanel {
 	/**
 	 * Couleur du rond entourant les elements selectionnes.
 	 */
-	private static final Color SELECTED_COLOR = new Color(0,0,0,70);
+	private static final Color SELECTED_COLOR = new Color(0,0,0,125);
 	
 	/**
 	 * Timer permettant l'affichage du compte a rebours.
@@ -200,7 +200,7 @@ public class AreneJPanel extends JPanel {
 
 		if (vueElement.isSelectionne()) {
 			g.setColor(SELECTED_COLOR);
-			g.fillOval(coordX - 7, coordY - 7, ELEMENT_SIZE +15, ELEMENT_SIZE + 15);
+			g.fillOval(coordX - 8, coordY -8, ELEMENT_SIZE +16, ELEMENT_SIZE + 16);
 			g.setColor(vueElement.getCouleur());	
 		}
 		
