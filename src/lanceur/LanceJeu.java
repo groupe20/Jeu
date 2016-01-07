@@ -15,19 +15,14 @@ public class LanceJeu {
 		LanceArene.main(args);
 		LanceIHM.main(args);
 		
-		//LancePersonnage.main("Intello", "i", "1");
+		LancePersonnage.main("Intello", "i", "1");
 		LancePersonnage.main("Fuyard", "f", "1");
+		LancePersonnage.main("Kamikaze", "k", "2");	
 		LancePersonnage.main("Kamikaze", "k", "2");
-		LancePersonnage.main("Kamikaze", "k", "2");
-		LancePersonnage.main("Kamikaze", "k", "2");
-		LancePersonnage.main("Kamikaze", "k", "2");
-
-		/*LancePersonnage.main("Soigneur", "d", "2");	
-		LancePersonnage.main("Intello", "i", "3");
-		LancePersonnage.main("Fuyard", "f3", "3");
+		LancePersonnage.main("Kamikaze", "k", "3");
 		LancePersonnage.main("Pochtron", "p", "3");
 		LancePersonnage.main("Crevard", "c", "4");
-		LancePersonnage.main("Intello", "i", "4");	*/
+		LancePersonnage.main("Intello", "i", "4");
 
 
 		LancePotion.main(args);

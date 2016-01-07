@@ -12,7 +12,6 @@ import client.Kamikaze;
 import client.Perso;
 import client.Pochtron;
 import client.Soigneur;
-import client.StrategiePersonnage;
 import logger.LoggerProjet;
 import serveur.element.Caracteristique;
 import utilitaires.Calculs;

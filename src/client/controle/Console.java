@@ -9,7 +9,6 @@ import java.util.logging.Level;
 
 import client.Perso;
 import client.Pochtron;
-import client.StrategiePersonnage;
 import logger.LoggerProjet;
 import serveur.IArene;
 import serveur.element.Personnage;

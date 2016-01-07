@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 
 import client.Perso;
-import client.StrategiePersonnage;
 import serveur.IArene;
 import serveur.element.Personnage;
 
