@@ -11,7 +11,7 @@ import serveur.element.Personnage;
 import utilitaires.Calculs;
 import utilitaires.Constantes;
 /**
- * Strategie d'un personnage. 
+ * Personnage qui fuit les ennemis
  */
 public class Fuyard extends Perso {
 	
