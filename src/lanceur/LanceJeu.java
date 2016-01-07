@@ -3,7 +3,7 @@
  */
 package lanceur;
 
-
+import utilitaires.Audio;
 
 public class LanceJeu {
 
@@ -36,6 +36,8 @@ public class LanceJeu {
 		LancePotion.main(args);
 		LancePotion.main(args);
 		LancePotion.main(args);
+		
+		new Audio().start();
 
 
 

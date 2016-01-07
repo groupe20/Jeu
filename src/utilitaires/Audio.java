@@ -11,7 +11,7 @@ public class Audio extends Thread{
     SourceDataLine line;
      
     public void run(){
-        File fichier = new File("/Users/mathieukostiuk/Documents/Java/Echiquier/bin/echiquier/console/lol.wav");
+        File fichier = new File("audios/'Clash of Clans' Main Theme Music, for Piano.mp3");
         try {
         @SuppressWarnings("unused")
         AudioFileFormat format = AudioSystem.getAudioFileFormat(fichier);
