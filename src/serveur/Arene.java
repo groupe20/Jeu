@@ -981,7 +981,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 					personnages.get(refRMIAdv).getPosition());
 
 			// on teste la distance entre les personnages
-			if (distance <= Constantes.DISTANCE_MIN_INTERACTION) {
+			if (distance <= Constantes.DISTANCE_MIN_INTERACTION || client.getElement().type.equals("Crevard")) {
 				Personnage pers = (Personnage) elementFromRef(refRMI);
 				Personnage persAdv = (Personnage) elementFromRef(refRMIAdv);
 				

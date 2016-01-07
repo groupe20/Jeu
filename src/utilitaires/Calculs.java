@@ -397,7 +397,7 @@ public class Calculs {
 		 {
 			 e = arene.elementFromRef(refVoisin) ;
 			 int vieElement = e.getCaract(Caracteristique.VIE);
-			 if (vieElement < max && !groupe.equals(e.getGroupe()) && e instanceof Personnage)
+			 if (vieElement <= max && !groupe.equals(e.getGroupe()) && e instanceof Personnage)
 			 {
 				 refPlusFaible = refVoisin;
 				 max = vieElement;

@@ -26,21 +26,16 @@ public class BoireInv extends Interaction<VuePersonnage> {
 	public void interagit() {
 		
 		Personnage pAttaquant = attaquant.getElement();
-		VuePersonnage v = attaquant;
 
 		try {
 			//logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " essaye de boire la potion dans son inventaire: " + p.getNom());
 			
 			// si le personnage est vivant
-			if(true) {
-				//logs(Level.INFO, "vivant !");
-
+			if(attaquant.getElement().estVivant()) {
 
 				// caracteristiques de la potion
-				//logs(Level.INFO, "avant recup !");
 
 				HashMap<Caracteristique, Integer> valeursPotion = p.getCaracts();
-				//logs(Level.INFO, "recup !");
 
 				
 				if (p.getNom().equals("teleportation")) {

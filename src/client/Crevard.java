@@ -84,7 +84,8 @@ public class Crevard extends Perso {
 		
 		Element player = arene.elementFromRef(refRMI) ;
     	String gr = player.getGroupe() ;
-		
+    	
+    	
 		if (!Calculs.adversairePresent(voisins, arene, gr)) 
 		{ // je n'ai pas d'adversaires, j'erre
 			console.setPhrase("J'erre...");
@@ -104,10 +105,10 @@ public class Crevard extends Perso {
 					console.setPhrase("Je ramasse une potion " + plusProchePot.getNom());
 					arene.ramassePotion(refRMI, refCiblePot);
 				}
-				/*else
+				else
 				{
 					attaquer(position, voisins, arene, refRMI, gr) ;
-				}*/
+				}
 			}
 			else
 			{
@@ -120,7 +121,9 @@ public class Crevard extends Perso {
 	public void attaquer (Point position, HashMap<Integer, Point> voisins, IArene arene, int refRMI, String gr) throws RemoteException
 	{
 	
+		System.err.println("Je suis dans attaquer");
 		int refCible = Calculs.cherchePlusFaibleAdversaire(voisins, arene, gr); //chercherPlusFaibleAdv
+		System.err.println("J'attaque "+refCible);
 		int distPlusFaibleAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible)); //distPlusFaibleAdv
 	
 		Element plusFaibleAdv = arene.elementFromRef(refCible); //plusFaibleAdv
