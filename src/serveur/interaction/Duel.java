@@ -47,30 +47,24 @@ public class Duel extends Interaction<VuePersonnage> {
 			
 
 			
-		//possibilité d'esquive
-			if(initDefenseur < (initAttaquant+100)){
 		
-				// degats
-				if (perteVie > 0) {
-					arene.incrementeCaractElement(defenseur, Caracteristique.VIE, -perteVie);
-				
-					logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " colle une beigne ("
-						+ perteVie + " points de degats) a " + Constantes.nomRaccourciClient(defenseur));
-				}
+			// degats
+			if (perteVie > 0) {
+				arene.incrementeCaractElement(defenseur, Caracteristique.VIE, -perteVie);
 			
-				// initiative
-				incrementeInitiative(defenseur);
-				decrementeInitiative(attaquant);
-				arene.incrementeCaractElement(defenseur, Caracteristique.DEFENSE, -10);
-				arene.incrementeCaractElement(defenseur, Caracteristique.CRITIQUE, 10);
+				logs(Level.INFO, Constantes.nomRaccourciClient(attaquant) + " colle une beigne ("
+					+ perteVie + " points de degats) a " + Constantes.nomRaccourciClient(defenseur));
+			}
+		
+			// initiative
+			incrementeInitiative(defenseur);
+			decrementeInitiative(attaquant);
+			arene.incrementeCaractElement(defenseur, Caracteristique.DEFENSE, -10);
+			arene.incrementeCaractElement(defenseur, Caracteristique.CRITIQUE, 10);
 
 
-				
-			}
-			else {
-				logs(Level.INFO, Constantes.nomRaccourciClient(defenseur) + " esquive le coup de "
-						+ Constantes.nomRaccourciClient(attaquant));
-			}
+	
+			
 		} catch (RemoteException e) {
 			logs(Level.INFO, "\nErreur lors d'une attaque : " + e.toString());
 		}

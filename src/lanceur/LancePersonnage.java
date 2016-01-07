@@ -60,9 +60,9 @@ public class LancePersonnage {
 			// seule la force n'a pas sa valeur par defaut (exemple)
 			if (p=="Crevard"){
 				caracts.put(Caracteristique.FORCE, 5);
-			} else 
+			} /*else 
 			caracts.put(Caracteristique.FORCE, 
-					Calculs.valeurCaracAleatoire(Caracteristique.FORCE)); 
+					Calculs.valeurCaracAleatoire(Caracteristique.FORCE)); */
 			
 			Point position = Calculs.positionAleatoireArene();
 			
