@@ -200,7 +200,7 @@ public class AreneJPanel extends JPanel {
 
 		if (vueElement.isSelectionne()) {
 			g.setColor(SELECTED_COLOR);
-			g.fillOval(coordX - 5, coordY - 5, ELEMENT_SIZE +10, ELEMENT_SIZE + 10);
+			g.fillOval(coordX - 7, coordY - 7, ELEMENT_SIZE +15, ELEMENT_SIZE + 15);
 			g.setColor(vueElement.getCouleur());	
 		}
 		
