@@ -112,6 +112,8 @@ public class Intello extends Perso {
 						}
 						else if (arene.bonnePotion(refRMI, refPotionProche)){
 							boire(arene,refRMI, refPotionProche,distPotProche);
+							console.setPhrase("Je bois");
+
 						}
 						else {
 							if (distAdvProche < 5){
@@ -141,6 +143,8 @@ public class Intello extends Perso {
 							}
 							else{
 								arene.fuite(refRMI, refAdvProche);
+								console.setPhrase("Je fuis");
+
 							}
 					}
 				}
