@@ -45,7 +45,7 @@ public class Intello extends Perso {
 		
 		try {
 			console = new Console(ipArene, port, ipConsole, this, 
-					new Personnage(nom, groupe, caracts,"Pochtron"), 
+					new Personnage(nom, groupe, caracts,"Intello"), 
 					nbTours, position, logger);
 			logger.info("Lanceur", "Creation de la console reussie");
 			

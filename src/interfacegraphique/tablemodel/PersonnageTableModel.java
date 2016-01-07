@@ -27,6 +27,8 @@ public class PersonnageTableModel extends ElementTableModel<VuePersonnage> {
 		// groupe du personnage
 		colonnes.add(new InformationColonne<VuePersonnage>("Team", 60, String.class, new ValeurColonneGroupe()));
 		
+		colonnes.add(new InformationColonne<VuePersonnage>("Type", 100, String.class, new ValeurColonneType()));
+
 		// caracteristiques
 		for(Caracteristique car : Caracteristique.values()) {
 			colonnes.add(new InformationColonne<VuePersonnage>(car.toString(), 40, Integer.class, new ValeurColonneCaract(car)));

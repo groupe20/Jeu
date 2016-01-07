@@ -79,6 +79,17 @@ public abstract class ElementTableModel<V extends VueElement<?>> extends Abstrac
 	}
 
 	/**
+	 * Affiche le type de perso.
+	 *
+	 */
+	protected class ValeurColonneType implements IValeurColonne<V> {
+		@Override
+		public Object valeurColonne(int rowIndex, V vue) {
+			return vue.getElement().type;
+		}
+	}
+	
+	/**
 	 * Affiche la phrase.
 	 *
 	 */
