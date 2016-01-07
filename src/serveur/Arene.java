@@ -799,8 +799,106 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 	        
 	        
 	}
+	
+	/**
+	 * Permet de savoir si la potion est utile au personnage.
+	 * Renvoie un boolean
+	 */
+	public boolean bonnePotion (int refRMI, int refPotion) {
+		boolean estBonne = true;		
+		VuePersonnage vuePers = personnages.get(refRMI);
+		VuePotion vuePot = potions.get(refPotion);		
+		String nomPot = vuePot.getElement().getNom();
+		
+		// On recupere les caracteristiques du personnages
+		int viePers = vuePers.getElement().getCaract(Caracteristique.VIE);
+		int forcePers = vuePers.getElement().getCaract(Caracteristique.FORCE);
+		int initPers = vuePers.getElement().getCaract(Caracteristique.INITIATIVE);
+		int speedPers = vuePers.getElement().getCaract(Caracteristique.VITESSE);
+		
+		// On recupere les caracteristiques de la potion
+		int viePot = vuePot.getElement().getCaract(Caracteristique.VIE);
+		int forcePot = vuePot.getElement().getCaract(Caracteristique.FORCE);
+		int initPot = vuePot.getElement().getCaract(Caracteristique.INITIATIVE);
+		
+		// Mortelle ou immobilité -> REFUS
+		if (nomPot.equals("mortelle") || nomPot.equals("immobilite")) {
+			estBonne = false;
+		}
+		
+		// Si la potion est basic et que viePot est negative 
+		if (nomPot.equals("basic")){
+			// Si la viePerso=100 (max) et que viePot negative. On refuse, car on perd de la vie
+			if ((viePers == 100) && (viePot < 0)){
+				estBonne = false;
+			}
+			// et que sa valeur absolue est > viePers
+			if ((viePot < 0) && (Math.abs(viePot) > viePers)) {
+				estBonne = false;
+			}
+		}
+		
+		return estBonne;
+		
+	}
+	
+	/**
+	 * Permet de savoir si le personnage doit attaquer son voisin.
+	 * Renvoie un boolean
+	 */
+	public boolean doitAttaquer (int refRMI, int refCible) {
+		boolean attaque = true;		
+		VuePersonnage vuePers = personnages.get(refRMI);
+		VuePotion vueVois = potions.get(refCible);		
+		
+		// On recupere les caracteristiques du personnages
+		int viePers = vuePers.getElement().getCaract(Caracteristique.VIE);
+		int forcePers = vuePers.getElement().getCaract(Caracteristique.FORCE);
+		int initPers = vuePers.getElement().getCaract(Caracteristique.INITIATIVE);
 
+		// On recupere les caracteristiques du voisin
+		int vieVois = vueVois.getElement().getCaract(Caracteristique.VIE);
+		int forceVois = vueVois.getElement().getCaract(Caracteristique.FORCE);
+		int initVois = vueVois.getElement().getCaract(Caracteristique.INITIATIVE);
+		
 
+		
+		// Si le voisin a une meilleur initiative
+		if (initPers < initVois){
+			// Si la force du voisin est superieur a la vie du perso on refuse
+			if (viePers < forceVois){
+				attaque = false;
+			}
+
+		}
+		else if (initPers >= initVois) {
+			// Savoir combien de coups recoit un voisin avant de mourir.
+			int nbCoupsAvantMort = 0;
+			int vieVoisBis = vieVois;
+			while (vieVoisBis > 0){
+				vieVoisBis = vieVoisBis-forcePers;
+				nbCoupsAvantMort ++;				
+			}
+			// Savoir combien de coups peut donner le perso avant d'avoir une init inferieur 
+			// au voisin et se faire attaquer.
+			int nbAttaqueEntreInit = 0;
+			int initPersBis = initPers;
+			int initVoisBis = initVois;
+			while (initPers > initVois) {
+				initPersBis = initPersBis - 10;
+				initVoisBis = initVoisBis + 10;
+				nbAttaqueEntreInit ++;
+			}
+			// 100-40
+			if (nbCoupsAvantMort > nbAttaqueEntreInit){
+				attaque = false;
+			}
+		}
+		
+		return attaque;
+		
+	}
+	
 /**
  * Permet de boire la potion directement
  */

@@ -16,7 +16,7 @@ public class LancePotion {
 	private static String usage = "USAGE : java " + LancePotion.class.getName() + " [ port [ ipArene ] ]";
 
 	public static void main(String[] args) {
-		String nom = "Anduril";
+		String nom = "";
 		
 		String groupe = "1"; 
 	

@@ -17,8 +17,11 @@ public class LanceJeu {
 		
 		LancePersonnage.main("Fuyard", "f", "1");
 		LancePersonnage.main("Kamikaze", "k", "1");
-		//LancePersonnage.main("Pochtron", "p", "1");
-		//LancePersonnage.main("Soigneur", "d", "1");
+		LancePersonnage.main("Pochtron", "p", "1");
+		LancePersonnage.main("Soigneur", "d", "1");
+		LancePersonnage.main("Crevard", "c", "1");
+		LancePersonnage.main("Intello", "i", "4");
+
 		
 		LancePersonnage.main("Fuyard", "f2", "2");
 		LancePersonnage.main("Kamikaze", "k2", "2");
@@ -30,8 +33,8 @@ public class LanceJeu {
 		//LancePersonnage.main("Pochtron", "p3", "3");
 		//LancePersonnage.main("Soigneur", "d3", "3");
 
-		LancePersonnage.main("Fuyard", "f4", "4");
-		LancePersonnage.main("Kamikaze", "k4", "4");
+		//LancePersonnage.main("Fuyard", "f4", "4");
+		//LancePersonnage.main("Kamikaze", "k4", "4");
 		//LancePersonnage.main("Pochtron", "p4", "4");
 		//LancePersonnage.main("Soigneur", "d4", "4");
 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
 
+import client.Crevard;
 import client.Fuyard;
 import client.Intello;
 import client.Kamikaze;
@@ -65,8 +66,8 @@ public class LancePersonnage {
 			case "Pochtron":
 				new Pochtron(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
 				break;
-			case "StrategiePersonnage":
-				new StrategiePersonnage(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
+			case "Crevard":
+				new Crevard(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
 				break;
 			case "Intello":
 				new Intello(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
@@ -80,6 +81,7 @@ public class LancePersonnage {
 			case "Soigneur":
 				new Soigneur(ipArene, port, ipConsole, nom, groupe, caracts, nbTours, position, logger);
 				break;
+				
 			}
 			
 			logger.info("Lanceur", "Creation du personnage reussie");

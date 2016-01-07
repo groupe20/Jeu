@@ -83,7 +83,7 @@ public class Crevard extends Perso {
 		}
 		
 		Element player = arene.elementFromRef(refRMI) ;
-    		String gr = player.getGroupe() ;
+    	String gr = player.getGroupe() ;
 		
 		if (!Calculs.adversairePresent(voisins, arene, gr)) 
 		{ // je n'ai pas d'adversaires, j'erre
