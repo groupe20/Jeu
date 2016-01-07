@@ -16,7 +16,7 @@ import utilitaires.Constantes;
 
 
 /**
- * Personnage qui attaque les personnages qui ont le plus de vie
+ * Personnage qui attaque a distance
  */
 public class Crevard extends Perso {
 	
@@ -122,7 +122,6 @@ public class Crevard extends Perso {
 	public void attaquer (Point position, HashMap<Integer, Point> voisins, IArene arene, int refRMI, String gr) throws RemoteException
 	{
 	
-		System.err.println("Je suis dans attaquer");
 		int refCible = Calculs.cherchePlusFaibleAdversaire(voisins, arene, gr); //chercherPlusFaibleAdv
 		System.err.println("J'attaque "+refCible);
 		int distPlusFaibleAdv = Calculs.distanceChebyshev(position, arene.getPosition(refCible)); //distPlusFaibleAdv
