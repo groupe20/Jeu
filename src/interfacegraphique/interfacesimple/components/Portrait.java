@@ -36,10 +36,9 @@ public class Portrait extends JPanel {
 		this.personnage = personnage;
 	}
 	
-	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		Image img=null;
 		
 		switch(this.personnage){
@@ -94,7 +93,6 @@ public class Portrait extends JPanel {
 			}break;
 		
 		}
-		
 	g.drawImage(img, 10 , 10 , null);
 	}
 }

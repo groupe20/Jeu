@@ -28,7 +28,7 @@ public class VictoryScreen extends JPanel {
 	/**
 	 * Couleur du vainqueur.
 	 */
-	private Color color;
+	private String type;
 
 	/**
 	 * Cree un ecran de victoire.
@@ -36,7 +36,7 @@ public class VictoryScreen extends JPanel {
 	 */
 	public VictoryScreen(VuePersonnage vue) {
 		nom = vue.getElement().getNom();
-		color = vue.getCouleur();
+		type = vue.getElement().getType();
 	}
 
 	@Override
@@ -46,8 +46,54 @@ public class VictoryScreen extends JPanel {
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 		// dessine le disque de la couleur du gagnant puis ajoute l'image par dessus
-		g.setColor(new Color(color.getRGB(), false));
-		g.fillOval(240, 160, 200, 200);
+		
+		
+		//g.setColor(new Color(color.getRGB(), false));
+		//g.fillOval(240, 160, 200, 200);
+		
+		Image vainqueur=null;
+		
+		switch(this.type){
+		
+		case "Pochtron" : try {
+				vainqueur = ImageIO.read(new File("images/pochtron(portrait).png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}break;
+		case "Intello" : try {
+				vainqueur = ImageIO.read(new File("images/intello(portrait).png"));
+			} catch (IOException e7) {
+				// TODO Auto-generated catch block
+				e7.printStackTrace();
+			}break;
+		case "Kamikaze" : try {
+				vainqueur = ImageIO.read(new File("images/kamikaze(portrait).png"));
+			} catch (IOException e6) {
+				// TODO Auto-generated catch block
+				e6.printStackTrace();
+			}break;
+		case "Soigneur" : try {
+				vainqueur = ImageIO.read(new File("images/docteur(portrait).png"));
+			} catch (IOException e5) {
+				// TODO Auto-generated catch block
+				e5.printStackTrace();
+			}break;
+		case "Fuyard" : try {
+				vainqueur = ImageIO.read(new File("images/fuyard(portrait).png"));
+			} catch (IOException e4) {
+				// TODO Auto-generated catch block
+				e4.printStackTrace();
+			}break;
+		case "Crevard" : try {
+				vainqueur = ImageIO.read(new File("images/criminal24.png"));
+			} catch (IOException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}break;
+		}
+		g.drawImage(vainqueur, 280, 200, null);
+
 		Image logo;
 		try {
 			logo = ImageIO.read(new File("images/WinScreen.png"));
