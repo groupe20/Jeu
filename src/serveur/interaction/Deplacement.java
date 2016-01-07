@@ -99,56 +99,40 @@ public class Deplacement {
 
             // on ne bouge que si l'element voisin existe
             if(pVoisin != null) {
-                if ((pPerso.x <= pVoisin.x) && (pPerso.x >= Constantes.XMIN_ARENE )){
-                    pPerso.x --;
-                    calc=true;
-                }
-                else if ((pPerso.x >= pVoisin.x) && (pPerso.x <= Constantes.XMAX_ARENE )){
-                    pPerso.x ++;
-                    calc=true;
-                }
-            
-                if ((pPerso.y <= pVoisin.y) && (pPerso.y >= Constantes.YMIN_ARENE )){
-                    pPerso.y --;
-                    calc=true;
-                }
-                else if ((pPerso.y >= pVoisin.y) && (pPerso.y <= Constantes.YMAX_ARENE)){
-                    pPerso.y ++;
-                    calc=true;
-                }
-            
-                if ((pPerso.x == Constantes.XMAX_ARENE) && (pPerso.y == Constantes.YMAX_ARENE)) {
-                    pPerso.x --;
-                    pPerso.y --;
-                    calc=true;
-                }
-                else if ((pPerso.x == Constantes.XMAX_ARENE) && (pPerso.y == Constantes.YMIN_ARENE)) {
-                    pPerso.x --;
-                    pPerso.y ++;
-                    calc=true;
-                }
-                else if ((pPerso.x == Constantes.XMIN_ARENE) && (pPerso.y == Constantes.YMIN_ARENE)) {
-                    pPerso.x ++;
-                    pPerso.y ++;
-                    calc=true;
-                }
-                else if ((pPerso.x == Constantes.XMIN_ARENE) && (pPerso.y == Constantes.YMAX_ARENE)) {
-                    pPerso.x ++;
-                    pPerso.y --;
-                    calc=true;
-                }
-                if (!calc){
-                    paway = Calculs.positionAleatoireArene();
-                }
+    			if ((pPerso.x <= pVoisin.x) && (pPerso.x > Constantes.XMIN_ARENE )){
+    				pPerso.x --;
+    				calc=true;
+    			}
+    			if ((pPerso.x > pVoisin.x) && (pPerso.x < Constantes.XMAX_ARENE )){
+    				pPerso.x ++;
+    				calc=true;
+    			}
+    			if ((pPerso.y <= pVoisin.y) && (pPerso.y > Constantes.YMIN_ARENE )){
+    				pPerso.y --;
+    				calc=true;
+    			}
+    			if ((pPerso.y > pVoisin.y) && (pPerso.y < Constantes.YMAX_ARENE)){
+    				pPerso.y ++;
+    				calc=true;
+    			}
+    			
+    			
+    			
+    			if (!calc){
+    				paway = Calculs.positionAleatoireArene();
+    			}
+    			else{
+    			paway.x=pPerso.x;
+    			paway.y=pPerso.y;
+    			}
+    			
+    			seDirigeVers(paway);
+    		}
 
-                paway.x=-pPerso.x;
-                paway.y=-pPerso.y;
-
-                seDirigeVers(paway);
             }
             
         }
-    }
+    
 
 
 	
