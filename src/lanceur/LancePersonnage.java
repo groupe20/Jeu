@@ -9,6 +9,7 @@ import client.Crevard;
 import client.Fuyard;
 import client.Intello;
 import client.Kamikaze;
+import client.Perso;
 import client.Pochtron;
 import client.Soigneur;
 import client.StrategiePersonnage;
@@ -57,6 +58,9 @@ public class LancePersonnage {
 			// caracteristiques du personnage
 			HashMap<Caracteristique, Integer> caracts = new HashMap<Caracteristique, Integer>();
 			// seule la force n'a pas sa valeur par defaut (exemple)
+			if (p=="Crevard"){
+				caracts.put(Caracteristique.FORCE, 5);
+			} else 
 			caracts.put(Caracteristique.FORCE, 
 					Calculs.valeurCaracAleatoire(Caracteristique.FORCE)); 
 			

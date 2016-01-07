@@ -45,9 +45,10 @@ public class Crevard extends Perso {
         
         try {
             console = new Console(ipArene, port, ipConsole, this, 
-                    new Personnage(nom, groupe, caracts,"Crevard"), 
-                    nbTours, position, logger);
-            logger.info("Lanceur", "Creation de la console reussie");
+            				new Personnage(nom, groupe, caracts,"Crevard"), 
+            					nbTours, position, logger);
+            
+    		logger.info("Lanceur", "Creation de la console reussie");
             
         } catch (Exception e) {
             logger.info("Personnage", "Erreur lors de la creation de la console : \n" + e.toString());

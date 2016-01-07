@@ -87,12 +87,21 @@ public class Intello extends Perso {
 			arene.deplace(refRMI, 0); 
 			
 		} else {
+			
+			
+			
+			
+			
+			
 			int refCible = Calculs.chercheElementProche(position, voisins);
 			int distPlusProche = Calculs.distanceChebyshev(position, arene.getPosition(refCible));
 
 			Element elemPlusProche = arene.elementFromRef(refCible);
 			Element perso = arene.elementFromRef(refRMI);
 			String gr = perso.getGroupe();
+			
+			
+			
 			if(distPlusProche <= Constantes.DISTANCE_MIN_INTERACTION) { // si suffisamment proches
 				// j'interagis directement
 				if((elemPlusProche instanceof Potion) && (arene.bonnePotion(refRMI, refCible))) { // potion
@@ -120,6 +129,7 @@ public class Intello extends Perso {
 				else  {			
 					console.setPhrase("Je ne veux pas la potion " + elemPlusProche.getNom());					
 					arene.deplace(refRMI, 0);
+					refCible = Calculs.cherchePlusFaibleAdversaire(voisins, arene, gr);
 				}
 				
 			} else { // si voisins, mais plus eloignes
