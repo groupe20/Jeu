@@ -20,6 +20,30 @@ public class LanceJeu {
 		
 
 		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+		LanceMonstre.main(args);
+
 		
 		LancePotion.main(args);
 
