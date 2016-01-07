@@ -7,9 +7,11 @@ import java.util.HashMap;
 
 import client.controle.Console;
 import logger.LoggerProjet;
+import serveur.Arene;
 import serveur.IArene;
 import serveur.element.Caracteristique;
 import serveur.element.Personnage;
+import serveur.interaction.Deplacement;
 import utilitaires.Calculs;
 import utilitaires.Constantes;
 
@@ -30,7 +32,8 @@ public class StrategiePersonnage {
 	
 	protected static HashMap<Integer,HashMap<Caracteristique,Integer>> listeadv =null ;
 	
-	protected int cpt = 0 ;
+	protected int cpt = 0 ; //compteur de tour avant réinitialisation de listeadv
+	protected boolean tourun = true ;
 
 	/**
 	 * Cree un personnage, la console associe et sa strategie.
@@ -61,7 +64,6 @@ public class StrategiePersonnage {
 		}
 	}
 
-	// TODO etablir une strategie afin d'evoluer dans l'arene de combat
 	// une proposition de strategie (simple) est donnee ci-dessous
 	/** 
 	 * Decrit la strategie.
@@ -94,7 +96,7 @@ public class StrategiePersonnage {
 		
 		if (cpt <=0 && listeadv!=null){
 			listeadv.clear();
-			cpt=5;
+			cpt=7; //On réinitialise tout les 7 tours pour effectuer une maj des stats au cas ou
 		}
 		
 		int refMonstre = 0 ;
@@ -103,213 +105,307 @@ public class StrategiePersonnage {
 		int distPot = 0 ;
 		int refAdv = 0 ;
 		int distAdv = 0 ;
-		
-		if (voisins.isEmpty()) 
-		{ // je n'ai pas de voisins, je me soigne
-			console.setPhrase("Je me soigne");
-			arene.lanceAutoSoin(refRMI);
-		}
-		else 
+		if (tourun)
 		{
-			refMonstre = monstreProche(position, voisins, arene) ;
-			if (refMonstre != 0)
-			{
-				distMonstre = Calculs.distanceChebyshev(position, arene.getPosition(refMonstre));
-			}
-			System.err.println(refMonstre);
-			
-			refPot = chercheBestPotion(position, voisins, arene, refRMI) ;
-			System.err.println(refPot);
-
-			if (refPot != 0)
-			{
-				distPot = Calculs.distanceChebyshev(position, arene.getPosition(refPot));
-			}
-			
-			
-				
-				if (nbAdv(voisins,arene) > 0)
+			console.setPhrase("j'erre tour un");
+			tourun = false ;
+            arene.deplace(refRMI, 0);
+		}
+		else
+		{
+			if (voisins.isEmpty()) 
+			{ // je n'ai pas de voisins
+				if (arene.caractFromRef(refRMI, Caracteristique.VIE) != 100)
 				{
-					System.err.println("J'ai des adversaires autour de moi");
-					//ajoutAdvDansListe(voisins,arene) ;
-					
-					refAdv = advPlusProche(position,voisins,arene) ;
-					System.err.println("après advPlusProche" + refAdv);
-					if (refAdv != 0)
-					{
-						distAdv = Calculs.distanceChebyshev(position, arene.getPosition(refAdv));
-					}
-					int distPotAdv = 0 ;
-					if (refPot != 0)
-					{
-						distPotAdv = Calculs.distanceChebyshev(arene.getPosition(refAdv), arene.getPosition(refPot)) ;
-					}
-					System.err.println("après distAdv et distPotAdv");
-					if (refPot != 0 && distPot < distPotAdv && distAdv != 0)
-					{
-						System.err.println("Je suis dans le if (ennemi mais potion a prendre)");
-						if(distPot <= Constantes.DISTANCE_MIN_INTERACTION)
-						{ // si suffisamment proche
-							// ramassage
-							console.setPhrase("Je ramasse une potion");
-							arene.ramassePotion(refRMI, refPot);
-						}
-						else if (distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && distPot > Constantes.DISTANCE_MIN_INTERACTION)
-						{	//si un monstre vient m'attaquer, je l'attaque
-							console.setPhrase("Je me bats contre un monstre");
-							arene.lanceAttaque(refRMI, refMonstre);
-						}
-						else
-						{ // si voisins, mais plus eloignes
-							// je vais vers le plus proche
-							console.setPhrase("Je vais vers une potion " + arene.nomFromRef(refPot));
-							arene.deplace(refRMI, refPot);
-						}
-					}
-					else
-					{
-						System.err.println("Je suis dans le else ennemi");
-						if (listeadv == null){
-							listeadv = new HashMap<Integer,HashMap<Caracteristique,Integer>>();
-						}
-						System.err.println(listeadv.containsKey(refAdv)) ;
-						
-						if (refAdv != 0 && !listeadv.containsKey(refAdv))
-						{
-							
-							listeadv.put(refAdv,arene.lanceClairvoyance(refRMI, refAdv)) ;
-							System.err.println("clairvoyance faite");
-
-						}
-						else
-						{
-							System.err.println("Je suis dans le else j'ai une cible potentielle");
-							if (doitAttaquer(refRMI, refAdv, arene))
-							{
-								System.err.println("On doit attaquer");
-
-								if(distAdv <= Constantes.DISTANCE_MIN_INTERACTION)
-								{ // si suffisamment proche, j'attaque
-									console.setPhrase("Je fais un duel avec " + arene.nomFromRef(refAdv));
-									arene.lanceAttaque(refRMI, refAdv);
-								}
-								else
-								{ //sinon je vais vers lui pour l'attaquer
-									console.setPhrase("Je vais vers mon ennemi " + arene.nomFromRef(refAdv));
-									arene.deplace(refRMI, refAdv);
-								}
-							}
-							else
-							{
-								System.err.println("On doit pas attaquer");
-								if(distAdv <= 10)
-								{
-									System.err.println("On doit fuir");
-									//TODO fuir
-									console.setPhrase("Je me soigne");
-									arene.lanceAutoSoin(refRMI);
-								}
-								else
-								{
-									System.err.println("On doit fuir mais potion a prendre");
-									if (refPot != 0)
-									{
-										if(distPot <= Constantes.DISTANCE_MIN_INTERACTION)
-										{ // si suffisamment proche
-											// ramassage
-											console.setPhrase("Je ramasse une potion");
-											arene.ramassePotion(refRMI, refPot);
-										}
-										else if (distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && distPot > Constantes.DISTANCE_MIN_INTERACTION)
-										{	//si un monstre vient m'attaquer, je l'attaque
-											console.setPhrase("Je me bats contre un monstre");
-											arene.lanceAttaque(refRMI, refMonstre);
-										}
-										else
-										{ // si voisins, mais plus eloignes
-											// je vais vers le plus proche
-											console.setPhrase("Je vais vers une potion " + arene.nomFromRef(refPot));
-											arene.deplace(refRMI, refPot);
-										}
-									}
-									else
-									{
-										System.err.println("Ennemis mais monstre gérable");
-										if (refMonstre != 0)
-										{
-											if(distMonstre <= Constantes.DISTANCE_MIN_INTERACTION)
-											{ // si suffisamment proche
-												// j'attaque le monstre
-												console.setPhrase("Je me bats contre un monstre");
-												arene.lanceAttaque(refRMI, refMonstre);
-											}
-											else
-											{ // si voisins, mais plus eloignes
-												// je vais vers le plus proche
-												console.setPhrase("Je vais vers un monstre " + arene.nomFromRef(refMonstre));
-												arene.deplace(refRMI, refMonstre);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
+					//je me soigne s'il me manque des pv
+					console.setPhrase("Je me soigne");
+					arene.lanceAutoSoin(refRMI);
 				}
 				else
+				{	//j'erre
+					console.setPhrase("J'erre...");
+					arene.deplace(refRMI, 0);
+				}
+			}
+			else 
+			{
+				refMonstre = monstreProche(position, voisins, arene) ;
+				if (refMonstre != 0)
 				{
-					System.out.println("Je suis dans le else (pas d'ennemi)");
-					if (refPot != 0)
+					distMonstre = Calculs.distanceChebyshev(position, arene.getPosition(refMonstre));
+				}
+				
+				refPot = chercheBestPotion(position, voisins, arene, refRMI) ;
+	
+				if (refPot != 0)
+				{
+					distPot = Calculs.distanceChebyshev(position, arene.getPosition(refPot));
+				}
+				
+				
+					
+					if (nbAdv(voisins,arene) > 0)
 					{
-						System.out.println("Je suis dans le if (ya une potion)");
-						if(distPot <= Constantes.DISTANCE_MIN_INTERACTION)
-						{ // si suffisamment proche
-							// ramassage
-							console.setPhrase("Je ramasse une potion");
-							arene.ramassePotion(refRMI, refPot);
-						}
-						else if (distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && distPot > Constantes.DISTANCE_MIN_INTERACTION)
-						{	//si un monstre vient m'attaquer, je l'attaque
-							console.setPhrase("Je me bats contre un monstre");
-							arene.lanceAttaque(refRMI, refMonstre);
-						}
-						else
-						{ // si voisins, mais plus eloignes
-							// je vais vers le plus proche
-							console.setPhrase("Je vais vers une potion " + arene.nomFromRef(refPot));
-							arene.deplace(refRMI, refPot);
-						}
-					}
-					else
-					{
-						System.out.print("Je suis dans le else (pas de potion)");
-						if (refMonstre != 0)
+						//ajoutAdvDansListe(voisins,arene) ;
+						
+						refAdv = advPlusProche(position,voisins,arene) ;
+						if (refAdv != 0)
 						{
-							if(distMonstre <= Constantes.DISTANCE_MIN_INTERACTION)
+							distAdv = Calculs.distanceChebyshev(position, arene.getPosition(refAdv));
+						}
+						int distPotAdv = 0 ;
+						if (refPot != 0 && refAdv != 0)
+						{
+							distPotAdv = Calculs.distanceChebyshev(arene.getPosition(refAdv), arene.getPosition(refPot)) ;
+						}
+						if (refPot != 0 && distPot < distPotAdv && distAdv != 0)
+						{
+							if(distPot <= Constantes.DISTANCE_MIN_INTERACTION)
 							{ // si suffisamment proche
-								// j'attaque le monstre
+								// ramassage
+								console.setPhrase("Je ramasse une potion");
+								arene.ramassePotion(refRMI, refPot);
+							}
+							else if (distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && distPot > Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+							{	//si un monstre vient m'attaquer, je l'attaque
 								console.setPhrase("Je me bats contre un monstre");
 								arene.lanceAttaque(refRMI, refMonstre);
 							}
 							else
 							{ // si voisins, mais plus eloignes
 								// je vais vers le plus proche
-								console.setPhrase("Je vais vers un monstre " + arene.nomFromRef(refMonstre));
-								arene.deplace(refRMI, refMonstre);
+								console.setPhrase("Je vais vers une potion " + arene.nomFromRef(refPot));
+								arene.deplace(refRMI, refPot);
 							}
 						}
 						else
-						{	//s'il n'y a que des potions ininteressantes
-							console.setPhrase("Je me soigne");
-							arene.lanceAutoSoin(refRMI);
+						{
+							if (listeadv == null){
+								listeadv = new HashMap<Integer,HashMap<Caracteristique,Integer>>();
+							}
+							
+							if (refAdv != 0 && !listeadv.containsKey(refAdv))
+							{
+								listeadv.put(refAdv,arene.lanceClairvoyance(refRMI, refAdv)) ;
+	
+							}
+							else if (refAdv != 0 && listeadv.containsKey(refAdv))
+							{
+								if (doitAttaquer(refRMI, refAdv, arene))
+								{
+	
+									if(distAdv <= Constantes.DISTANCE_MIN_INTERACTION)
+									{ // si suffisamment proche, j'attaque
+										console.setPhrase("Je fais un duel avec " + arene.nomFromRef(refAdv));
+										arene.lanceAttaque(refRMI, refAdv);
+									}
+									else
+									{ //sinon je vais vers lui pour l'attaquer
+										console.setPhrase("Je vais vers mon ennemi " + arene.nomFromRef(refAdv));
+										arene.deplace(refRMI, refAdv);
+									}
+								}
+								else
+								{
+									if(distAdv <= 10)
+									{
+										if(distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+										{
+											 // si suffisamment proche
+												// j'attaque le monstre
+												console.setPhrase("Je me bats contre un monstre");
+												arene.lanceAttaque(refRMI, refMonstre);
+										}
+										else if (distAdv <= Constantes.DISTANCE_MIN_INTERACTION)
+										{
+											 // si suffisamment proche
+												// je me défend
+												console.setPhrase("Je me défends contre " + arene.nomFromRef(refAdv));
+												arene.lanceAttaque(refRMI, refAdv);
+										}
+										else
+										{ 
+												arene.deplace(refRMI, seloignerDe(refRMI,refAdv,arene));
+												console.setPhrase("Je me casse de là a cause de " + refAdv);
+										}
+										
+										
+									}
+									else
+									{
+										if (refPot != 0)
+										{
+											if(distPot <= Constantes.DISTANCE_MIN_INTERACTION)
+											{ // si suffisamment proche
+												// ramassage
+												console.setPhrase("Je ramasse une potion");
+												arene.ramassePotion(refRMI, refPot);
+											}
+											else if (distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && distPot > Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+											{	//si un monstre vient m'attaquer, je l'attaque
+												console.setPhrase("Je me bats contre un monstre");
+												arene.lanceAttaque(refRMI, refMonstre);
+											}
+											else
+											{ // si voisins, mais plus eloignes
+												// je vais vers le plus proche
+												console.setPhrase("Je vais vers une potion " + arene.nomFromRef(refPot));
+												arene.deplace(refRMI, refPot);
+											}
+										}
+										else
+										{
+											if (refMonstre != 0)
+											{
+												if(distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+												{ // si suffisamment proche
+													// j'attaque le monstre
+													console.setPhrase("Je me bats contre un monstre");
+													arene.lanceAttaque(refRMI, refMonstre);
+												}
+												else
+												{ // si voisins, mais plus eloignes
+													// je vais vers le plus proche
+													console.setPhrase("Je vais vers un monstre " + arene.nomFromRef(refMonstre));
+													arene.deplace(refRMI, refMonstre);
+												}
+											}
+											else
+											{
+												if (arene.caractFromRef(refRMI, Caracteristique.VIE) != 100)
+												{
+													//je me soigne s'il me manque des pv
+													console.setPhrase("Je me soigne");
+													arene.lanceAutoSoin(refRMI);
+												}
+												else
+												{	//j'erre
+													console.setPhrase("J'erre...");
+													arene.deplace(refRMI, 0);
+												}
+											}
+										}
+									}
+								}
+							}
+							else
+							{
+								if (refPot != 0)
+								{
+									if(distPot <= Constantes.DISTANCE_MIN_INTERACTION)
+									{ // si suffisamment proche
+										// ramassage
+										console.setPhrase("Je ramasse une potion");
+										arene.ramassePotion(refRMI, refPot);
+									}
+									else if (distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && distPot > Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+									{	//si un monstre vient m'attaquer, je l'attaque
+										console.setPhrase("Je me bats contre un monstre");
+										arene.lanceAttaque(refRMI, refMonstre);
+									}
+									else
+									{ // si voisins, mais plus eloignes
+										// je vais vers le plus proche
+										console.setPhrase("Je vais vers une potion " + arene.nomFromRef(refPot));
+										arene.deplace(refRMI, refPot);
+									}
+								}
+								else
+								{
+									if (refMonstre != 0)
+									{
+										if(distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+										{ // si suffisamment proche
+											// j'attaque le monstre
+											console.setPhrase("Je me bats contre un monstre");
+											arene.lanceAttaque(refRMI, refMonstre);
+										}
+										else
+										{ // si voisins, mais plus eloignes
+											// je vais vers le plus proche
+											console.setPhrase("Je vais vers un monstre " + arene.nomFromRef(refMonstre));
+											arene.deplace(refRMI, refMonstre);
+										}
+									}
+									else
+									{	//si il n'y a que des potions ininteressantes
+										if (arene.caractFromRef(refRMI, Caracteristique.VIE) != 100)
+										{
+											//je me soigne s'il me manque des pv
+											console.setPhrase("Je me soigne");
+											arene.lanceAutoSoin(refRMI);
+										}
+										else
+										{	//j'erre
+											console.setPhrase("J'erre...");
+											arene.deplace(refRMI, 0);
+										}
+									}
+								}
+							}
 						}
 					}
-				}
-			
-			
-			
-			
-			
+					else
+					{
+						if (refPot != 0)
+						{
+							if(distPot <= Constantes.DISTANCE_MIN_INTERACTION)
+							{ // si suffisamment proche
+								// ramassage
+								console.setPhrase("Je ramasse une potion");
+								arene.ramassePotion(refRMI, refPot);
+							}
+							else if (distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && distPot > Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+							{	//si un monstre vient m'attaquer, je l'attaque
+								console.setPhrase("Je me bats contre un monstre");
+								arene.lanceAttaque(refRMI, refMonstre);
+							}
+							else
+							{ // si voisins, mais plus eloignes
+								// je vais vers le plus proche
+								console.setPhrase("Je vais vers une potion " + arene.nomFromRef(refPot));
+								arene.deplace(refRMI, refPot);
+							}
+						}
+						else
+						{
+							if (refMonstre != 0)
+							{
+								if(distMonstre <= Constantes.DISTANCE_MIN_INTERACTION && refMonstre != 0)
+								{ // si suffisamment proche
+									// j'attaque le monstre
+									console.setPhrase("Je me bats contre un monstre");
+									arene.lanceAttaque(refRMI, refMonstre);
+								}
+								else
+								{ // si voisins, mais plus eloignes
+									// je vais vers le plus proche
+									console.setPhrase("Je vais vers un monstre " + arene.nomFromRef(refMonstre));
+									arene.deplace(refRMI, refMonstre);
+								}
+							}
+							else
+							{	//si il n'y a que des potions ininteressantes
+								if (arene.caractFromRef(refRMI, Caracteristique.VIE) != 100)
+								{
+									//je me soigne s'il me manque des pv
+									console.setPhrase("Je me soigne");
+									arene.lanceAutoSoin(refRMI);
+								}
+								else
+								{	//j'erre
+									console.setPhrase("J'erre...");
+									arene.deplace(refRMI, 0);
+								}
+							}
+						}
+					}
+				
+				
+				
+				
+				
+			}
 		}
 	}
 	
@@ -335,7 +431,6 @@ public class StrategiePersonnage {
 		{
 			if (arene.estPotionFromRef(refVoisin))
 			{
-				System.err.println("Je suis après le if dans BestPot") ;
 
 				int viePot = arene.caractFromRef(refVoisin, Caracteristique.VIE) ;
 				int forPot = arene.caractFromRef(refVoisin,Caracteristique.FORCE) ;
@@ -373,10 +468,8 @@ public class StrategiePersonnage {
 							|| (viePot >= 0 && viePot >= maxVie && viePerso > 0) 
 							|| (viePot < -10 && viePot >= maxVie && viePerso > 40 && initPerso > 80))
 					{
-						System.err.println("Je suis après le if vie") ;
 						if (initPot >= maxInit)
 						{
-							System.err.println("Je suis après le if init") ;
 							if (defPot >= maxDef)
 							{
 								if (forPot > -10 && forPot >= maxFor)
@@ -433,65 +526,7 @@ public class StrategiePersonnage {
 							}
 						}
 					}
-					/*else if (viePot < -10 && viePot >= maxVie && viePerso > 40 && initPerso > 80)
-					{
-						if (initPot >= maxInit)
-						{
-							if (defPot >= maxDef)
-							{
-								if (forPot > -10 && forPot >= maxFor)
-								{
-									refBestPot = refVoisin ;
-									//tier1 = true ;
-									maxVie = viePot ;
-									maxInit = initPot ;
-									maxDef = defPot ;
-									maxFor = forPot ;
-									
-								}
-							}
-							else if (defPot < maxDef)
-							{
-								if (forPot > 10 && forPot >= maxFor)
-								{
-									refBestPot = refVoisin ;
-									//tier2 = true ;
-									maxVie = viePot ;
-									maxInit = initPot ;
-									maxDef = defPot ;
-									maxFor = forPot ;
-								}
-							}
-						}
-						else if (initPot < maxInit && initPot > -10)
-						{
-							if (defPot >= maxDef)
-							{
-								if (forPot > -10 && forPot >= maxFor)
-								{
-									refBestPot = refVoisin ;
-									//tier3 = true ;
-									maxVie = viePot ;
-									maxInit = initPot ;
-									maxDef = defPot ;
-									maxFor = forPot ;
-									
-								}
-							}
-							else if (defPot < maxDef)
-							{
-								if (forPot > 10 && forPot >= maxFor)
-								{
-									refBestPot = refVoisin ;
-									//tier4 = true ;
-									maxVie = viePot ;
-									maxInit = initPot ;
-									maxDef = defPot ;
-									maxFor = forPot ;
-								}
-							}
-						}
-					}*/
+					
 					
 				}
 			}
@@ -565,12 +600,12 @@ public class StrategiePersonnage {
 		
 		for(int refVoisin : voisins.keySet())
 		{
-			if (arene.estPersonnageFromRef(refVoisin))
+			if (arene.estPersonnageFromRef(refVoisin) && !arene.nomFromRef(refVoisin).equals("Monstre"))
 			{
 				Point target = voisins.get(refVoisin);
 				int dist = Calculs.distanceChebyshev(origine, target) ;
 				
-				if (dist <= 10 && dist <= distPlusProche )
+				if (dist <= 15 && dist <= distPlusProche)
 				{
 					distPlusProche = dist ;
 					refAdversaire = refVoisin ;
@@ -605,10 +640,10 @@ public class StrategiePersonnage {
      * Renvoie un boolean
      * @throws RemoteException 
      */
-    public boolean doitAttaquer (int refRMI, int refCible, IArene arene) throws RemoteException {
-        boolean attaque = true;
-        
-        listeadv.get(refCible).get(Caracteristique.VIE);
+    public boolean doitAttaquer (int refRMI, int refCible, IArene arene) throws RemoteException 
+    {
+
+ 
         
         // On recupere les caracteristiques du personnages
         int viePers = arene.caractFromRef(refRMI, Caracteristique.VIE) ;
@@ -621,17 +656,15 @@ public class StrategiePersonnage {
         int initVois = listeadv.get(refCible).get(Caracteristique.INITIATIVE);       
         int defVois = listeadv.get(refCible).get(Caracteristique.DEFENSE);
         
-        System.err.println("vieVois = " + vieVois) ;
-        System.err.println("forceVois = " + forceVois) ;
                 
-        // Si le voisin a une meilleur initiative
-        /*if (initPers < initVois){
+        /*// Si le voisin a une meilleur initiative
+        if (initPers < initVois){
             
             if (initPers < initVois -10) attaque = false;
             else{
-                if(forceVois - forceVois*defPers/100 >= viePers) attaque = false;
+                if((forceVois - (forceVois*defPers/100)) >= viePers) attaque = false;
                 else{
-                    if(forcePers - forcePers*defVois/100 < vieVois) attaque = false;
+                    if((forcePers - (forcePers*defVois/100)) < vieVois) attaque = false;
                 }
             }
                 
@@ -639,14 +672,90 @@ public class StrategiePersonnage {
         else { //Si initPers >= initVois
             
             if(initVois >= initPers -10){
-                if(forcePers - forcePers*defVois/100 < vieVois) attaque = false;
+                if((forcePers - (forcePers*defVois/100)) < vieVois) attaque = false;
             }
         }*/
         
-        return attaque ;
+        if ((forcePers - (forcePers*defVois/100)) > vieVois && initPers > initVois)
+        {	//si je one-shot l'adversaire
+        	return true ;
+        }
+        if ((initVois - initPers) > 0 
+        		&& (initVois - initPers) < 10 
+        		&& viePers > 40 
+        		&& (forceVois - (forceVois*defPers/100)) <= 20
+        		&& (forcePers - (forcePers*defVois/100)) > vieVois)
+        {	//si en subissant un coup, on peut le one-shot derriere
+        		return true ;	
+        }
+        if (initPers > (initVois + 20) && viePers > (1.5*forceVois))
+        {	//si je vais attaquer en premier, 
+        	return true ;
+        }
+        
+        return false ;
         
     }
-
+    
+    public Point seloignerDe (int refRMI,int refObjectif, IArene arene) throws RemoteException 
+    {
+    	
+    	Point pVoisin;
+    	Point paway=new Point();
+    	boolean calc = false;
+    	
+    	
+    	
+    	Point pPerso = arene.getPosition(refRMI);
+    	
+    	// on ne bouge que si la reference n'est pas la notre
+    	if (refObjectif != refRMI) 
+    	{
+    		// la reference est nulle (en fait, nulle ou negative) :
+    		// le personnage erre
+    		if (refObjectif <= 0) {
+    			paway = Calculs.positionAleatoireArene();
+    		}
+    		// sinon :
+    		// la cible devient le point sur lequel se trouve l'element objectif
+    		pVoisin = arene.getPosition(refObjectif);
+    		// on ne bouge que si l'element voisin existe
+    		if(pVoisin != null) {
+    			if ((pPerso.x <= pVoisin.x) && (pPerso.x > Constantes.XMIN_ARENE )){
+    				pPerso.x --;
+    				calc=true;
+    			}
+    			if ((pPerso.x > pVoisin.x) && (pPerso.x < Constantes.XMAX_ARENE )){
+    				pPerso.x ++;
+    				calc=true;
+    			}
+    			if ((pPerso.y <= pVoisin.y) && (pPerso.y > Constantes.YMIN_ARENE )){
+    				pPerso.y --;
+    				calc=true;
+    			}
+    			if ((pPerso.y > pVoisin.y) && (pPerso.y < Constantes.YMAX_ARENE)){
+    				pPerso.y ++;
+    				calc=true;
+    			}
+    			
+    			
+    			
+    			if (!calc){
+    				paway = Calculs.positionAleatoireArene();
+    			}
+    			else{
+    			paway.x=pPerso.x;
+    			paway.y=pPerso.y;
+    			}
+    			
+    			
+    		}
+    	}
+    	
+    	return paway ;
+    }
+    
+    
 
 
 
