@@ -13,11 +13,13 @@ public class Poser {
 	
 	//Vue du personnage qui va poser la potion
 	private VuePersonnage personnage;
+	private VuePersonnage poursuivant;
 	private Arene arene;
 	
-	public Poser(VuePersonnage personnage,Arene arene){
+	public Poser(VuePersonnage personnage,Arene arene, VuePersonnage poursuivant){
 		this.personnage=personnage;
 		this.arene=arene;
+		this.poursuivant=poursuivant;
 	}
 	
 	public boolean pose() throws RemoteException{
@@ -25,7 +27,7 @@ public class Poser {
 		
 		try{
 		// ajout de la potion
-			new ThreadPotion("p",this.arene,p.inventaire).start();
+			new ThreadPotion("p",this.arene,p.inventaire,this.poursuivant.getPosition()).start();
 		//logger.info("Lanceur", "Lancement de la potion reussi");
 		//arene.setPhrase(personnage.getRefRMI(), "J'ai posé la potion!!! ");
 		}

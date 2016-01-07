@@ -14,6 +14,9 @@ import utilitaires.Constantes;
  * Strategie d'un personnage. 
  */
 public class Fuyard extends Perso {
+	
+	protected boolean aPose=false;
+	protected int cptPose = 0;
     
     /**
      * Console permettant d'ajouter une phrase et de recuperer le serveur 
@@ -65,7 +68,7 @@ public class Fuyard extends Perso {
         int refRMI = 0;
         
         // position de l'element courant
-        Point position = null;
+        Point position = new Point();
         
         try 
         {
@@ -78,6 +81,11 @@ public class Fuyard extends Perso {
         {
             e.printStackTrace();
         }
+        
+        cptPose--;
+        
+        if (cptPose<=0) aPose=false;
+        
         
         if (voisins.isEmpty()) 
         { // je n'ai pas de voisins, j'erre
@@ -101,7 +109,7 @@ public class Fuyard extends Perso {
 					console.setPhrase("Je fais un duel avec " + advPlusProche.getNom());
 					arene.lanceAttaque(refRMI, refCibleAdv);
 				}
-	            else if ((distPlusProcheAdv > 2) && (distPlusProcheAdv < 5) && (player.inventaire != null))
+	            else if ((distPlusProcheAdv > 3) && (distPlusProcheAdv < 10) && (player.inventaire != null))
 	            {
 
 	            	//je suis dans une situation critique et je dispose d'une potion
@@ -115,11 +123,13 @@ public class Fuyard extends Perso {
 	            	{
 	            		//je pose un piege (mortelle ou immobilite)
 	            		console.setPhrase("J'ai un cadeau pour toi " + advPlusProche.getNom());
-	            		arene.deposePotion(refRMI);
+	            		arene.deposePotion(refRMI,refCibleAdv);
+	            		aPose = true;
+	            		cptPose=5;
 	            	}
 	            }
 	            //On ramasse la potion si elle est plus proche que l'adversaire
-	            else if (Calculs.potionPresente(voisins,arene)){
+	            else if (Calculs.potionPresente(voisins,arene) &&  aPose == false){
 	            	int refCiblePot = Calculs.cherchePotionProche(position, voisins, arene);
         			int distPlusProchePot = Calculs.distanceChebyshev(position, arene.getPosition(refCiblePot));
 				
@@ -164,7 +174,7 @@ public class Fuyard extends Perso {
         			if (player.inventaire == null && !potPlusProche.getNom().equals("basic")) 
         			{	//si mon inventaire est vide (les basic m'interessent pas)
 				
-        					if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION)
+        					if(distPlusProchePot <= Constantes.DISTANCE_MIN_INTERACTION && !aPose)
         					{ // si suffisamment proches
         						// j'interagis directement
         						// ramassage
@@ -172,7 +182,7 @@ public class Fuyard extends Perso {
 								arene.stockPotion(refRMI, refCiblePot);				
 							
         					} 
-        					else
+        					else if (!aPose)
         					{ // si voisins, mais plus eloignes
         						// je vais vers le plus proche
         						console.setPhrase("Je vais vers une potion " + potPlusProche.getNom());

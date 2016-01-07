@@ -945,9 +945,10 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 /**
  * Permet de deposer une potion qui etait en stock 
  */
-	public boolean deposePotion(int refRMI) throws RemoteException {
+	public boolean deposePotion(int refRMI,int refAdv) throws RemoteException {
 		boolean res=false;
 		VuePersonnage vuePersonnage = personnages.get(refRMI);
+		VuePersonnage vueAttaquant = personnages.get(refAdv);
 		
 		if (vuePersonnage.isActionExecutee()) {
 			// si une action a deja ete executee
@@ -955,7 +956,7 @@ public class Arene extends UnicastRemoteObject implements IAreneIHM, Runnable {
 			
 		} else {
 			// sinon, on tente de jouer l'interaction
-			new Poser(vuePersonnage,this).pose();
+			new Poser(vuePersonnage,this,vueAttaquant).pose();
 			vuePersonnage.executeAction();
 			
 			res = true;
