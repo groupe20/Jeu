@@ -20,7 +20,7 @@ public class LancePersonnage {
 	private static String usage = "USAGE : java " + LancePersonnage.class.getName() + " [ port [ ipArene ] ]";
 
 	public static void main(String[] args) {
-		String nom = "Truc";
+		String nom = "Poutine";
 		
 		String groupe = "G" + 20; 
 		
