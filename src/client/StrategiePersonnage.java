@@ -693,6 +693,22 @@ public class StrategiePersonnage {
         	return true ;
         }
         
+        if(defVois > 10){
+        	if( initPers > (initVois + 20) 
+        			&& forcePers > 10 
+        			&& vieVois <= ((forcePers - forcePers*defVois/100) + ((forcePers-10) - ((forcePers - 10)*(defVois - 10)/100))) )
+        	{
+        		return true;
+        	}
+        }else{
+        	if( initPers > (initVois + 20) 
+        			&& forcePers > 10 
+        			&& vieVois <= ((forcePers - forcePers*defVois/100) + ((forcePers-10) - ((forcePers - 10)*defVois/100))) )
+        	{
+        		return true;
+        	}
+        }
+        
         return false ;
         
     }

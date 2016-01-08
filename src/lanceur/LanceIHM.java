@@ -17,7 +17,7 @@ public class LanceIHM {
 
 	public static void main(String[] args) {
 		int port = Constantes.PORT_DEFAUT;
-		String ipArene = Constantes.IP_DEFAUT;
+		String ipArene = /*"130.120.250.20";*/Constantes.IP_DEFAUT;
 		
 		if (args.length > 0) {
 			if (args[0].equals("--help") || args[0].equals("-h")) {

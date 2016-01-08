@@ -17,7 +17,9 @@ public class LanceJeu {
 		
 
 		LancePersonnage.main(args);
-		
+		LancePersonnage.main(args);
+		LancePersonnage.main(args);
+
 
 		LanceMonstre.main(args);
 		LanceMonstre.main(args);
